@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+- tightened the installable skill description and clarified that a complete installation includes the operational `references/` package;
+- added API/fresh-request guidance for constructing isolation-dependent workers without inherited session state;
+- allowed a single genuine finalist after coverage/missing-evidence checks, while retaining dossier, sensitivity, and shared-bias review and skipping pairwise collision only;
+- added explicit `PENDING` validity for materially revised hypotheses so interrupted/budget-limited reruns cannot inherit obsolete validation;
+- added an optional information-probe mini-dossier that remains separate from finalist dossiers and adjudication;
 - corrected the evidence-sufficiency gate to require worthwhile, decision-changing checks before commitment;
 - added the shared evidence brief and decision contract to the blind mapper's input allowlist;
 - defined an explicit no-feasible-discriminator outcome, separate from action sufficiency and deferred checks;

@@ -77,7 +77,7 @@ B. SEARCH THE CAUSAL SPACE
 C. REDUCE WITHOUT ANCHORING
    fresh screening ║ blind causal mapping
    → optional boundary audit
-   → 2–3 model finalists + optional information probe
+   → normally 2–3 model finalists; may collapse to 1 or 0 after coverage/evidence checks + optional information probe
 
 D. STRESS AND ADJUDICATE
    independent causal dossiers
@@ -100,7 +100,7 @@ v0.2.2 keeps the streamlined v0.2 architecture, the v0.2.1 runtime-isolation rul
 - search starts with 3 isolated workers and expands to 5 only when coverage is inadequate;
 - screening and blind causal mapping run in parallel fresh contexts;
 - boundary review is conditional rather than automatic;
-- the finalist slate contains 2–3 viable models and is never padded;
+- the finalist slate normally contains 2–3 viable models, may collapse to one genuine survivor or none, and is never padded;
 - model relations can be exclusive, coexisting, nested, or interacting;
 - causal completeness is separated from causal identification;
 - duplicate model families never count as independent corroboration;
@@ -147,7 +147,7 @@ Convergence Guard/
         └── protocol.ru.md
 ```
 
-`convergence-guard/` is the installable skill directory. Its directory name matches `name: convergence-guard` in `SKILL.md`.
+`convergence-guard/` is the installable skill directory. Install the entire directory, including `references/`; `SKILL.md` alone is not a complete Full/Reduced Mode package unless an adapter explicitly bundles the required references. Its directory name matches `name: convergence-guard` in `SKILL.md`.
 
 `protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.2 specification; runtime-specific wording has been neutralized for the public repository.
 

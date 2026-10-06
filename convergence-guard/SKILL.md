@@ -1,6 +1,6 @@
 ---
 name: convergence-guard
-description: "Use this skill for high-stakes, open-ended decisions, diagnoses, architecture, strategy, research, or design problems where several causal explanations or actions remain plausible and premature convergence would be costly. Ground evidence, define the decision, search causally distinct models in isolated contexts, reduce them without anchoring, stress-test the strongest alternatives, separate model belief from action choice, and finish with a decision-changing observation or experiment. Do not use for simple lookups, known-root-cause bugs, syntax fixes, or routine procedures."
+description: "Analyze high-stakes, open-ended decisions, diagnoses, architecture, strategy, research, or design problems where competing explanations or actions remain plausible and premature commitment is costly. Not for simple lookups, known-root-cause bugs, or routine procedures."
 license: MIT
 compatibility: "Full Mode requires controllable context boundaries for every operation that depends on isolation or blindness. A separate worker, chat, thread, or session is not sufficient if decision-relevant material can enter through parent conversation context, chat history, memory, project context, shared state, retrieval, or prior worker history. Hosts that cannot guarantee the required boundary may use the explicitly labeled Reduced Mode only with user consent."
 metadata:
@@ -61,6 +61,8 @@ Real-world facts are not forbidden merely because they were previously observed.
 If the runtime can inject or retrieve forbidden decision-relevant context, or if the relevant boundary cannot be established with reasonable confidence, that operation does not satisfy Full Mode. Use Reduced Mode and state the limitation explicitly.
 
 A negative sentinel probe or worker self-report means only `NO LEAK OBSERVED`, not confirmed isolation. Establish each required boundary through runtime-level evidence covering both initial context and later retrieval/tool access; otherwise record `INCONCLUSIVE`. See [boundary assurance](references/protocol-details.md#11-boundary-assurance).
+
+For API-based workers, construct each request from a fresh allowlisted message set: required host/system/safety instructions plus the role's authorized inputs. Do not attach parent conversation/session state; restrict memory, retrieval, and tool access to the same boundary, including on follow-up calls. A fresh API call or a low temperature alone does not prove isolation. Use model-supported generation settings; this protocol does not prescribe `temperature=0.2`.
 
 ### Reduced Mode
 
@@ -138,7 +140,7 @@ Define:
 4. **Forbidden substitutions** — what must the analysis not silently turn into?
 5. **Loss / cost of error** — what is damaged if the choice is wrong?
 6. **Reversibility** — how difficult is it to recover or change course?
-7. **Analysis budget** — finite limits on time or calls and corrective cycles, chosen within the user's constraints before search. By default allow at most two corrective cycles across the entire run; see [checkpoint and stopping rules](references/protocol-details.md#131-run-budget-and-stopping).
+7. **Analysis budget** — finite limits on time or calls and corrective cycles, chosen within the user's constraints before search. By default allow at most two corrective cycles across the entire run. One cycle is a targeted evidence/search/model-revision return plus its affected downstream reruns, not each worker call. All phases share the budget; recovery retries consume the time/call limit, and changing phases never resets it. Stop at any limit or after a cycle without new decision-relevant evidence, a viable mechanism, resolved uncertainty, or changed decision implications. See [checkpoint and stopping rules](references/protocol-details.md#131-run-budget-and-stopping).
 
 ## A3. Framing and outside-view check
 
@@ -233,7 +235,7 @@ Use a fresh boundary critic only for disputed merges, uncertain relation types, 
 
 Now combine the frozen screening and frozen causal map.
 
-Select **2–3 causally distinct model finalists**. Never pad to three.
+Normally select **2–3 causally distinct model finalists**. Never pad the slate. If exactly one viable model remains after C1/C2, check whether missing evidence or search coverage explains the collapse; if not, retain one finalist, run D1 and D2's sensitivity/shared-bias checks, and skip pairwise collision (zero pairs). D3 triggers still apply. If none remain, use a budgeted checkpoint where useful; otherwise proceed to E with no supported model and explicit insufficiency for causal attribution. Do not promote a rejected model to fill a slot.
 
 Prefer non-dominated candidates that differ in mechanism or decision consequence. Record why any strong non-dominated outside model was excluded.
 
@@ -261,7 +263,13 @@ The dossier worker does **not** compare against a rival it cannot see.
 
 If a dossier materially changes the mechanism or adds a new load-bearing premise, create a new hypothesis ID and route that revised model back through the affected screening/mapping/slate steps instead of laundering it into a stronger finalist.
 
+Mark such revisions `PENDING` until all affected C and D checks, including D2 and any triggered D3 review, are complete against the current evidence and contract. If the budget ends mid-return, preserve the pending revision and its invalidating observations without promoting it. Reuse earlier completed results only where still valid under current evidence; never restore an obsolete slate automatically. If a pending issue could reverse the action, E2 must return insufficiency for that commitment. No prior completed slate means no adjudicated winner.
+
 Optional premortem and stakeholder lenses run after the dossier only when triggered. See [protocol details](references/protocol-details.md).
+
+### Optional probe mini-dossier
+
+If C4's information probe needs elaboration for E3, the coordinator may prepare a separate planning note after C is frozen, within the same budget: target uncertainty and source IDs, contrasting predictions, decision-changing outcomes, feasibility/cost, and confounders. It is not a finalist, independent validation, or an extra mandatory worker. Keep it out of isolated finalist dossier inputs; pass it separately to E3 and recheck it against the final model judgment. New evidence or a materially revised causal model still requires the usual checkpoint; if none is needed, design the test directly in E3.
 
 ## D2. Fresh slate-level adjudication
 
@@ -297,7 +305,7 @@ If this exposes a potentially missing causal family or decisive missing evidence
 
 ### Pairwise decision collision
 
-Compare every existing finalist pair — one pair for two finalists, three pairs for three finalists.
+Compare every existing finalist pair — zero pairs for one finalist (skip collision only), one pair for two finalists, three pairs for three finalists. A single finalist still receives assumption sensitivity and the shared-bias audit; absence of rivals does not establish correctness.
 
 Do not force coexisting or interacting models into a false winner/loser duel. Compare them only where their implications for action conflict.
 
@@ -388,7 +396,7 @@ Do not dump stage logs unless the user asks for the audit trail. Use the user's 
 - Never create a hidden aggregate score from categorical screening.
 - Never reveal screening results to the blind mapper before its map is frozen.
 - Never rewrite a candidate's mechanism during dossier work without creating a new hypothesis ID and rerouting it.
-- Never force three finalists when only two are viable.
+- Never pad the slate when fewer than three finalists are viable.
 - Never force mutually compatible models into false exclusivity.
 - Never declare `ROBUST` from a single convenient assumption test when another assumption is comparably load-bearing.
 - Never force a recommendation merely because the protocol reached the end.
@@ -396,6 +404,8 @@ Do not dump stage logs unless the user asks for the audit trail. Use the user's 
 - For analysis-only requests, stop after the decision and discriminating next step unless implementation is separately requested.
 
 ## References
+
+Install the entire `convergence-guard/` directory, including `references/`, and resolve links relative to it. A single-file loader must explicitly bundle/inline the required operational references for the selected mode. The entrypoint retains essential isolation, budget, and pending-revision guards, but does not replace missing mode instructions. If a required reference cannot be read, report the affected stage as unavailable; never invent omitted rules or claim a complete run. The historical protocol is archival, not a current runtime dependency.
 
 - [Detailed protocol rules](references/protocol-details.md)
 - [Reduced Mode](references/reduced-mode.md)

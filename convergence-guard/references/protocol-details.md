@@ -26,6 +26,12 @@ For every boundary required by an operation, record runtime-level evidence: insp
 
 A required boundary with `FAIL` or material `INCONCLUSIVE` cannot support a Full Mode claim. Reassess when runtime, configuration, or available retrieval/tools change; an earlier `PASS` does not cover newly enabled channels. A persistence positive control that confirms a revived worker retains its history should be recorded as `RETENTION CONFIRMED`: it establishes that the worker is not fresh, not that parent/sibling isolation holds.
 
+### 1.2 API integration and package loading
+
+Build each isolated worker request from a fresh message set containing required host/system/safety instructions and only stage-authorized inputs. Do not attach parent conversation/session state or reuse a worker that has seen forbidden material. Restrict memory, retrieval, shared stores, and tools to the same allowlist throughout follow-up calls. Verify what the active host injects; a new API request is not sufficient evidence of isolation. Generation settings are model-dependent and are not isolation controls; no fixed temperature is required.
+
+Distribute the entire skill directory with its operational references. A single-file adapter must explicitly inline/bundle required references for its selected mode. If a required dependency is missing, report the affected stage as unavailable rather than guessing omitted rules or claiming a complete run. The historical protocol is archival, not a current execution dependency.
+
 ## 2. Evidence provenance
 
 Use these labels consistently:
@@ -292,7 +298,7 @@ The critic asks whether a plausible condition or intervention would produce mate
 
 ## 12. Finalist slate and information probe
 
-Select **2–3 model finalists**, not exactly three.
+Normally select **2–3 model finalists**, never padding the slate.
 
 The finalist set should contain causally distinct, viable, decision-relevant models. Prefer non-dominated candidates rather than a single aggregate score.
 
@@ -300,10 +306,7 @@ For every strong non-dominated candidate left outside the slate, record one expl
 
 Separately identify at most one **information probe**. This is a model, uncertainty, or test target with high decision value. It is not automatically a finalist.
 
-If fewer than two viable causal families remain, do not create a tournament. Either:
-
-- move directly to decision analysis if only one model/action remains viable after factual checks; or
-- collect evidence if the apparent collapse may be caused by missing data.
+If fewer than two viable causal families remain after screening and mapping, check for missing evidence or search coverage; use a targeted checkpoint only when useful and within budget. With one genuine survivor, retain it for D1 and D2 sensitivity/shared-bias review; skip collision (zero pairs), retaining applicable D3 triggers. A lone survivor is not automatically confirmed. With none and no useful budgeted checkpoint, proceed to E without dossiers or a tournament: state no supported model and insufficiency for causal attribution. Any separate action must still satisfy E2. The pre-run activation rule for already obvious cases remains unchanged.
 
 ## 13. Evidence checkpoints
 
@@ -329,6 +332,14 @@ Stop corrective work when any limit is reached, no feasible step can address the
 
 Preserve valid artifacts and proceed to Phase E with the stopping reason and unfinished work stated. Apply the ordinary sufficiency gate; exhaustion never establishes sufficiency or completion of skipped stages. If a worthwhile check remains outstanding, report it as deferred and return insufficiency for the commitment it blocks. Use the no-discriminator outcome only when no feasible check was identified, not merely because a known check exceeded the run budget.
 
+### 13.2 Revision validity at a budget boundary
+
+Associate frozen results with the hypothesis IDs, evidence/contract revision, and completed checks they depend on. A materially revised hypothesis is `PENDING` until affected C and D checks, including D2 and any triggered D3 review, are complete. Passing C1/C2 alone does not make it adjudicated.
+
+If a return is interrupted, preserve the proposed revision and observations that could invalidate earlier work. Mark affected prior results invalid or pending; retain unaffected completed results only after checking applicability to current evidence and contract. Do not automatically restore the previous slate or transfer its validation to a changed mechanism. Budget exhaustion stops further work, not recording a discovered contradiction.
+
+At E, separate still-valid completed judgments from pending candidates and unresolved threats. A pending revision cannot be an adjudicated winner; a decision-changing unresolved issue blocks commitment under E2. If no completed judgment remains valid, report no adjudicated winner and insufficiency for causal attribution. A separate robust action is permissible only on still-valid grounds that independently satisfy E2.
+
 ## 14. Causal dossier integrity
 
 A dossier worker sees one finalist only. It is responsible for making that model explicit, not for defeating rivals it cannot see.
@@ -344,6 +355,12 @@ A dossier must include:
 - error cost and reversibility.
 
 When a dossier adds a material new premise or repairs a missing causal link by changing the original model, create a new candidate ID and route it back through screening/mapping/slate as needed.
+
+Apply §13.2 during that return; affected dossier/adjudication checks must also finish before the revision is treated as adjudicated.
+
+### 14.1 Optional information-probe mini-dossier
+
+If C4's probe needs elaboration for E3, the coordinator may prepare a separate planning note after screening/mapping are frozen: target uncertainty and source IDs, contrasting predictions, decision-changing outcomes, feasibility/cost, and confounders. It is not a finalist, independent validation, or an extra mandatory worker. Keep it out of isolated finalist workers' inputs. Pass it to E3 and check it against the final model judgment; route new evidence or revised mechanisms through the usual checkpoint. If the probe is already concrete, design the test directly in E3 without extra paperwork. The same budget and no-feasible-discriminator rules apply.
 
 ## 15. Optional premortem
 
@@ -402,6 +419,7 @@ If a missing family or decisive missing evidence is found, do **not** only repla
 
 Run pairwise collision only among existing finalists and only where their implications for action conflict.
 
+- One finalist: no pairs; skip collision only, retaining D1, D2 sensitivity/shared-bias review, and applicable D3 triggers.
 - Two finalists: compare one pair.
 - Three finalists: compare three pairs.
 
@@ -510,6 +528,8 @@ Typical rigorous Full Mode with three search workers and three finalists:
 ```
 
 With two finalists, baseline is 8 contexts.
+With one finalist, baseline is 7 contexts; pairwise collision is skipped, but the dossier and slate-level sensitivity/shared-bias adjudication remain.
+With zero finalists, dossier/pairwise work is skipped; this is an insufficiency path rather than a smaller "baseline Full Mode" configuration.
 
 Conditional additions:
 

@@ -465,11 +465,15 @@ These returns share a finite run budget set before search, including a default c
 
 ---
 
-## 11. Why the finalist slate contains two or three models
+## 11. Why the finalist slate normally contains two or three models — and may contain one or none
 
 The slate is a decision-working set, not a podium.
 
 It contains only viable, causally distinct, decision-relevant models.
+
+One model is legitimate when screening/mapping leave a single genuine survivor **after** checking whether missing evidence or search coverage caused the collapse. The protocol keeps that survivor rather than inventing a rival, but still subjects it to dossier work, assumption sensitivity, and the shared-bias audit. A lone survivor is not automatically confirmed.
+
+Zero finalists is also a legitimate state when no candidate remains supportable and no useful budgeted checkpoint can repair the gap. The protocol then carries explicit insufficiency for causal attribution into Phase E instead of promoting a rejected model. A separate robust action may still be justified only if it independently passes the action-sufficiency gate.
 
 Two are sufficient when two families capture the live decision conflict.
 
@@ -483,7 +487,7 @@ An information probe is kept separate from the slate because **high value to tes
 
 The slate is a compression layer between broad search and expensive adjudication. Its purpose is to preserve the few causal models that can still change the decision, not to retain every plausible explanation.
 
-With two finalists there is one pairwise collision; with three there are three. Four finalists would already require six pairwise relations and substantially increase dossier/adjudication cost.
+With one finalist there are zero pairwise collisions; with two there is one; with three there are three. Four finalists would already require six pairwise relations and substantially increase dossier/adjudication cost.
 
 The upper bound of three is therefore an operational compression rule: if many strong families remain, the preferred response is better screening, boundary work, or targeted evidence rather than turning adjudication back into broad search. It is not a claim that four-way causal systems cannot exist, and its calibration remains an evaluation target.
 
@@ -492,6 +496,8 @@ The upper bound of three is therefore an operational compression rule: if many s
 The information probe is meant to focus the next evidence budget on the single uncertainty with the highest practical decision value.
 
 Keeping at most one prevents the probe mechanism from becoming a second finalist slate or a generic research backlog. When several missing observations appear similarly important, the coordinator should compare their decision value, cost, and ability to collapse multiple uncertainties rather than automatically launching all of them.
+
+When the chosen probe needs more operational detail, a compact probe mini-dossier may specify the target uncertainty, source IDs, contrasting predictions, decision-changing outcomes, feasibility/cost, and confounders. It remains a planning artifact for learning, not a finalist, extra vote, or independent validation, and stays outside isolated finalist dossier inputs.
 
 The one-probe bound is an operational focus rule, not an epistemic claim, and should be tested in evaluation.
 
@@ -522,6 +528,8 @@ If a dossier fixes a missing causal link by adding a new load-bearing premise, i
 Allowing the repaired version to inherit the original candidate's screening status would launder an untested hypothesis into the final slate.
 
 The new-ID rule preserves traceability.
+
+A materially revised hypothesis remains `PENDING` until every affected reduction and adjudication check is rerun against the current evidence and contract. This prevents budget exhaustion or an interrupted corrective return from laundering the old candidate's validation onto a changed mechanism.
 
 ### 12.2 Why premortem is optional
 
@@ -879,7 +887,7 @@ Recovery preserves frozen artifacts, but a future implementation may benefit fro
 
 ### Q9. Slate and information-probe bounds
 
-The two-to-three finalist range and one-probe cap are operational compression rules. Evaluation should test whether they preserve decision quality across domains, when a fourth finalist should trigger additional reduction versus explicit retention, and whether multiple coordinated probes ever outperform one focused highest-value probe.
+The normal two-to-three finalist range, the one-survivor exception, the zero-finalist insufficiency exit, the upper bound of three, and the one-probe cap are operational compression rules. Evaluation should test whether they preserve decision quality across domains, when a fourth finalist should trigger additional reduction versus explicit retention, and whether multiple coordinated probes ever outperform one focused highest-value probe.
 
 These are not hidden exceptions to the method. They are part of the research agenda for the evaluation suite.
 

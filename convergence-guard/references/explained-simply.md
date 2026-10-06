@@ -302,6 +302,10 @@ And only then combines them.
 
 If only two genuinely strong explanations remain after review, Convergence Guard does not have to invent a third "for symmetry."
 
+The same rule applies if only one viable explanation remains after checking whether missing evidence or search coverage caused the collapse. Keep that one, but still stress-test its assumptions and shared blind spots. A lone survivor is not automatically confirmed.
+
+If none remain supportable, do not rescue a rejected explanation just to keep the process moving. Say that causal attribution is insufficient and judge any low-regret action separately.
+
 For example:
 
 1. the ball really did hit the window;
