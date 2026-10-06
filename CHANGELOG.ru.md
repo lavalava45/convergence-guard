@@ -12,6 +12,7 @@
 
 - в README добавлены 60-second Quick Start и короткий раздел «Почему не просто спросить 5 агентов?»;
 - требования к runtime сделаны vendor-neutral; implementation-specific runtime profile файлы удалены из публичного репозитория.
+- добавлен третий двуязычный Full Mode worked example о надёжности long-running autonomous agents: отдельно рассмотрены policy-complexity, closed-loop state integrity и persistent-state/coordination mechanisms, а engineering priority выведен как risk-adaptive verification/recovery при causal uncertainty.
 
 ## v0.2.2 — pre-release
 

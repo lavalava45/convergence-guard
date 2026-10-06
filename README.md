@@ -131,6 +131,8 @@ Convergence Guard/
 ├── examples/
 │   ├── jack-the-ripper-full-mode.md
 │   ├── jack-the-ripper-full-mode.ru.md
+│   ├── long-running-autonomous-agents-full-mode.md
+│   ├── long-running-autonomous-agents-full-mode.ru.md
 │   ├── sars-cov-2-origins-full-mode.md
 │   └── sars-cov-2-origins-full-mode.ru.md
 └── convergence-guard/
@@ -167,6 +169,8 @@ Public worked examples:
 
 - [English: Jack the Ripper — Full Mode case study](examples/jack-the-ripper-full-mode.md)
 - [Русский: Джек Потрошитель — пример Full Mode](examples/jack-the-ripper-full-mode.ru.md)
+- [English: Why autonomous AI agents fail on long-running real-world tasks — Full Mode case study](examples/long-running-autonomous-agents-full-mode.md)
+- [Русский: Почему автономные AI-агенты ломаются на длительных реальных задачах — Full Mode case study](examples/long-running-autonomous-agents-full-mode.ru.md)
 - [English: SARS-CoV-2 origins — Full Mode case study](examples/sars-cov-2-origins-full-mode.md)
 - [Русский: Происхождение SARS-CoV-2 — пример Full Mode](examples/sars-cov-2-origins-full-mode.ru.md)
 
@@ -198,7 +202,7 @@ The exact installation mechanism depends on the client. A compatible client shou
 
 The current tagged pre-release is v0.2.2. Later unreleased changes, when present, are tracked in [CHANGELOG.md](CHANGELOG.md).
 
-The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution and a current evidence-asymmetric scientific-origin question. It remains pre-release: broader empirical evaluation is still needed across current questions and against ordinary single-context analysis and lighter multi-agent baselines.
+The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution, a current evidence-asymmetric scientific-origin question, and a contemporary AI-agent reliability problem. It remains pre-release: broader empirical evaluation is still needed across domains and against ordinary single-context analysis and lighter multi-agent baselines.
 
 ## Attribution
 

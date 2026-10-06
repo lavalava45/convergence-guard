@@ -12,6 +12,7 @@
 
 - added a 60-second Quick Start and a concise “Why not just ask 5 agents?” explanation to the README;
 - made runtime requirements vendor-neutral and removed implementation-specific runtime profile files from the public repository.
+- added a third bilingual Full Mode worked example on long-running autonomous-agent reliability, separating policy-complexity, closed-loop state integrity, and persistent-state/coordination mechanisms and deriving a risk-adaptive verification/recovery priority under causal uncertainty.
 
 ## v0.2.2 — pre-release
 

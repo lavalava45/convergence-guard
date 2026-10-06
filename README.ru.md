@@ -131,6 +131,8 @@ Convergence Guard/
 ├── examples/
 │   ├── jack-the-ripper-full-mode.md
 │   ├── jack-the-ripper-full-mode.ru.md
+│   ├── long-running-autonomous-agents-full-mode.md
+│   ├── long-running-autonomous-agents-full-mode.ru.md
 │   ├── sars-cov-2-origins-full-mode.md
 │   └── sars-cov-2-origins-full-mode.ru.md
 └── convergence-guard/
@@ -167,6 +169,8 @@ Convergence Guard/
 
 - [English: Jack the Ripper — Full Mode case study](examples/jack-the-ripper-full-mode.md)
 - [Русский: Джек Потрошитель — пример Full Mode](examples/jack-the-ripper-full-mode.ru.md)
+- [English: Why autonomous AI agents fail on long-running real-world tasks — Full Mode case study](examples/long-running-autonomous-agents-full-mode.md)
+- [Русский: Почему автономные AI-агенты ломаются на длительных реальных задачах — Full Mode case study](examples/long-running-autonomous-agents-full-mode.ru.md)
 - [English: SARS-CoV-2 origins — Full Mode case study](examples/sars-cov-2-origins-full-mode.md)
 - [Русский: Происхождение SARS-CoV-2 — пример Full Mode](examples/sars-cov-2-origins-full-mode.ru.md)
 
@@ -198,7 +202,7 @@ Convergence Guard/
 
 Текущий tagged pre-release — v0.2.2. Более поздние unreleased changes, когда они появляются, фиксируются в [CHANGELOG.ru.md](CHANGELOG.ru.md).
 
-Метод уже прошёл первый архитектурный и методологический аудит и теперь содержит публичные Full Mode examples: историческую attribution-задачу и актуальный научный вопрос с асимметричным evidence. Статус остаётся pre-release: нужна более широкая эмпирическая проверка на актуальных задачах со сравнением против обычного single-context анализа и более лёгких multi-agent схем.
+Метод уже прошёл первый архитектурный и методологический аудит и теперь содержит публичные Full Mode examples: историческую attribution-задачу, актуальный научный вопрос с асимметричным evidence и современную задачу надёжности AI-агентов. Статус остаётся pre-release: нужна более широкая эмпирическая проверка в разных доменах со сравнением против обычного single-context анализа и более лёгких multi-agent схем.
 
 ## Происхождение
 
