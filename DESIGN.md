@@ -885,7 +885,7 @@ These are not hidden exceptions to the method. They are part of the research age
 
 ## 26. Versioning and authority
 
-This document explains the design rationale for the current v0.2.1 architecture.
+This document explains the design rationale for the current v0.2.2 architecture.
 
 Authority is ordered as follows:
 

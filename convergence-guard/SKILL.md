@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Full Mode requires controllable context boundaries for every operation that depends on isolation or blindness. A separate worker, chat, thread, or session is not sufficient if decision-relevant material can enter through parent conversation context, chat history, memory, project context, shared state, retrieval, or prior worker history. Hosts that cannot guarantee the required boundary may use the explicitly labeled Reduced Mode only with user consent."
 metadata:
   author: "Convergence Guard contributors"
-  version: "0.2.1"
+  version: "0.2.2"
 ---
 
 # Convergence Guard

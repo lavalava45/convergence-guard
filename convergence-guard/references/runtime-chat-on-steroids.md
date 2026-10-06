@@ -10,7 +10,7 @@ Use Chat On Steroids Core for project facts: files, code, logs, Git, commands, a
 
 Use the native `agents` mechanism for Full Mode operations that require genuine isolation or blindness.
 
-## v0.2.1 worker topology
+## v0.2.2 worker topology
 
 A normal three-finalist Full Mode run uses approximately nine worker contexts:
 

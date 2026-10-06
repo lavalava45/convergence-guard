@@ -57,7 +57,7 @@ E. CONVERGE ON ACTION AND LEARNING
 
 ## What changed from v0.1.0?
 
-v0.2.1 keeps the streamlined v0.2 architecture while tightening runtime-isolation rules and recovery behavior:
+v0.2.2 keeps the streamlined v0.2 architecture, the v0.2.1 runtime-isolation rules, and adds stronger claim-level provenance discipline:
 
 - search starts with 3 isolated workers and expands to 5 only when coverage is inadequate;
 - screening and blind causal mapping run in parallel fresh contexts;
@@ -71,7 +71,9 @@ v0.2.1 keeps the streamlined v0.2 architecture while tightening runtime-isolatio
 - shared blind spots can trigger targeted new evidence/search instead of recycling the same candidate pool;
 - pairwise collision compares decision-conflicting implications, not forced winner/loser pairs;
 - an explicit decision layer separates belief about causes from action under loss, regret, reversibility, and option value;
-- Reduced Mode is formally defined for hosts without isolated worker contexts.
+- Reduced Mode is formally defined for hosts without isolated worker contexts;
+- material claims are evaluated by provenance, inspectability, common evidence ancestry, contradictions, and source role rather than reputation alone;
+- material new evidence discovered inside a blind branch must pass a shared evidence checkpoint before it can change downstream decisions.
 
 ## Repository layout
 
@@ -109,7 +111,7 @@ Convergence Guard/
 
 `convergence-guard/` is the installable skill directory. Its directory name matches `name: convergence-guard` in `SKILL.md`.
 
-`protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.1 specification.
+`protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.2 specification.
 
 ## Documentation
 
@@ -157,9 +159,9 @@ The exact installation mechanism depends on the client. A compatible client shou
 
 ## Status
 
-**Pre-release. Latest tagged release: v0.2.1.**
+**Pre-release. Latest tagged release: v0.2.2.**
 
-The `main` branch contains unreleased documentation and protocol refinements after v0.2.1; see [CHANGELOG.md](CHANGELOG.md).
+The current tagged pre-release is v0.2.2. Later unreleased changes, when present, are tracked in [CHANGELOG.md](CHANGELOG.md).
 
 The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution and a current evidence-asymmetric scientific-origin question. It remains pre-release: broader empirical evaluation is still needed across current questions and against ordinary single-context analysis and lighter multi-agent baselines.
 
