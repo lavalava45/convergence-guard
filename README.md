@@ -80,6 +80,8 @@ Convergence Guard/
 ├── README.ru.md
 ├── CHANGELOG.md
 ├── CHANGELOG.ru.md
+├── DESIGN.md
+├── DESIGN.ru.md
 ├── LICENSE
 ├── ATTRIBUTION.md
 ├── ATTRIBUTION.ru.md
@@ -111,6 +113,7 @@ Convergence Guard/
 |---|---|---|
 | [README.md](README.md) | [README.ru.md](README.ru.md) | project overview |
 | [CHANGELOG.md](CHANGELOG.md) | [CHANGELOG.ru.md](CHANGELOG.ru.md) | release history |
+| [DESIGN.md](DESIGN.md) | [DESIGN.ru.md](DESIGN.ru.md) | threat model and architectural rationale |
 | [ATTRIBUTION.md](ATTRIBUTION.md) | [ATTRIBUTION.ru.md](ATTRIBUTION.ru.md) | provenance and influence boundary |
 | [explained-simply.md](convergence-guard/references/explained-simply.md) | [explained-simply.ru.md](convergence-guard/references/explained-simply.ru.md) | plain-language explanation |
 | [protocol-details.md](convergence-guard/references/protocol-details.md) | [protocol-details.ru.md](convergence-guard/references/protocol-details.ru.md) | detailed protocol rules |
