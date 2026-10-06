@@ -6,6 +6,8 @@ Convergence Guard is a decision-analysis protocol for difficult open-ended probl
 
 It is packaged as an [Agent Skill](https://agentskills.io/) and is designed for agent clients that can provide genuinely isolated worker contexts.
 
+![Convergence Guard workflow: shared question, evidence and decision contract flow through isolated search, blind screening and causal mapping, dossiers, pairwise comparison and an evidence-sufficiency gate. Outcomes are justified action, a discriminating check within budget, or explicit uncertainty.](assets/convergence-guard-workflow.png)
+
 ## Try it in 60 seconds
 
 If your agent client supports Agent Skills:
