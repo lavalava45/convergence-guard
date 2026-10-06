@@ -90,7 +90,9 @@ Convergence Guard/
 ├── THIRD_PARTY_NOTICES.md
 ├── examples/
 │   ├── jack-the-ripper-full-mode.md
-│   └── jack-the-ripper-full-mode.ru.md
+│   ├── jack-the-ripper-full-mode.ru.md
+│   ├── sars-cov-2-origins-full-mode.md
+│   └── sars-cov-2-origins-full-mode.ru.md
 └── convergence-guard/
     ├── SKILL.md
     └── references/
@@ -124,12 +126,16 @@ Convergence Guard/
 
 ## Публичные примеры
 
-Первый опубликованный разбор — историческая задача идентификации Джека Потрошителя:
+Опубликованные разборы:
 
 - [English: Jack the Ripper — Full Mode case study](examples/jack-the-ripper-full-mode.md)
 - [Русский: Джек Потрошитель — пример Full Mode](examples/jack-the-ripper-full-mode.ru.md)
+- [English: SARS-CoV-2 origins — Full Mode case study](examples/sars-cov-2-origins-full-mode.md)
+- [Русский: Происхождение SARS-CoV-2 — пример Full Mode](examples/sars-cov-2-origins-full-mode.ru.md)
 
-В примере сохранены контракт решения, замороженный evidence brief, причинно различные поисковые мандаты, coverage gate, слепое сокращение, досье финалистов, adjudication, условное второе мнение, evidence-sufficiency gate и сравнение первоначального solo baseline с итогом Full Mode.
+В примерах сохранены контракт решения, provenance-aware evidence brief, причинно различные поисковые мандаты, coverage gate, слепое сокращение, досье финалистов, adjudication, условное second-opinion review, evidence-sufficiency gate и наблюдение, способное изменить решение.
+
+> **Граница примеров:** эти case studies демонстрируют работу протокола decision analysis над evidence, доступным конкретному run. Они не заменяют лабораторное исследование, полевое расследование, судебную или криминалистическую экспертизу, уголовное расследование, разведывательный анализ, юридическое заключение или другую профильную первичную работу. Если первичное или непубличное evidence недоступно, пример сохраняет это ограничение и не превращает institutional assessment в прямое подтверждение underlying event.
 
 ## Full Mode и Reduced Mode
 
@@ -155,7 +161,7 @@ Convergence Guard/
 
 Ветка `main` содержит unreleased-документацию и уточнения протокола поверх v0.2.1; см. [CHANGELOG.ru.md](CHANGELOG.ru.md).
 
-Метод уже прошёл первый архитектурный и методологический аудит и теперь содержит публичный Full Mode пример. Статус остаётся pre-release: нужна более широкая эмпирическая проверка на актуальных задачах со сравнением против обычного single-context анализа и более лёгких multi-agent схем.
+Метод уже прошёл первый архитектурный и методологический аудит и теперь содержит публичные Full Mode examples: историческую attribution-задачу и актуальный научный вопрос с асимметричным evidence. Статус остаётся pre-release: нужна более широкая эмпирическая проверка на актуальных задачах со сравнением против обычного single-context анализа и более лёгких multi-agent схем.
 
 ## Происхождение
 

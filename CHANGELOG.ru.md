@@ -9,6 +9,8 @@
 - добавлена claim-level source-quality policy: репутация источника определяет приоритет проверки, но не заменяет provenance, inspectability, evidence ancestry, обработку противоречий и replication;
 - разделено подтверждение того, что документ или институт **заявляет X**, и подтверждение самого X;
 - введены явные роли источников: EVIDENCE, CORROBORATION, CONTEXT, LEAD ONLY и UNSUPPORTED.
+- добавлен второй публичный Full Mode пример о происхождении SARS-CoV-2 с парными English/Russian версиями, анализом source dependency, явной обработкой inaccessible evidence и раздельными model/evidence-sufficiency judgments;
+- добавлена явная оговорка о границах публичных примеров: worked runs демонстрируют протокол и не заменяют лабораторные, криминалистические, уголовные, разведывательные, юридические или иные профильные первичные расследования.
 
 ## v0.2.1 — pre-release
 

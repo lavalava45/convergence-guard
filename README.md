@@ -90,7 +90,9 @@ Convergence Guard/
 ├── THIRD_PARTY_NOTICES.md
 ├── examples/
 │   ├── jack-the-ripper-full-mode.md
-│   └── jack-the-ripper-full-mode.ru.md
+│   ├── jack-the-ripper-full-mode.ru.md
+│   ├── sars-cov-2-origins-full-mode.md
+│   └── sars-cov-2-origins-full-mode.ru.md
 └── convergence-guard/
     ├── SKILL.md
     └── references/
@@ -124,12 +126,16 @@ Convergence Guard/
 
 ## Case studies
 
-The first public worked example is the historical Jack the Ripper identification problem:
+Public worked examples:
 
 - [English: Jack the Ripper — Full Mode case study](examples/jack-the-ripper-full-mode.md)
 - [Русский: Джек Потрошитель — пример Full Mode](examples/jack-the-ripper-full-mode.ru.md)
+- [English: SARS-CoV-2 origins — Full Mode case study](examples/sars-cov-2-origins-full-mode.md)
+- [Русский: Происхождение SARS-CoV-2 — пример Full Mode](examples/sars-cov-2-origins-full-mode.ru.md)
 
-The example records the decision contract, frozen evidence brief, causal-search mandates, coverage gate, blind reduction, finalist dossiers, adjudication, second-opinion trigger, evidence-sufficiency gate, and the difference between the initial solo baseline and the final Full Mode result.
+The examples record the decision contract, provenance-aware evidence brief, causal-search mandates, coverage gate, blind reduction, finalist dossiers, adjudication, conditional second-opinion review, evidence-sufficiency gate, and the decision-changing observation.
+
+> **Scope of examples:** these case studies demonstrate operation of a decision-analysis protocol over the evidence available to a particular run. They are not substitutes for laboratory research, field investigation, forensic or criminal investigation, intelligence analysis, legal findings, or other domain-specific primary work. Where primary or non-public evidence is inaccessible, the examples preserve that limitation rather than treating an institutional assessment as direct confirmation of the underlying event.
 
 ## Full Mode and Reduced Mode
 
@@ -155,7 +161,7 @@ The exact installation mechanism depends on the client. A compatible client shou
 
 The `main` branch contains unreleased documentation and protocol refinements after v0.2.1; see [CHANGELOG.md](CHANGELOG.md).
 
-The methodology has undergone an initial architecture and failure-mode audit and now includes a public Full Mode worked example. It remains pre-release: broader empirical evaluation is still needed across current questions and against ordinary single-context analysis and lighter multi-agent baselines.
+The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution and a current evidence-asymmetric scientific-origin question. It remains pre-release: broader empirical evaluation is still needed across current questions and against ordinary single-context analysis and lighter multi-agent baselines.
 
 ## Attribution
 

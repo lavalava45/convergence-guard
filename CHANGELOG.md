@@ -9,6 +9,8 @@
 - added a claim-level source-quality policy: source reputation guides verification priority but never substitutes for provenance, inspectability, evidence ancestry, contradiction handling, or replication;
 - distinguished confirmation of what a document or institution says from confirmation of the underlying proposition;
 - added explicit source roles: EVIDENCE, CORROBORATION, CONTEXT, LEAD ONLY, and UNSUPPORTED.
+- added a second public Full Mode worked example on SARS-CoV-2 origins, with paired English/Russian versions, source-dependency analysis, inaccessible-evidence handling, and separate model/evidence-sufficiency judgments;
+- added an explicit scope disclaimer for public examples: worked runs demonstrate the protocol and do not substitute for laboratory, forensic, criminal, intelligence, legal, or other domain-specific primary investigations.
 
 ## v0.2.1 — pre-release
 
