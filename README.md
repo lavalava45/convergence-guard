@@ -6,6 +6,31 @@ Convergence Guard is a decision-analysis protocol for difficult open-ended probl
 
 It is packaged as an [Agent Skill](https://agentskills.io/) and is designed for agent clients that can provide genuinely isolated worker contexts.
 
+## Try it in 60 seconds
+
+If your agent client supports Agent Skills:
+
+1. clone or download this repository;
+2. install or link the `convergence-guard/` directory into the skills directory used by your client, so it can discover `convergence-guard/SKILL.md`;
+3. start with a prompt like this:
+
+```text
+Use Convergence Guard to analyze this question:
+
+Why do autonomous AI agents still struggle with long-running real-world tasks,
+and which intervention should be prioritized?
+
+Use Full Mode only if the runtime's isolation preflight passes.
+If genuine context isolation is unavailable, say so and use Reduced Mode only
+if I accept that limitation. Do not force a winner when the evidence is
+insufficient. End with the minimum observation or experiment that could change
+the decision.
+```
+
+A Full Mode run should not merely produce several opinions. It should establish a decision contract, search causally distinct alternatives in isolated contexts, reduce them without exposing blind stages to one another, stress-test the surviving models, separate model judgment from action judgment, and either recommend an action or return `INSUFFICIENT DATA TO CHOOSE`.
+
+**Reference runtime:** [Chat On Steroids](convergence-guard/references/runtime-chat-on-steroids.md) is currently the Full Mode runtime profiled and exercised during development of this repository. Other clients may be compatible, but Full Mode requires genuine context isolation wherever the protocol depends on blindness or independence; multi-agent support by itself is not enough.
+
 ## What problem does it solve?
 
 Complex analysis often fails in a predictable way:
