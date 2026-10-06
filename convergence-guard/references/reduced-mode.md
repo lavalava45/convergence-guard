@@ -29,7 +29,7 @@ Sequential sections in one context remain vulnerable to shared anchoring and mem
 
 ## Reduced workflow
 
-1. Build the evidence brief and decision contract.
+1. Build the evidence brief and decision contract, including the same finite run budget and corrective-cycle stopping rules as Full Mode (see [protocol details §13.1](protocol-details.md#131-run-budget-and-stopping)).
    Apply the same claim-level source-quality and provenance rules as Full Mode; Reduced Mode relaxes context-isolation guarantees, not evidence standards.
 2. Perform the framing/outside-view check.
 3. Generate at least three deliberately different search mandates **before** generating candidate models.
@@ -41,7 +41,7 @@ Sequential sections in one context remain vulnerable to shared anchoring and mem
 9. Compare decision-conflicting finalist pairs.
 10. Separate model judgment from action judgment.
 11. Apply the evidence-sufficiency gate.
-12. End with a decision-changing observation or experiment.
+12. End with a feasible, worthwhile decision-changing observation or experiment. If none is identified, state `NO FEASIBLE DISCRIMINATOR IDENTIFIED` and the search limits; retain unresolved model judgment and apply the ordinary action-sufficiency gate. A known check deferred for budget reasons is not a no-discriminator result.
 
 ## Integrity rules
 

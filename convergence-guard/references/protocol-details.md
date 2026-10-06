@@ -14,6 +14,18 @@ Only the first two can be created by worker orchestration. They do **not** creat
 
 A fresh worker is required when a stage relies on context isolation or preference blindness. Do not deprive a worker of relevant evidence merely to make it appear independent.
 
+### 1.1 Boundary assurance
+
+Separate a smoke-test observation from assurance about the runtime boundary. A harmless synthetic sentinel probe may produce `NO LEAK OBSERVED`, `FAIL` (forbidden context was exposed), or `INCONCLUSIVE`. A worker's negative self-report establishes only that the probe did not reveal leakage; it does not prove absence of access. Use no private user data and do not request hidden system prompts or private context.
+
+For every boundary required by an operation, record runtime-level evidence: inspectable controls or trustworthy runtime documentation applicable to the active configuration. Cover initial context assembly and subsequent access through memory, history, project context, retrieval, shared state, and tools for the operation's duration. An explicit launch payload alone does not establish what the host adds or what the worker can retrieve later.
+
+- `PASS` — runtime-level evidence supports the required boundary for the relevant channels and no observed leak contradicts it; record that evidence and its scope.
+- `FAIL` — forbidden access or leakage is established.
+- `INCONCLUSIVE` — relevant channels cannot be verified or controlled; a negative smoke test alone cannot produce `PASS`.
+
+A required boundary with `FAIL` or material `INCONCLUSIVE` cannot support a Full Mode claim. Reassess when runtime, configuration, or available retrieval/tools change; an earlier `PASS` does not cover newly enabled channels. A persistence positive control that confirms a revived worker retains its history should be recorded as `RETENTION CONFIRMED`: it establishes that the worker is not fresh, not that parent/sibling isolation holds.
+
 ## 2. Evidence provenance
 
 Use these labels consistently:
@@ -238,6 +250,7 @@ It evaluates contract fit, evidence support, causal completeness, causal identif
 
 ### Mapper receives
 
+- the same shared evidence brief and decision contract as the screener, including system boundaries and constraints;
 - claim;
 - mechanism;
 - necessary conditions;
@@ -305,6 +318,16 @@ Pause for targeted evidence collection when any of these occurs:
 - a dossier exposes a direct contradiction with available primary evidence.
 
 After new evidence arrives, rerun only the affected operations.
+
+### 13.1 Run budget and stopping
+
+Before Phase B, record finite total time or call limits and a maximum number of corrective cycles, respecting the user's constraints. Unless another limit is justified in the contract, allow at most **two corrective cycles across the whole run**. A cycle is a targeted return to evidence collection, search, or candidate revision plus its affected downstream reruns; it is not each worker call. The initial 3–5-worker coverage expansion remains inside the total time/call budget.
+
+Before each return, identify the unresolved issue, the expected decision-relevant gain, and the affected operations. All returns, including dossier revisions and shared-bias findings, use the same budget; recovery retries also consume the total time/call budget. Do not reset limits by moving to another phase or renaming the issue.
+
+Stop corrective work when any limit is reached, no feasible step can address the issue, or a completed cycle yields no material progress. Progress means new decision-relevant evidence, a substantively different viable mechanism, resolution of a material uncertainty, or a changed slate/action implication; rewording and repeated agreement do not count. Do not extend the budget automatically.
+
+Preserve valid artifacts and proceed to Phase E with the stopping reason and unfinished work stated. Apply the ordinary sufficiency gate; exhaustion never establishes sufficiency or completion of skipped stages. If a worthwhile check remains outstanding, report it as deferred and return insufficiency for the commitment it blocks. Use the no-discriminator outcome only when no feasible check was identified, not merely because a known check exceeded the run budget.
 
 ## 14. Causal dossier integrity
 
@@ -441,15 +464,17 @@ A best action is defensible only when:
 
 - no unresolved hard factual contradiction invalidates it;
 - it is preferable across the plausible surviving model set under the decision contract;
-- no unresolved alternative is likely to reverse the action without requiring evidence that can reasonably be obtained first;
+- no pending check could plausibly reverse the action, is obtainable before commitment, and is worth its cost and delay under the decision contract; perform such a check first, then reassess;
 - residual uncertainty is explicit and bounded;
 - downside and reversibility are understood enough for the stakes.
 
 Otherwise use `INSUFFICIENT DATA TO CHOOSE`.
 
+Assess a check's practical value against its cost, delay, and the cost of committing incorrectly; exact numerical value-of-information estimates are not required. An unavailable or unjustifiably costly check does not automatically block action, but all other gate conditions still apply. Running out of analysis budget does not make an outstanding worthwhile check unnecessary.
+
 ## 23. Minimum discriminating observation / experiment
 
-The final learning step should be **decision-changing**, not merely informative.
+When a feasible, worthwhile learning step exists, it should be **decision-changing**, not merely informative.
 
 Specify when relevant:
 
@@ -461,7 +486,9 @@ Specify when relevant:
 - stopping rule;
 - action under each material outcome.
 
-When experimentation is impossible, unethical, or unnecessary, use an audit, observation, comparison, or natural experiment.
+When experimentation is impossible, unethical, or unnecessary, consider an audit, observation, comparison, or natural experiment if feasible.
+
+If no ethical, obtainable, decision-relevant discriminator is available, return `NO FEASIBLE DISCRIMINATOR IDENTIFIED` with the limiting reason. This describes the learning opportunity, not the action judgment. Keep the causal models unresolved where appropriate; select a robust low-regret action only if the sufficiency gate supports it, otherwise also return `INSUFFICIENT DATA TO CHOOSE`. Do not invent a practical test from a merely hypothetical decisive fact. State the search limits, especially after budget exhaustion, rather than claiming that no possible discriminator exists. A known but deferred check is not a no-discriminator result.
 
 Prefer “disconfirming” or “decision-invalidating” evidence over absolute “falsification” in noisy domains where no single observation can logically falsify a model.
 

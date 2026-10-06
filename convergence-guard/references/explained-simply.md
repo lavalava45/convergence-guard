@@ -26,7 +26,7 @@ It makes the process go roughly like this:
 7. Check whether they rest on a single fragile assumption.
 8. Decide separately which explanation seems most plausible and which action is best to take now.
 9. If there is too little evidence, do not pretend the answer is already known.
-10. End with the cheapest test that could genuinely change the decision.
+10. End with the cheapest worthwhile, feasible test that could change the decision, or explicitly state that no such test was identified.
 
 In brief:
 
@@ -450,6 +450,8 @@ The next question is:
 
 > What is the cheapest test we can run that could change the choice?
 
+If no ethical, obtainable test is identified, say so and explain the search limits. Do not invent one. The explanation may remain unresolved even when a robust action is justified. A known test deferred because the analysis budget ran out is still an outstanding test.
+
 ---
 
 ## 14. The minimum discriminating test
@@ -771,11 +773,11 @@ Does a revived worker remember its own previous history?
 
 The result can be recorded as:
 
-- `PASS` — forbidden context is not visible;
-- `FAIL` — it is visible;
-- `INCONCLUSIVE` — the boundary could not be tested reliably.
+- `NO LEAK OBSERVED` — this smoke test did not reveal forbidden context; a negative worker report alone means no more than this;
+- `FAIL` — the test revealed forbidden context;
+- `INCONCLUSIVE` — the test could not be evaluated reliably.
 
-If a particular boundary is required for Full Mode and it is `FAIL`, you cannot honestly claim that the stage was fully isolated.
+A boundary receives `PASS` only when runtime-level evidence supports isolation for both initial context and later retrieval/tool access. If a required boundary is `FAIL` or materially `INCONCLUSIVE`, the stage cannot be called Full Mode. Confirming that a revived worker retains history only shows that it is not fresh. See [boundary assurance](protocol-details.md#11-boundary-assurance).
 
 ---
 
@@ -846,7 +848,7 @@ Those answers may be different.
 
 ### Step 10. If the evidence is insufficient, do not manufacture certainty
 
-Instead, choose the next cheap test that could change the decision.
+Instead, choose a feasible, worthwhile test that could change the decision, or state that none was identified. Stop corrective work at the run budget or after a cycle without material progress; stopping does not make the evidence sufficient.
 
 ---
 

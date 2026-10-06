@@ -461,6 +461,8 @@ This controls T4 by preventing narrative refinement from substituting for causal
 
 After new evidence arrives, only affected screening, mapping, slate, dossier, or adjudication artifacts are rerun. Unaffected frozen artifacts are preserved because a full restart would add cost, destroy useful traceability, and expose previously blind stages to later conclusions without decision value.
 
+These returns share a finite run budget set before search, including a default cap of two corrective cycles unless the contract justifies another limit. A completed cycle without material progress or any exhausted limit ends corrective work; it does not waive the evidence-sufficiency gate. See [operational stopping rules](convergence-guard/references/protocol-details.md#131-run-budget-and-stopping).
+
 ---
 
 ## 11. Why the finalist slate contains two or three models
@@ -633,7 +635,7 @@ A best action is selected only when:
 
 - no hard contradiction invalidates it;
 - it remains preferable across plausible surviving models;
-- an unresolved alternative is not likely to reverse the choice while obtainable evidence is still available;
+- no pending check could plausibly reverse the action, is obtainable before commitment, and is worth its cost and delay under the decision contract; perform such a check first, then reassess;
 - uncertainty is explicit and bounded;
 - downside and reversibility are understood for the stakes.
 
@@ -869,7 +871,7 @@ Reversibility and error cost influence screening, premortem, second opinion, and
 
 ### Q7. No-discriminator terminal state
 
-Some problems may have no ethical, practical, or obtainable observation capable of separating the live models. In that case the method must distinguish between a robust low-regret action and a permanently unresolved model judgment without pretending that future evidence is available.
+Some problems may have no ethical, practical, or obtainable observation capable of separating the live models. The operational terminal state is now `NO FEASIBLE DISCRIMINATOR IDENTIFIED`, with the search limits stated. Model judgment may remain unresolved while a robust low-regret action passes the sufficiency gate; otherwise the decision remains `INSUFFICIENT DATA TO CHOOSE`. A known but deferred check is not this state. Evaluation should test whether this exit prevents invented tests without prematurely abandoning useful evidence search.
 
 ### Q8. Artifact validity after interruption or new evidence
 

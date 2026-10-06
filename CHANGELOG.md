@@ -4,6 +4,12 @@
 
 ## Unreleased
 
+- corrected the evidence-sufficiency gate to require worthwhile, decision-changing checks before commitment;
+- added the shared evidence brief and decision contract to the blind mapper's input allowlist;
+- defined an explicit no-feasible-discriminator outcome, separate from action sufficiency and deferred checks;
+- bounded corrective cycles with a shared run budget and a no-progress stopping rule;
+- separated negative isolation smoke tests from runtime-backed boundary assurance, including later retrieval/tool access.
+
 - added a 60-second Quick Start and a concise “Why not just ask 5 agents?” explanation to the README;
 - made runtime requirements vendor-neutral and removed implementation-specific runtime profile files from the public repository.
 

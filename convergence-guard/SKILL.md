@@ -60,6 +60,8 @@ Real-world facts are not forbidden merely because they were previously observed.
 
 If the runtime can inject or retrieve forbidden decision-relevant context, or if the relevant boundary cannot be established with reasonable confidence, that operation does not satisfy Full Mode. Use Reduced Mode and state the limitation explicitly.
 
+A negative sentinel probe or worker self-report means only `NO LEAK OBSERVED`, not confirmed isolation. Establish each required boundary through runtime-level evidence covering both initial context and later retrieval/tool access; otherwise record `INCONCLUSIVE`. See [boundary assurance](references/protocol-details.md#11-boundary-assurance).
+
 ### Reduced Mode
 
 If isolation is unavailable, Full Mode is unavailable. With explicit user consent, use [Reduced Mode](references/reduced-mode.md), label it clearly, and do not claim independent-agent confirmation or blind-stage guarantees.
@@ -136,6 +138,7 @@ Define:
 4. **Forbidden substitutions** — what must the analysis not silently turn into?
 5. **Loss / cost of error** — what is damaged if the choice is wrong?
 6. **Reversibility** — how difficult is it to recover or change course?
+7. **Analysis budget** — finite limits on time or calls and corrective cycles, chosen within the user's constraints before search. By default allow at most two corrective cycles across the entire run; see [checkpoint and stopping rules](references/protocol-details.md#131-run-budget-and-stopping).
 
 ## A3. Framing and outside-view check
 
@@ -209,7 +212,7 @@ Freeze these results.
 
 ## C2. Blind causal map
 
-The mapper receives candidate claims, mechanisms, necessary conditions, predictions, implied actions, and disconfirming evidence — but **not** screening results, branch identity, danger flags, or coordinator preference.
+The mapper receives the same shared evidence brief and decision contract as the screener, including system boundaries and constraints, plus candidate claims, mechanisms, necessary conditions, predictions, implied actions, and disconfirming evidence — but **not** screening results, branch identity, danger flags, or coordinator preference.
 
 Map candidates into causal families without targeting a fixed cluster count. Record relations where relevant:
 
@@ -236,7 +239,7 @@ Prefer non-dominated candidates that differ in mechanism or decision consequence
 
 Separately choose at most one **information probe**: a viable model or uncertainty that is especially valuable to test. It is not automatically a finalist and should not be treated as one merely because its test is informative.
 
-If missing evidence or a missing causal family could materially change the slate, pause and perform a targeted evidence/search checkpoint, then rerun only the affected operations.
+If missing evidence or a missing causal family could materially change the slate, perform a targeted evidence/search checkpoint within the run budget, then rerun only the affected operations. All corrective returns, including revised dossiers and shared-bias findings, share that budget. Stop on budget exhaustion or a completed corrective cycle without material progress; proceed to E with explicit limitations, without declaring incomplete stages complete.
 
 # Phase D — Stress and adjudicate
 
@@ -338,15 +341,15 @@ Choose one best action only when all are true:
 
 - no unresolved hard factual contradiction invalidates it;
 - it is preferable under the decision contract and plausible surviving models;
-- no unresolved alternative would plausibly reverse the action without also requiring evidence that can be obtained before commitment;
+- no pending check could plausibly reverse the action, is obtainable before commitment, and is worth its cost and delay under the decision contract; perform such a check first, then reassess;
 - residual uncertainty is stated and bounded;
 - the action's downside and reversibility are understood well enough for the stakes.
 
-Otherwise return `INSUFFICIENT DATA TO CHOOSE` and identify the one observation or test with the highest practical decision value.
+Otherwise return `INSUFFICIENT DATA TO CHOOSE` and identify the one observation or test with the highest practical decision value, if one is available. Budget exhaustion does not waive this gate: report an outstanding worthwhile check as deferred, not completed.
 
 ## E3. Minimum discriminating observation or experiment
 
-End with the cheapest practical next step that can change the decision, not merely add information.
+When available and worthwhile, end with the cheapest practical next step that can change the decision, not merely add information.
 
 Specify where relevant:
 
@@ -358,7 +361,9 @@ Specify where relevant:
 - stopping rule;
 - action to take under each material outcome.
 
-If experimentation is impossible or unethical, use a discriminating observation, audit, comparison, or natural experiment instead.
+If experimentation is impossible or unethical, consider a discriminating observation, audit, comparison, or natural experiment if feasible.
+
+If no ethical, obtainable, decision-relevant discriminator is available, state `NO FEASIBLE DISCRIMINATOR IDENTIFIED` and why. Do not invent a test or promise future evidence. Keep unresolved model judgment separate from action: choose a robust low-regret action only if E2 supports it; otherwise retain `INSUFFICIENT DATA TO CHOOSE`. If search stopped at the budget limit, say that no discriminator was identified within that search, not that none exists. An already known but deferred check is not this terminal state.
 
 ## User-facing output
 
