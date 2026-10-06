@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- added a 60-second Quick Start and a concise “Why not just ask 5 agents?” explanation to the README;
+- made runtime requirements vendor-neutral and removed implementation-specific runtime profile files from the public repository.
+
 ## v0.2.2 — pre-release
 
 - added DESIGN.md / DESIGN.ru.md with a first-principles threat model and architectural rationale;
@@ -18,7 +21,7 @@
 ## v0.2.1 — pre-release
 
 - tightened Full Mode context-boundary requirements;
-- added an explicit Chat On Steroids isolation preflight and recovery rules;
+- added an explicit runtime isolation preflight and recovery rules;
 - clarified that worker agreement is not evidential independence;
 - retained the three-worker adaptive search cohort and blind Phase C reduction;
 - added paired English/Russian human-facing documentation;

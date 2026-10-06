@@ -584,7 +584,7 @@ This evidence class has much higher decision value than additional commentary, a
 
 This run used fresh isolated worker contexts for the stages whose value depended on blindness: causal search, screening, mapping, boundary review, finalist dossiers, slate adjudication, and second opinion.
 
-The Chat On Steroids runtime profile requires an isolation smoke test. One initial parent-boundary smoke-test worker timed out before reporting. The boundary was subsequently rechecked, sibling isolation was checked, and the persistence positive control confirmed that revived workers retain their own history and therefore must not be reused for blind roles. The timed-out check is disclosed here rather than silently omitted.
+The runtime configuration used for this run required an isolation smoke test. One initial parent-boundary smoke-test worker timed out before reporting. The boundary was subsequently rechecked, sibling isolation was checked, and the persistence positive control confirmed that revived workers retain their own history and therefore must not be reused for blind roles. The timed-out check is disclosed here rather than silently omitted.
 
 During run recovery, some analytical roles were repeated in fresh contexts. Agreement between repeated workers was never counted as independent real-world evidence; only evidence provenance and the frozen reasoning artifacts were used.
 

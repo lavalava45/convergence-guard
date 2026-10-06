@@ -663,9 +663,9 @@ Convergence Guard **не** говорит:
 
 ---
 
-## 21. Что мы выяснили про Chat On Steroids
+## 21. Что показала проверка runtime-изоляции
 
-Эксперимент с native workers показал две разные вещи.
+Проверка fresh worker contexts показала две разные вещи.
 
 ### Между sibling workers
 

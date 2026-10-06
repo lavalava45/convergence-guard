@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- в README добавлены 60-second Quick Start и короткий раздел «Почему не просто спросить 5 агентов?»;
+- требования к runtime сделаны vendor-neutral; implementation-specific runtime profile файлы удалены из публичного репозитория.
+
 ## v0.2.2 — pre-release
 
 - добавлены DESIGN.md / DESIGN.ru.md с самостоятельным threat model и архитектурным обоснованием от первых принципов;
@@ -18,7 +21,7 @@
 ## v0.2.1 — pre-release
 
 - ужесточены требования Full Mode к границам контекста;
-- добавлены явный isolation preflight для Chat On Steroids и правила восстановления после сбоев;
+- добавлены явный runtime isolation preflight и правила восстановления после сбоев;
 - уточнено, что согласие workers не является evidential independence;
 - сохранены адаптивная начальная когорта из трёх search workers и слепое сокращение в Phase C;
 - добавлена парная англо-русская человекочитаемая документация;

@@ -663,9 +663,9 @@ And the reverse shortcut is also forbidden: funding, ideology, institutional int
 
 ---
 
-## 21. What we learned about Chat On Steroids
+## 21. What runtime isolation testing taught us
 
-An experiment with native workers showed two different things.
+Runtime testing of fresh worker contexts showed two different things.
 
 ### Between sibling workers
 

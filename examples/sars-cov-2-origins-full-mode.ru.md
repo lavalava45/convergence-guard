@@ -584,7 +584,7 @@ Outside/hybrid/unknown alternative остаётся открытым и не п�
 
 Run использовал fresh isolated worker contexts на этапах, где ценность процедуры зависела от blindness: causal search, screening, mapping, boundary review, finalist dossiers, slate adjudication и second opinion.
 
-Runtime profile Chat On Steroids требует isolation smoke test. Один первоначальный parent-boundary smoke-test worker не успел вернуть результат и завершился по timeout. Граница была затем перепроверена; sibling isolation также проверялась; persistence positive control подтвердил, что revived workers сохраняют собственную историю и поэтому не должны повторно использоваться для blind roles. Первоначальный timeout здесь раскрывается явно, а не скрывается.
+Runtime-конфигурация этого run требовала isolation smoke test. Один первоначальный parent-boundary smoke-test worker не успел вернуть результат и завершился по timeout. Граница была затем перепроверена; sibling isolation также проверялась; persistence positive control подтвердил, что revived workers сохраняют собственную историю и поэтому не должны повторно использоваться для blind roles. Первоначальный timeout здесь раскрывается явно, а не скрывается.
 
 Во время recovery некоторые analytical roles повторялись в fresh contexts. Совпадение результатов повторных workers никогда не считалось independent real-world evidence; учитывались provenance и замороженные reasoning artifacts.
 

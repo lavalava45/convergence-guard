@@ -29,7 +29,18 @@ the decision.
 
 A Full Mode run should not merely produce several opinions. It should establish a decision contract, search causally distinct alternatives in isolated contexts, reduce them without exposing blind stages to one another, stress-test the surviving models, separate model judgment from action judgment, and either recommend an action or return `INSUFFICIENT DATA TO CHOOSE`.
 
-**Reference runtime:** [Chat On Steroids](convergence-guard/references/runtime-chat-on-steroids.md) is currently the Full Mode runtime profiled and exercised during development of this repository. Other clients may be compatible, but Full Mode requires genuine context isolation wherever the protocol depends on blindness or independence; multi-agent support by itself is not enough.
+Full Mode is runtime-agnostic, but it is not isolation-agnostic: a client must be able to establish genuine context separation wherever the protocol depends on blindness or independence. Multi-agent support by itself is not enough.
+
+## Why not just ask 5 agents?
+
+Because five answers are not automatically five independent pieces of evidence.
+
+- **Reasoning independence is not evidential independence.** Agents can reason separately while relying on the same source, dataset, summary, or inherited claim. Agreement can therefore reflect common evidence ancestry rather than independent corroboration.
+- **Shared framing creates correlated errors.** If every agent starts from the same candidate set, assumptions, memory, or problem framing, several independent-looking branches can reproduce the same blind spot.
+- **Voting measures agreement, not evidential weight.** A 4-to-1 majority can still be four restatements of one weak premise. Convergence Guard compares provenance, causal predictions, assumptions, and decision consequences instead of treating votes as proof.
+- **Sometimes there should be no winner.** Convergence Guard includes an evidence-sufficiency gate and can return `INSUFFICIENT DATA TO CHOOSE` rather than manufacturing consensus.
+
+The point is therefore not to use more agents. It is to create **structured independence, controlled information boundaries, provenance-aware comparison, and a legitimate abstention path**.
 
 ## What problem does it solve?
 
@@ -129,14 +140,12 @@ Convergence Guard/
         ├── protocol-details.ru.md
         ├── reduced-mode.md
         ├── reduced-mode.ru.md
-        ├── runtime-chat-on-steroids.md
-        ├── runtime-chat-on-steroids.ru.md
         └── protocol.ru.md
 ```
 
 `convergence-guard/` is the installable skill directory. Its directory name matches `name: convergence-guard` in `SKILL.md`.
 
-`protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.2 specification.
+`protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.2 specification; runtime-specific wording has been neutralized for the public repository.
 
 ## Documentation
 
@@ -149,7 +158,6 @@ Convergence Guard/
 | [explained-simply.md](convergence-guard/references/explained-simply.md) | [explained-simply.ru.md](convergence-guard/references/explained-simply.ru.md) | plain-language explanation |
 | [protocol-details.md](convergence-guard/references/protocol-details.md) | [protocol-details.ru.md](convergence-guard/references/protocol-details.ru.md) | detailed protocol rules |
 | [reduced-mode.md](convergence-guard/references/reduced-mode.md) | [reduced-mode.ru.md](convergence-guard/references/reduced-mode.ru.md) | single-context fallback |
-| [runtime-chat-on-steroids.md](convergence-guard/references/runtime-chat-on-steroids.md) | [runtime-chat-on-steroids.ru.md](convergence-guard/references/runtime-chat-on-steroids.ru.md) | local runtime profile |
 
 ## Case studies
 

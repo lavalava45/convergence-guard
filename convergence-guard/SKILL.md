@@ -64,8 +64,6 @@ If the runtime can inject or retrieve forbidden decision-relevant context, or if
 
 If isolation is unavailable, Full Mode is unavailable. With explicit user consent, use [Reduced Mode](references/reduced-mode.md), label it clearly, and do not claim independent-agent confirmation or blind-stage guarantees.
 
-For the Chat On Steroids installation profile, read [references/runtime-chat-on-steroids.md](references/runtime-chat-on-steroids.md) before a Full Mode run.
-
 # Phase A — Establish the decision
 
 ## A1. Factual grounding
@@ -396,7 +394,6 @@ Do not dump stage logs unless the user asks for the audit trail. Use the user's 
 
 - [Detailed protocol rules](references/protocol-details.md)
 - [Reduced Mode](references/reduced-mode.md)
-- [Chat On Steroids runtime profile](references/runtime-chat-on-steroids.md)
 - [Historical Russian v0.1.0 protocol](references/protocol.ru.md)
 
 Convergence Guard is a decision-analysis protocol, not a source of truth. Facts, safety constraints, explicit user decisions, and project rules take precedence.
