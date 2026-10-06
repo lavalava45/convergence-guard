@@ -81,6 +81,51 @@ When the problem depends on external state, build a compact evidence brief. Trac
 
 Do not silently upgrade `REPORTED` or `STRONGLY INFERRED` evidence to `CONFIRMED`.
 
+`CONFIRMED` applies to what was actually inspected, not automatically to every proposition asserted by an inspected source. For example, if an official report states that event X occurred, it may be `CONFIRMED` that the report makes that statement while event X itself remains `REPORTED` unless the underlying evidence is directly inspectable.
+
+### A1.1 Claim-level source policy
+
+For every material claim, evaluate the claim and its evidence chain rather than assigning truth by source reputation.
+
+Prefer the nearest inspectable primary evidence when practical, but do not treat `primary`, `official`, `peer reviewed`, `institutional`, or `expert` as automatic truth labels.
+
+Use primary material for factual traceability. For population-level or cumulative scientific claims, a transparent systematic review, meta-analysis, or other high-quality synthesis may be more decision-relevant than any single primary study when its methods and constituent evidence are traceable.
+
+For decision-relevant claims, record where practical:
+
+- nearest available primary source;
+- source type;
+- inspectability of the underlying evidence;
+- method or data availability;
+- temporal proximity to the event;
+- independence / common evidence ancestry;
+- known contradictions, material incentives, or conflicts;
+- epistemic role in the current run.
+
+Use these source roles:
+
+- **EVIDENCE** — directly bears on the claim and is inspectable enough to support it;
+- **CORROBORATION** — independently supports evidence already in the brief;
+- **CONTEXT** — useful background that does not materially establish the claim;
+- **LEAD ONLY** — points to a potentially relevant claim or source that must be traced before it can carry evidential weight;
+- **UNSUPPORTED** — currently lacks enough inspectable support to influence the decision.
+
+Source reputation may guide search priority, but **must not substitute for claim-level provenance**.
+
+Secondary sources are useful for orientation and discovery, but trace material claims to the nearest available primary evidence when feasible.
+
+Advocacy, partisan, fringe, anonymous, or otherwise low-verifiability sources are not automatically excluded. They may generate leads. If they expose directly inspectable underlying evidence, evaluate that material under the same claim-level rules as any other source; if the underlying support cannot be established, keep the claim `LEAD ONLY`, `REPORTED`, or `UNSUPPORTED` as appropriate.
+
+When an institution or intelligence body publishes an assessment whose underlying evidence is classified or unavailable, it may be `CONFIRMED` that the assessment exists and has a stated confidence level; the hidden supporting evidence itself is not `CONFIRMED`.
+
+Do not multiply support by media repetition or citation count. If several reports descend from one upstream observation, dataset, leak, paper, briefing, or document, treat them as one evidential branch unless genuine independence is established.
+
+Preserve contradictory primary evidence explicitly instead of averaging it away or resolving it by source prestige alone.
+
+Treat incentives, affiliation, funding, ideology, or conflicts of interest as possible bias channels to investigate, **not** as automatic evidence that a claim is false. Likewise, unavailable raw data reduce inspectability but do not by themselves prove that a claim is false.
+
+During isolation-dependent stages, a worker may surface a new source or evidence lead, but it must not silently promote branch-private retrieval into shared factual grounding. Route any material new evidence through an evidence checkpoint, classify its provenance/source role, update the shared brief, and rerun only affected operations. This keeps causal branches comparable on the evidence that actually carries decision weight.
+
 Give all independent search workers the same factual brief. Existing plans, TODOs, previous recommendations, and current architecture are context, not proof that the current framing is correct.
 
 ## A2. Decision contract

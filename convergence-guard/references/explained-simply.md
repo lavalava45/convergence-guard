@@ -621,6 +621,46 @@ But if all five simply rewrote Reuters, the true independent source is one.
 
 The number of repetitions is not the number of independent pieces of evidence.
 
+### A famous source is not automatically the truth
+
+There is a second trap.
+
+Suppose one article comes from a famous newspaper, one from a government agency, one from a peer-reviewed journal, and one from a strange activist blog.
+
+Convergence Guard does **not** say:
+
+> famous / official / peer reviewed = true
+
+and it also does **not** say:
+
+> fringe / partisan / anonymous = false
+
+Instead it asks:
+
+> What exactly is the claim, and what inspectable evidence carries that claim?
+
+For example, if a government report says:
+
+> "We assess that X probably happened."
+
+we may be able to confirm that the agency really made that assessment. But if the supporting evidence is classified, we have **not** independently confirmed X itself.
+
+Likewise, if a dubious blog links to a genuine original document, the blog is only a lead. We inspect the original document and let the document — not the blog's reputation — carry the evidential weight.
+
+Useful roles are:
+
+- **EVIDENCE** — directly bears on the claim;
+- **CORROBORATION** — independently supports existing evidence;
+- **CONTEXT** — helps interpret the situation;
+- **LEAD ONLY** — tells us where to look next;
+- **UNSUPPORTED** — currently too weak to affect the decision.
+
+The rule is:
+
+> Source reputation can tell us where to look first. It cannot replace claim-level provenance.
+
+And the reverse shortcut is also forbidden: funding, ideology, institutional interest, missing raw data, or a low-prestige origin may justify extra checking, but they do not automatically make a claim false. For broad scientific questions, a transparent synthesis of many primary studies can also be more informative than any one study.
+
 ---
 
 ## 21. What we learned about Chat On Steroids

@@ -19,11 +19,13 @@ Complex analysis often fails in a predictable way:
 
 Convergence Guard is designed to make those failures harder.
 
-A central principle of v0.2.1 is:
+A central principle of the current architecture is:
 
 > **Reasoning independence is not evidential independence, and the most plausible model is not always the best action under uncertainty.**
 
-## v0.2.1 workflow
+For evidence-heavy research, Convergence Guard also evaluates **claims rather than source prestige**. Official, peer-reviewed, institutional, fringe, or anonymous status affects verification strategy but never substitutes for claim-level provenance, inspectability, and evidence ancestry.
+
+## Current workflow
 
 The public protocol is organized into five phases:
 
@@ -149,7 +151,9 @@ The exact installation mechanism depends on the client. A compatible client shou
 
 ## Status
 
-**Pre-release / v0.2.1.**
+**Pre-release. Latest tagged release: v0.2.1.**
+
+The `main` branch contains unreleased documentation and protocol refinements after v0.2.1; see [CHANGELOG.md](CHANGELOG.md).
 
 The methodology has undergone an initial architecture and failure-mode audit and now includes a public Full Mode worked example. It remains pre-release: broader empirical evaluation is still needed across current questions and against ordinary single-context analysis and lighter multi-agent baselines.
 

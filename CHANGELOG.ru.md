@@ -6,6 +6,9 @@
 
 - добавлены DESIGN.md / DESIGN.ru.md с самостоятельным threat model и архитектурным обоснованием от первых принципов;
 - зафиксированы traceability threat→control, остаточные риски, отвергнутые архитектурные альтернативы и открытые вопросы для evaluation suite.
+- добавлена claim-level source-quality policy: репутация источника определяет приоритет проверки, но не заменяет provenance, inspectability, evidence ancestry, обработку противоречий и replication;
+- разделено подтверждение того, что документ или институт **заявляет X**, и подтверждение самого X;
+- введены явные роли источников: EVIDENCE, CORROBORATION, CONTEXT, LEAD ONLY и UNSUPPORTED.
 
 ## v0.2.1 — pre-release
 

@@ -95,11 +95,13 @@ The first plausible explanation becomes an anchor. Later search explores variant
 
 **Failure signature:** many polished alternatives, but all share the same causal engine.
 
-### T2. Evidence-source dependence
+### T2. Evidence-source dependence and authority substitution
 
 Several claims appear independent because they are repeated by different people, documents, agents, or summaries, while in reality they descend from one upstream observation or source.
 
-**Failure signature:** confidence rises with repetition even though the real-world evidence count has not increased.
+The same threat also appears when the prestige, official status, publication venue, or social reputation of a source is substituted for inspection of the claim's actual evidence chain.
+
+**Failure signature:** confidence rises with repetition or authority even though the underlying inspectable evidence has not become stronger.
 
 ### T3. Hidden context leakage
 
@@ -165,7 +167,7 @@ Worker launch failure, lost binding, stale context, partial completion, or recov
 
 ## 5. Core design invariants
 
-The protocol is built around nine invariants.
+The protocol is built around ten invariants.
 
 ### I1. Evidence provenance precedes model generation
 
@@ -221,6 +223,14 @@ Additional workers or critics are triggered by uncovered uncertainty, not by a f
 
 This controls T11 while preserving the ability to escalate when coverage is inadequate.
 
+### I10. Source authority never substitutes for claim-level provenance
+
+Official, peer-reviewed, institutional, expert, fringe, or anonymous status affects search strategy and verification burden, but does not itself determine whether a material claim is true.
+
+Material claims are traced toward inspectable evidence, common evidence ancestry is recorded where decision-relevant, and low-verifiability sources may generate leads without receiving automatic evidential weight.
+
+This controls T2 and also reduces T4 and T6 by preventing reputation or repetition from hiding weak identification or selected evidence.
+
 ---
 
 ## 6. Why the architecture has five phases
@@ -260,6 +270,30 @@ The evidence brief is a controlled shared substrate. It separates directly inspe
 Without this step, workers can inherit different implicit fact sets, and later disagreement becomes impossible to diagnose: did the models differ, or did the evidence differ?
 
 The brief also prevents a prior recommendation, TODO, or architecture from being treated as factual proof of the current framing.
+
+### 7.1.1 Why source quality is evaluated at claim level
+
+Whole-source trust labels are too coarse for adversarial or contested domains. A prestigious source can make a claim based on inaccessible or weak evidence; a low-reputation source can point to a genuine primary document.
+
+Convergence Guard therefore separates:
+
+- who or what made the claim;
+- what evidence is actually inspectable;
+- whether several sources share one upstream observation;
+- whether the source is evidence, corroboration, context, a lead, or unsupported.
+
+The aim is not to make all sources equal. It is to make their **epistemic role explicit**.
+
+This prevents two opposite errors:
+
+1. **authority substitution** — treating official or peer-reviewed status as a truth guarantee;
+2. **source dismissal** — rejecting a potentially valid observation merely because it was surfaced by a low-prestige or partisan source.
+
+The nearest available primary evidence is preferred for factual grounding, while secondary or fringe material can remain useful for discovery. When underlying evidence is inaccessible, only the existence and content of the public assessment are directly confirmable.
+
+This does not make "primary" synonymous with "best overall inference." For cumulative scientific questions, a transparent synthesis can be more informative than a single primary study. Nor do conflicts, funding, ideology, or inaccessible data automatically falsify a claim; they identify limitations or bias channels that must be investigated rather than used as verdict shortcuts.
+
+The shared evidence brief also prevents evidence acquisition from becoming a hidden branch advantage. A blind worker may discover a useful lead, but material new evidence is promoted through a shared checkpoint before it changes the decision. Otherwise branch disagreement could reflect different private fact sets rather than different causal explanations.
 
 ### 7.2 Decision contract
 
@@ -692,7 +726,7 @@ Rigor is measured by preservation of the relevant information barriers and decis
 | Threat | Primary controls | Residual risk |
 |---|---|---|
 | T1 Premature convergence | decision contract; three causally distinct mandates; coverage gate | all mandates can still share a hidden framing |
-| T2 Evidence-source dependence | provenance labels; shared-bias audit; no worker-vote logic | upstream source ancestry may be unknown |
+| T2 Evidence-source dependence / authority substitution | provenance labels; claim-level source roles; source-ancestry tracing; shared-bias audit; no worker-vote logic | upstream ancestry, hidden evidence, or selective disclosure may remain unknown |
 | T3 Hidden context leakage | explicit allowlists; fresh contexts; boundary verification; runtime-specific preflight where defined; Reduced Mode boundary | host-side hidden injection may be unobservable |
 | T4 Causal non-identification | predictions; disconfirmers; identification labels; pairwise collision | some domains remain observationally underdetermined |
 | T5 Proxy substitution | decision contract; forbidden substitutions; success criterion | the original objective itself may be poorly specified |
@@ -711,6 +745,12 @@ Rigor is measured by preservation of the relevant information barriers and decis
 ### Majority vote
 
 Rejected because workers share training, framing, and often evidence. Vote count is not real-world corroboration.
+
+### Source-prestige ranking
+
+Rejected because `official`, `peer reviewed`, `expert`, or `primary` describe provenance or process rather than guaranteeing a proposition. Prestige can prioritize verification effort but cannot replace claim-level inspection.
+
+The opposite rule — automatically discarding fringe, partisan, anonymous, or advocacy sources — is also rejected. Such sources may surface a valid lead, but the underlying material must carry the evidential weight.
 
 ### One global score
 

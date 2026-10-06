@@ -30,6 +30,7 @@ Sequential sections in one context remain vulnerable to shared anchoring and mem
 ## Reduced workflow
 
 1. Build the evidence brief and decision contract.
+   Apply the same claim-level source-quality and provenance rules as Full Mode; Reduced Mode relaxes context-isolation guarantees, not evidence standards.
 2. Perform the framing/outside-view check.
 3. Generate at least three deliberately different search mandates **before** generating candidate models.
 4. Complete each mandate in a separate labeled pass without editing earlier candidate outputs.

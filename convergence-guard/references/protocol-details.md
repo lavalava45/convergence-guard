@@ -27,6 +27,100 @@ Use these labels consistently:
 
 A user's direct observation can be highly valuable while still being `REPORTED` if the underlying event was not independently inspected. The label tracks provenance, not trustworthiness or importance.
 
+Inspecting a source does not automatically confirm every proposition inside it. Distinguish:
+
+- `CONFIRMED`: "document D states X";
+- `REPORTED`: "X occurred", when D's underlying evidence is unavailable or uninspected.
+
+### 2.1 Claim-level source-quality policy
+
+Evaluate **claims**, not whole websites, journals, institutions, agencies, newspapers, or communities as globally true or false.
+
+For each material claim, trace the evidence chain toward the nearest available inspectable source and record, where practical:
+
+1. nearest primary source or raw observation;
+2. source type;
+3. inspectability;
+4. method / raw-data availability;
+5. temporal proximity;
+6. common evidence ancestry;
+7. known contradictory evidence;
+8. material incentives or conflicts that could affect reporting or selection;
+9. the source's permitted epistemic role in the current run.
+
+Use:
+
+- `EVIDENCE` — directly bears on the claim and is inspectable enough to support it;
+- `CORROBORATION` — genuinely independent support for evidence already present;
+- `CONTEXT` — background useful for interpretation but not material proof;
+- `LEAD ONLY` — useful for discovering a claim, person, document, dataset, or hypothesis that must be traced before receiving evidential weight;
+- `UNSUPPORTED` — insufficiently grounded to affect the decision.
+
+#### Authority is not a truth label
+
+`Official`, `government`, `peer reviewed`, `institutional`, `expert`, and `primary` describe provenance or process. None automatically establishes the truth of the claim.
+
+Use an official source as the best source for what that institution officially said or recorded. Treat the underlying substantive proposition separately.
+
+Peer review raises the cost of some classes of error but does not substitute for inspecting methods, data, selection, assumptions, corrections, retractions, expressions of concern, or independent replication where decision-relevant.
+
+Primary evidence is normally preferred for direct factual grounding, but primary sources can still be mistaken, incomplete, deceptive, selected, contaminated, or poorly measured.
+
+For aggregate scientific questions, a transparent systematic review, meta-analysis, or other high-quality synthesis may carry more decision-relevant evidential weight than a single primary study when its inclusion criteria, methods, and constituent evidence are inspectable. "Trace to primary" is a provenance rule, not a ban on synthesis.
+
+#### Secondary and low-verifiability sources
+
+Secondary sources are acceptable for orientation, synthesis, and source discovery. For a material disputed claim, descend to the nearest available primary evidence whenever practical.
+
+Advocacy, partisan, activist, fringe, anonymous, or conspiracy-oriented sources are not automatically banned. Treat them primarily as **lead generators**. If they cite a concrete document, dataset, recording, or experiment, inspect that underlying material directly. If the underlying support cannot be established, the claim remains `LEAD ONLY`, `REPORTED`, or `UNSUPPORTED` as appropriate.
+
+#### Inaccessible or classified support
+
+If a public document states that a non-public evidence base supports conclusion X:
+
+- it can be `CONFIRMED` that the institution made assessment X;
+- its stated confidence level can be recorded;
+- the inaccessible evidence itself cannot be counted as directly inspected;
+- do not convert institutional confidence into model probability.
+
+#### Common evidence ancestry
+
+Do not count downstream repetition as independent corroboration.
+
+Examples:
+
+- five newspapers repeating one wire-service report are one upstream branch unless they add independent reporting;
+- several articles using the same underlying dataset do not constitute several independent datasets;
+- multiple agencies may still share one intelligence stream;
+- multiple workers reading the same evidence do not create new real-world evidence.
+
+When ancestry matters to the decision, record a compact source-dependency chain or graph.
+
+#### Contradictions
+
+Preserve material contradictory primary evidence in the brief. Do not resolve contradictions merely by counting sources or choosing the most prestigious institution.
+
+Record what observation, provenance check, replication, or missing source could resolve the conflict.
+
+#### Conflicts, incentives, and missing transparency
+
+Funding, affiliation, ideology, institutional interest, personal incentive, or other conflicts identify possible bias mechanisms to inspect. They do not automatically discount evidence and are never sufficient by themselves to classify a substantive claim as false.
+
+Similarly, unavailable raw data, classified support, missing records, or non-reproducibility reduce what can be verified. Absence of inspectability is a limitation on evidential weight, not positive evidence for the opposite proposition unless the missingness itself is independently diagnostic.
+
+#### New sources discovered inside a blind branch
+
+An isolation-dependent worker may identify a useful source, document, dataset, or search lead while developing its causal model. Treat that discovery as a proposed evidence update, not as branch-private factual privilege.
+
+If the new material could change screening, mapping, the slate, or the decision:
+
+1. return the source/claim as a lead with provenance;
+2. inspect and classify it through the shared evidence process;
+3. update the common evidence brief;
+4. rerun only the affected downstream operations.
+
+Do not let competing branches accumulate materially different private evidence bases and then interpret their different conclusions as causal independence.
+
 ## 3. Optional independent reframe review
 
 Trigger when one or more are true:
