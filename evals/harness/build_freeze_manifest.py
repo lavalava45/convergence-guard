@@ -40,7 +40,7 @@ def main() -> int:
     evals = repo / "evals"
     manifest = {
         "freeze_status": "frozen",
-        "benchmark_version": "main-v0.1.1",
+        "benchmark_version": "main-v0.1.2",
         "repository_head": git_output(repo, "rev-parse", "HEAD"),
         "repository_dirty": bool(git_output(repo, "status", "--porcelain")),
         "hashes": {
@@ -52,8 +52,13 @@ def main() -> int:
             "private_main_tree_sha256": sha256_tree(args.private_main),
         },
         "runtime": {
-            "name": "LM Studio OpenAI-compatible local API",
+            "name": "LM Studio direct loaded llama-server OpenAI-compatible API",
             "model": "gemma-4-12b-it",
+            "model_file": "gemma-4-12b-it-Q6_K.gguf",
+            "context_size": 15000,
+            "gpu_layers": "all (--n-gpu-layers 999999)",
+            "kv_offload": True,
+            "parallel_slots": 1,
             "temperature": 0.2,
             "tools_enabled": False,
             "retrieval_enabled": False,
@@ -80,8 +85,8 @@ def main() -> int:
                 "cg-reduced",
                 "cg-full",
             ],
-            "repeats": 2,
-            "run_count": 64,
+            "repeats": 1,
+            "run_count": 32,
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

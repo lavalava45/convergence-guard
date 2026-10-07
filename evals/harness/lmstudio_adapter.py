@@ -9,10 +9,14 @@ import sys
 import time
 import urllib.error
 import urllib.request
+import copy
 from typing import Any
+
+import jsonschema
 
 
 BASE_URL = os.environ.get("LMSTUDIO_BASE_URL", "http://127.0.0.1:1234/v1")
+API_KEY = os.environ.get("LMSTUDIO_API_KEY")
 
 
 def main() -> int:
@@ -32,12 +36,25 @@ def main() -> int:
 
     schema = request.get("response_schema")
     if schema:
+        grammar_schema = schema
+        # llama.cpp 2.52.0 resets the connection on the frozen calibration
+        # schema when numeric minimum/maximum are present. Remove only those
+        # two grammar constraints server-side; validate the returned object
+        # locally against the untouched frozen schema below.
+        if "calibration" in str(schema.get("title", "")).lower():
+            grammar_schema = copy.deepcopy(schema)
+            p_schema = (
+                grammar_schema["properties"]["probabilities"]["items"]
+                ["properties"]["p"]
+            )
+            p_schema.pop("minimum", None)
+            p_schema.pop("maximum", None)
         payload["response_format"] = {
             "type": "json_schema",
             "json_schema": {
                 "name": "eval_response",
                 "strict": True,
-                "schema": schema,
+                "schema": grammar_schema,
             },
         }
 
@@ -52,7 +69,10 @@ def main() -> int:
         req = urllib.request.Request(
             f"{BASE_URL}/chat/completions",
             data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers={
+                "Content-Type": "application/json",
+                **({"Authorization": f"Bearer {API_KEY}"} if API_KEY else {}),
+            },
             method="POST",
         )
         try:
@@ -86,6 +106,8 @@ def main() -> int:
 
     choice = result["choices"][0]
     message = choice.get("message") or {}
+    if schema:
+        jsonschema.validate(json.loads(message.get("content") or ""), schema)
     usage = result.get("usage") or {}
     details = usage.get("completion_tokens_details") or {}
     envelope = {
