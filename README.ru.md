@@ -63,14 +63,16 @@ Full Mode не привязан к конкретному runtime, но треб
 
 ## Когда Convergence Guard действительно нужен?
 
-Convergence Guard не должен автоматически усложнять любую задачу. Текущий технический пилот уже дал важный сигнал о границе применимости:
+Convergence Guard не должен автоматически усложнять любую задачу. Замороженный benchmark `main-v0.1.7` теперь даёт более широкий сигнал о границе применимости: восемь причинных режимов, четыре режима анализа и 32 participant runs — по одному repeat на каждую ячейку `case × mode`.
 
-- на **прямо разрешимом** инциденте P01 обычный single-context baseline дал правильный по ключу результат `CHOOSE`, тогда как shared-context дал `COEXIST`, а Reduced и Full Mode — `INSUFFICIENT`; при этом все четыре режима рекомендовали правильное корректирующее действие;
-- на **намеренно недоопределённом** инциденте P02 все четыре режима правильно вернули `INSUFFICIENT` и предложили диагностический/canary-шаг вместо принудительного выбора одной причины.
+- `cg-full` дал **0/8 premature winners**, **2/2 correct abstentions** на keyed-insufficient cases и самый высокий mean action quality (**1.875/2**), но дорого: в среднем около **9.1 model calls, 12.5k input tokens и 5.6k output tokens на case**;
+- shared-context multi-agent тоже дал **0/8 premature winners** и **2/2 correct abstentions**, потребляя меньше ресурсов, но уступая по среднему action и next-test score;
+- single-context и `cg-reduced` получили по одному premature winner на специально deceptive-underdetermination case M05;
+- Full Mode **не** доминировал по всем diagnostics: его literal declared status совпал с hidden key в 5/8 cases против 6/8 у single-context, а текущий metric set не сводит все structural ошибки между `CHOOSE / COEXIST / INSUFFICIENT` к одной метрике correctness.
 
-Это **не** доказывает, что CG в целом лучше или хуже. Но формирует конкретную гипотезу для основного бенчмарка: тяжёлый CG может быть избыточным или чрезмерно осторожным, когда одна причина уже практически установлена напрямую, и становиться полезнее по мере роста причинной неоднозначности, confounding, framing risk, зависимости evidence и цены преждевременного решения.
+Поэтому результат поддерживает **selective-use** стратегию: тяжёлая структура полезнее при высоком framing risk, evidence dependence, причинной неоднозначности или высокой цене преждевременного решения, но она дорога и не должна быть default для любой разрешимой задачи.
 
-См. двуязычные [Applicability Guide](convergence-guard/references/applicability.md) / [Руководство по применимости](convergence-guard/references/applicability.ru.md) с классами задач, примерами и быстрым activation test. Подробный отчёт о пилоте находится в [evals/PILOT-REPORT-v0.1.md](evals/PILOT-REPORT-v0.1.md).
+См. двуязычные [Applicability Guide](convergence-guard/references/applicability.md) / [Руководство по применимости](convergence-guard/references/applicability.ru.md), таблицу [main benchmark metrics](evals/results/main-v0.1.7/REPORT.md) и парную [English](evals/results/main-v0.1.7/INTERPRETATION.md) / [Russian](evals/results/main-v0.1.7/INTERPRETATION.ru.md) интерпретацию. Более ранний двух-case technical pilot сохранён в [evals/PILOT-REPORT-v0.1.md](evals/PILOT-REPORT-v0.1.md).
 
 ## Текущий процесс
 
@@ -216,7 +218,7 @@ Convergence Guard/
 
 Текущий tagged pre-release — v0.2.2. Более поздние unreleased changes, когда они появляются, фиксируются в [CHANGELOG.ru.md](CHANGELOG.ru.md).
 
-Метод уже прошёл первый архитектурный и методологический аудит и теперь содержит публичные Full Mode examples: историческую attribution-задачу, актуальный научный вопрос с асимметричным evidence и современную задачу надёжности AI-агентов. Кроме того, автоматический technical pilot на двух cases прогнал все четыре сравниваемых режима и дал первый сигнал о границе применимости: прямо разрешимые задачи могут выявлять over-analysis / over-abstention у тяжёлого CG, а недоопределённые задачи проверяют его легитимный путь отказа от преждевременного выбора. Это pilot evidence, а не performance claim. Перед сильными выводами всё ещё нужен более широкий заранее зафиксированный main benchmark.
+Метод уже прошёл первый архитектурный и методологический аудит и содержит публичные Full Mode examples: историческую attribution-задачу, актуальный научный вопрос с асимметричным evidence и современную задачу надёжности AI-агентов. За двух-case technical pilot теперь последовал замороженный comparative benchmark `main-v0.1.7`: 8 cases × 4 modes × 1 repeat = 32 participant runs, затем 32 calibration runs и blind semantic judging по нейтральным answer IDs. Это evidence для карты применимости, а не универсальный superiority claim: в этом наборе из восьми cases у Full Mode не наблюдалось premature winners и он дал самые сильные средние actions, но стоил значительно дороже и всё ещё показывал structural/status mismatches на части coexistence cases.
 
 ## Происхождение
 

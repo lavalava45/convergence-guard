@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- completed the frozen `main-v0.1.7` comparative benchmark: 8 cases × 4 modes × 1 repeat = 32 primary runs, followed by 32/32 calibration completions and blind semantic judging under neutral answer IDs;
+- added machine-readable and human-readable main-study results under `evals/results/main-v0.1.7/`, including paired English/Russian interpretation and explicit resource-cost, calibration, normalization, and metric-limit caveats;
+- documented the final dedicated `llama-server 2.52.0` no-prompt-cache runtime used to complete the frozen study after earlier LM Studio-managed transport/cache failures;
 - added paired English/Russian applicability guidance with task classes, a quick activation test, and explicit examples of when CG may be excessive versus useful;
 - documented the two-case automated local technical pilot, including the P01 over-analysis/over-abstention signal and the P02 underdetermination result;
 - added deterministic output normalization v0.1 for mechanically inconsistent non-choice `preferred_cause` fields, with raw-answer preservation and repair auditing;

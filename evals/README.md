@@ -9,7 +9,7 @@ The eval compares four complete workflows:
 3. `cg-reduced`
 4. `cg-full`
 
-The first stage is a technical pilot: two cases × four modes × one run each = eight runs. The main study is intentionally not created yet. Main-case authoring and the final freeze happen only after the pilot exposes procedural defects.
+The first stage was a technical pilot: two cases × four modes × one run each = eight runs. The pilot was then followed by the frozen `main-v0.1.7` study: eight new cases × four modes × one repeat = 32 participant runs. The reduction from the earlier two-repeat/64-run draft was declared before the final study version began.
 
 ## Safety boundary
 
@@ -34,20 +34,19 @@ The validator rejects common hidden-key filenames if they appear inside a public
 - Mode definitions: `protocol/modes/`
 - Pilot cases: `cases/pilot/P01`, `cases/pilot/P02`
 - Harness utilities: `harness/`
+- Frozen main-study manifest: `FREEZE-MANIFEST-main-v0.1.7.json`
+- Main-study metric report: `results/main-v0.1.7/REPORT.md`
+- Main-study interpretation: `results/main-v0.1.7/INTERPRETATION.md` / `INTERPRETATION.ru.md`
 
-No main-run result should be interpreted from this draft. The v0.1 files are pilot infrastructure, not a frozen preregistration.
+The final `main-v0.1.7` result set contains 32/32 completed primary runs, 32/32 completed calibration runs, and 32 blind semantic judgments. The study is descriptive: one model, eight cases, and one repeat per cell do not support broad population claims or a universal mode ranking.
 
-## Pilot workflow
+## Reproducing the public eval structure
 
 ```powershell
 python evals/harness/validate_cases.py evals/cases/pilot
 python evals/harness/make_run_plan.py --cases evals/cases/pilot --repeats 1 --seed 20261006 --output evals/run-plans/pilot-v0.1.json
 ```
 
-After the eight technical pilot runs:
+Historically, the pilot was used to inspect isolation, logging, usage collection, rubric ambiguity, and output normalization before the main cases were frozen. The final main run plan is `run-plans/main-v0.1.json`; the result aggregate can be regenerated with `harness/aggregate_main_results.py` when the private hidden keys, blind map, and judge-score files are available outside the public repository.
 
-1. inspect isolation, logging, usage collection, rubric ambiguity, and output normalization;
-2. revise the procedure if needed;
-3. create the eight new main cases;
-4. freeze protocol, cases, rubric, model/settings, budget, and run plan;
-5. only then start the 64-run main study.
+Private ground truth and judge mappings are intentionally not published here. The committed `summary.json`, metric report, and interpretation are the public result artifacts; raw participant run directories remain outside version control.

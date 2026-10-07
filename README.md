@@ -65,14 +65,16 @@ For evidence-heavy research, Convergence Guard also evaluates **claims rather th
 
 ## When is Convergence Guard worth using?
 
-Convergence Guard is not meant to make every problem harder. A current technical pilot produced an important applicability signal:
+Convergence Guard is not meant to make every problem harder. The frozen `main-v0.1.7` benchmark now provides a broader applicability signal across eight causal regimes and four modes (32 participant runs total, one repeat per `case × mode` cell).
 
-- on a **direct-resolvable** incident (P01), the ordinary single-context baseline returned the keyed `CHOOSE` result, while shared-context returned `COEXIST` and both Reduced and Full Mode returned `INSUFFICIENT`; all four still recommended the correct corrective action;
-- on an **intentionally underdetermined** incident (P02), all four modes correctly returned `INSUFFICIENT` and proposed diagnostic/canary-style next steps.
+- `cg-full` produced **0/8 premature winners**, **2/2 correct abstentions** on the keyed-insufficient cases, and the highest mean action quality (**1.875/2**), but at high cost: about **9.1 model calls, 12.5k input tokens, and 5.6k output tokens per case** on average;
+- shared-context multi-agent also produced **0/8 premature winners** and **2/2 correct abstentions**, with lower cost but weaker mean action and next-test scores;
+- single-context and `cg-reduced` each produced one premature winner on the deliberately deceptive underdetermination case M05;
+- Full Mode did **not** dominate every diagnostic: its literal declared status matched the hidden key in 5/8 cases, versus 6/8 for single-context, and the current metric set does not fully collapse every `CHOOSE / COEXIST / INSUFFICIENT` structural error into one scalar correctness score.
 
-This does **not** prove that CG is better or worse in general. It suggests a concrete hypothesis for the main benchmark: heavy CG may be unnecessary or over-cautious when one cause is already directly identified, while becoming more useful as causal ambiguity, confounding, framing risk, evidence dependence, and the cost of premature commitment increase.
+The result therefore supports a **selective-use** interpretation: heavier structure appears most useful when framing risk, evidence dependence, causal ambiguity, or premature-commitment cost are high, but it is expensive and should not be treated as the default for every resolvable task.
 
-See the bilingual [Applicability Guide](convergence-guard/references/applicability.md) / [Руководство по применимости](convergence-guard/references/applicability.ru.md) for task classes, examples, and a quick activation test. The detailed pilot record is in [evals/PILOT-REPORT-v0.1.md](evals/PILOT-REPORT-v0.1.md).
+See the bilingual [Applicability Guide](convergence-guard/references/applicability.md) / [Руководство по применимости](convergence-guard/references/applicability.ru.md), the raw [main benchmark metric report](evals/results/main-v0.1.7/REPORT.md), and the paired [English](evals/results/main-v0.1.7/INTERPRETATION.md) / [Russian](evals/results/main-v0.1.7/INTERPRETATION.ru.md) interpretation. The earlier two-case technical pilot remains documented in [evals/PILOT-REPORT-v0.1.md](evals/PILOT-REPORT-v0.1.md).
 
 ## Current workflow
 
@@ -216,7 +218,7 @@ The exact installation mechanism depends on the client. A compatible client shou
 
 The current tagged pre-release is v0.2.2. Later unreleased changes, when present, are tracked in [CHANGELOG.md](CHANGELOG.md).
 
-The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution, a current evidence-asymmetric scientific-origin question, and a contemporary AI-agent reliability problem. A two-case automated technical pilot has also exercised all four comparison modes and produced the first applicability signal: direct-resolvable tasks may expose CG over-analysis/over-abstention, while underdetermined tasks exercise its legitimate abstention path. This is pilot evidence, not a performance claim. A broader pre-registered main benchmark is still needed.
+The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution, a current evidence-asymmetric scientific-origin question, and a contemporary AI-agent reliability problem. The two-case technical pilot has been followed by the frozen `main-v0.1.7` comparative benchmark: 8 cases × 4 modes × 1 repeat = 32 participant runs, followed by 32 calibration runs and blind semantic judging under neutral answer IDs. The result is evidence for an applicability map, not a universal superiority claim: in this 8-case set Full Mode had no observed premature winners and produced the strongest mean actions, while imposing much higher resource cost and still showing structural/status mismatches on some coexistence cases.
 
 ## Attribution
 

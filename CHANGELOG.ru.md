@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- завершён замороженный comparative benchmark `main-v0.1.7`: 8 cases × 4 modes × 1 repeat = 32 primary runs, затем 32/32 calibration completions и blind semantic judging по нейтральным answer IDs;
+- добавлены машиночитаемые и человекочитаемые main-study results в `evals/results/main-v0.1.7/`, включая парную English/Russian интерпретацию и явные caveats по resource cost, calibration, normalization и ограничениям metric set;
+- задокументирован финальный dedicated runtime `llama-server 2.52.0` без prompt cache, на котором frozen study был завершён после предыдущих transport/cache failures управляемого LM Studio backend;
 - добавлено парное English/Russian руководство по применимости с классами задач, быстрым activation test и явными примерами, когда CG может быть избыточным или полезным;
 - задокументирован автоматический локальный technical pilot на двух cases, включая сигнал over-analysis / over-abstention на P01 и корректную работу с недоопределённостью на P02;
 - добавлена детерминированная normalization policy v0.1 для механически противоречивого `preferred_cause` при non-choice status с сохранением raw-answer и полным audit trail;

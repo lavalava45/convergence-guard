@@ -1,0 +1,1169 @@
+{
+  "benchmark_version": "main-v0.1.7",
+  "run_count": 32,
+  "no_composite_score": true,
+  "by_mode": {
+    "cg-full": {
+      "n": 8,
+      "premature_winner_rate": 0.0,
+      "correct_abstention_rate_applicable": 1.0,
+      "over_abstention_rate_applicable": 0.0,
+      "action_quality_mean": 1.875,
+      "causal_mechanism_recall_mean": 1.0,
+      "unsupported_mechanisms_mean": 0.125,
+      "evidence_dependence_errors_mean": 0.0,
+      "next_test_quality_mean": 1.5,
+      "calibration_brier_mean": 0.006979166666666668,
+      "declared_status_match_rate": 0.625,
+      "normalization_repair_rate": 0.625,
+      "primary_model_calls_mean": 9.125,
+      "primary_input_tokens_mean": 12531.625,
+      "primary_output_tokens_mean": 5644.125,
+      "primary_transport_retries_total": 6
+    },
+    "cg-reduced": {
+      "n": 8,
+      "premature_winner_rate": 0.125,
+      "correct_abstention_rate_applicable": 0.5,
+      "over_abstention_rate_applicable": 0.0,
+      "action_quality_mean": 1.5,
+      "causal_mechanism_recall_mean": 0.9583333333375,
+      "unsupported_mechanisms_mean": 0.0,
+      "evidence_dependence_errors_mean": 0.0,
+      "next_test_quality_mean": 1.625,
+      "calibration_brier_mean": 0.015416666666666665,
+      "declared_status_match_rate": 0.5,
+      "normalization_repair_rate": 0.875,
+      "primary_model_calls_mean": 1.0,
+      "primary_input_tokens_mean": 1665.375,
+      "primary_output_tokens_mean": 635.5,
+      "primary_transport_retries_total": 0
+    },
+    "shared-context-multi-agent": {
+      "n": 8,
+      "premature_winner_rate": 0.0,
+      "correct_abstention_rate_applicable": 1.0,
+      "over_abstention_rate_applicable": 0.0,
+      "action_quality_mean": 1.625,
+      "causal_mechanism_recall_mean": 1.0,
+      "unsupported_mechanisms_mean": 0.0,
+      "evidence_dependence_errors_mean": 0.0,
+      "next_test_quality_mean": 1.25,
+      "calibration_brier_mean": 0.026979166666666672,
+      "declared_status_match_rate": 0.625,
+      "normalization_repair_rate": 0.875,
+      "primary_model_calls_mean": 4.375,
+      "primary_input_tokens_mean": 6851.875,
+      "primary_output_tokens_mean": 2220.375,
+      "primary_transport_retries_total": 3
+    },
+    "single-context": {
+      "n": 8,
+      "premature_winner_rate": 0.125,
+      "correct_abstention_rate_applicable": 0.5,
+      "over_abstention_rate_applicable": 0.0,
+      "action_quality_mean": 1.625,
+      "causal_mechanism_recall_mean": 1.0,
+      "unsupported_mechanisms_mean": 0.5,
+      "evidence_dependence_errors_mean": 0.0,
+      "next_test_quality_mean": 1.625,
+      "calibration_brier_mean": 0.004166666666666667,
+      "declared_status_match_rate": 0.75,
+      "normalization_repair_rate": 0.625,
+      "primary_model_calls_mean": 1.0,
+      "primary_input_tokens_mean": 924.375,
+      "primary_output_tokens_mean": 748.0,
+      "primary_transport_retries_total": 0
+    }
+  },
+  "runs": [
+    {
+      "run_id": "M01-r1-cg-full",
+      "neutral_id": "R0013",
+      "case_id": "M01",
+      "applicability_class": "direct-resolvable",
+      "mode": "cg-full",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "CHOOSE",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 0,
+      "resource": {
+        "primary_model_calls": 7,
+        "primary_input_tokens": 9359,
+        "primary_output_tokens": 4501,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1193,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M01-r1-cg-reduced",
+      "neutral_id": "R0012",
+      "case_id": "M01",
+      "applicability_class": "direct-resolvable",
+      "mode": "cg-reduced",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 1548,
+        "primary_output_tokens": 548,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1168,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M01-r1-shared-context-multi-agent",
+      "neutral_id": "R0026",
+      "case_id": "M01",
+      "applicability_class": "direct-resolvable",
+      "mode": "shared-context-multi-agent",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 4,
+        "primary_input_tokens": 5918,
+        "primary_output_tokens": 1975,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1282,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M01-r1-single-context",
+      "neutral_id": "R0014",
+      "case_id": "M01",
+      "applicability_class": "direct-resolvable",
+      "mode": "single-context",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "CHOOSE",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 0,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 807,
+        "primary_output_tokens": 615,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1227,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M02-r1-cg-full",
+      "neutral_id": "R0001",
+      "case_id": "M02",
+      "applicability_class": "resolvable-strong-distractor",
+      "mode": "cg-full",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "CHOOSE",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 0,
+      "resource": {
+        "primary_model_calls": 7,
+        "primary_input_tokens": 9745,
+        "primary_output_tokens": 4501,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1259,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M02-r1-cg-reduced",
+      "neutral_id": "R0024",
+      "case_id": "M02",
+      "applicability_class": "resolvable-strong-distractor",
+      "mode": "cg-reduced",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0008333333333333335,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 1577,
+        "primary_output_tokens": 663,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 2,
+        "calibration_input_tokens": 1318,
+        "calibration_output_tokens": 107,
+        "calibration_transport_retries": 1
+      }
+    },
+    {
+      "run_id": "M02-r1-shared-context-multi-agent",
+      "neutral_id": "R0028",
+      "case_id": "M02",
+      "applicability_class": "resolvable-strong-distractor",
+      "mode": "shared-context-multi-agent",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 4,
+        "primary_input_tokens": 6126,
+        "primary_output_tokens": 2037,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1358,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M02-r1-single-context",
+      "neutral_id": "R0011",
+      "case_id": "M02",
+      "applicability_class": "resolvable-strong-distractor",
+      "mode": "single-context",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "CHOOSE",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0008333333333333335,
+      "normalization_repairs": 0,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 836,
+        "primary_output_tokens": 543,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1188,
+        "calibration_output_tokens": 107,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M03-r1-cg-full",
+      "neutral_id": "R0010",
+      "case_id": "M03",
+      "applicability_class": "multiple-plausible-separable",
+      "mode": "cg-full",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 1,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 8,
+        "primary_input_tokens": 11294,
+        "primary_output_tokens": 5859,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1255,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M03-r1-cg-reduced",
+      "neutral_id": "R0020",
+      "case_id": "M03",
+      "applicability_class": "multiple-plausible-separable",
+      "mode": "cg-reduced",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 1549,
+        "primary_output_tokens": 598,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1190,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M03-r1-shared-context-multi-agent",
+      "neutral_id": "R0017",
+      "case_id": "M03",
+      "applicability_class": "multiple-plausible-separable",
+      "mode": "shared-context-multi-agent",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 0
+      },
+      "structural": {
+        "declared_status": "CHOOSE",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 0,
+      "resource": {
+        "primary_model_calls": 4,
+        "primary_input_tokens": 5956,
+        "primary_output_tokens": 2051,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1339,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M03-r1-single-context",
+      "neutral_id": "R0003",
+      "case_id": "M03",
+      "applicability_class": "multiple-plausible-separable",
+      "mode": "single-context",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 2,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 808,
+        "primary_output_tokens": 759,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1329,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M04-r1-cg-full",
+      "neutral_id": "R0021",
+      "case_id": "M04",
+      "applicability_class": "genuine-underdetermination",
+      "mode": "cg-full",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": 1,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.053333333333333344,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 9,
+        "primary_input_tokens": 11537,
+        "primary_output_tokens": 5351,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1224,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M04-r1-cg-reduced",
+      "neutral_id": "R0009",
+      "case_id": "M04",
+      "applicability_class": "genuine-underdetermination",
+      "mode": "cg-reduced",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": 1,
+        "over_abstention": null,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.12,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 1504,
+        "primary_output_tokens": 723,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 2,
+        "calibration_input_tokens": 1280,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 1
+      }
+    },
+    {
+      "run_id": "M04-r1-shared-context-multi-agent",
+      "neutral_id": "R0002",
+      "case_id": "M04",
+      "applicability_class": "genuine-underdetermination",
+      "mode": "shared-context-multi-agent",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": 1,
+        "over_abstention": null,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.21333333333333337,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 5,
+        "primary_input_tokens": 6541,
+        "primary_output_tokens": 2317,
+        "primary_transport_retries": 1,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1239,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M04-r1-single-context",
+      "neutral_id": "R0022",
+      "case_id": "M04",
+      "applicability_class": "genuine-underdetermination",
+      "mode": "single-context",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": 1,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 1,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.03,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 763,
+        "primary_output_tokens": 674,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1239,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M05-r1-cg-full",
+      "neutral_id": "R0004",
+      "case_id": "M05",
+      "applicability_class": "deceptive-underdetermination",
+      "mode": "cg-full",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": 1,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0025000000000000005,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 11,
+        "primary_input_tokens": 15952,
+        "primary_output_tokens": 8297,
+        "primary_transport_retries": 1,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1520,
+        "calibration_output_tokens": 130,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M05-r1-cg-reduced",
+      "neutral_id": "R0019",
+      "case_id": "M05",
+      "applicability_class": "deceptive-underdetermination",
+      "mode": "cg-reduced",
+      "semantic": {
+        "premature_winner": 1,
+        "correct_abstention": 0,
+        "over_abstention": null,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0025000000000000005,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 1581,
+        "primary_output_tokens": 704,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1362,
+        "calibration_output_tokens": 130,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M05-r1-shared-context-multi-agent",
+      "neutral_id": "R0027",
+      "case_id": "M05",
+      "applicability_class": "deceptive-underdetermination",
+      "mode": "shared-context-multi-agent",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": 1,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0025000000000000005,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 4,
+        "primary_input_tokens": 7533,
+        "primary_output_tokens": 2827,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1496,
+        "calibration_output_tokens": 130,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M05-r1-single-context",
+      "neutral_id": "R0025",
+      "case_id": "M05",
+      "applicability_class": "deceptive-underdetermination",
+      "mode": "single-context",
+      "semantic": {
+        "premature_winner": 1,
+        "correct_abstention": 0,
+        "over_abstention": null,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0025000000000000005,
+      "normalization_repairs": 0,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 840,
+        "primary_output_tokens": 844,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1472,
+        "calibration_output_tokens": 130,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M06-r1-cg-full",
+      "neutral_id": "R0016",
+      "case_id": "M06",
+      "applicability_class": "genuine-coexistence-parallel",
+      "mode": "cg-full",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 9,
+        "primary_input_tokens": 9512,
+        "primary_output_tokens": 4892,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 978,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M06-r1-cg-reduced",
+      "neutral_id": "R0007",
+      "case_id": "M06",
+      "applicability_class": "genuine-coexistence-parallel",
+      "mode": "cg-reduced",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": null,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 1355,
+        "primary_output_tokens": 631,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 998,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M06-r1-shared-context-multi-agent",
+      "neutral_id": "R0030",
+      "case_id": "M06",
+      "applicability_class": "genuine-coexistence-parallel",
+      "mode": "shared-context-multi-agent",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": null,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 4,
+        "primary_input_tokens": 4990,
+        "primary_output_tokens": 1630,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 869,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M06-r1-single-context",
+      "neutral_id": "R0032",
+      "case_id": "M06",
+      "applicability_class": "genuine-coexistence-parallel",
+      "mode": "single-context",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": null,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 614,
+        "primary_output_tokens": 855,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1047,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M07-r1-cg-full",
+      "neutral_id": "R0006",
+      "case_id": "M07",
+      "applicability_class": "interaction-layered-causality",
+      "mode": "cg-full",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 12,
+        "primary_input_tokens": 13581,
+        "primary_output_tokens": 6233,
+        "primary_transport_retries": 2,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1181,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M07-r1-cg-reduced",
+      "neutral_id": "R0023",
+      "case_id": "M07",
+      "applicability_class": "interaction-layered-causality",
+      "mode": "cg-reduced",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "INSUFFICIENT",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 1434,
+        "primary_output_tokens": 623,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1109,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M07-r1-shared-context-multi-agent",
+      "neutral_id": "R0015",
+      "case_id": "M07",
+      "applicability_class": "interaction-layered-causality",
+      "mode": "shared-context-multi-agent",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 6,
+        "primary_input_tokens": 6006,
+        "primary_output_tokens": 2198,
+        "primary_transport_retries": 2,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1183,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M07-r1-single-context",
+      "neutral_id": "R0018",
+      "case_id": "M07",
+      "applicability_class": "interaction-layered-causality",
+      "mode": "single-context",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": null,
+        "action_quality": 2,
+        "causal_mechanism_recall": 1,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 693,
+        "primary_output_tokens": 795,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 1244,
+        "calibration_output_tokens": 106,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M08-r1-cg-full",
+      "neutral_id": "R0029",
+      "case_id": "M08",
+      "applicability_class": "mini-open-world-investigation",
+      "mode": "cg-full",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "CHOOSE",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 0,
+      "resource": {
+        "primary_model_calls": 10,
+        "primary_input_tokens": 19273,
+        "primary_output_tokens": 5519,
+        "primary_transport_retries": 3,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 2601,
+        "calibration_output_tokens": 130,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M08-r1-cg-reduced",
+      "neutral_id": "R0031",
+      "case_id": "M08",
+      "applicability_class": "mini-open-world-investigation",
+      "mode": "cg-reduced",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 1,
+        "causal_mechanism_recall": 0.6666666667,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "CHOOSE",
+        "declared_status_matches_key": true,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 0,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 2775,
+        "primary_output_tokens": 594,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 2480,
+        "calibration_output_tokens": 130,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M08-r1-shared-context-multi-agent",
+      "neutral_id": "R0005",
+      "case_id": "M08",
+      "applicability_class": "mini-open-world-investigation",
+      "mode": "shared-context-multi-agent",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 0,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 2
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 4,
+        "primary_input_tokens": 11745,
+        "primary_output_tokens": 2728,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 2797,
+        "calibration_output_tokens": 130,
+        "calibration_transport_retries": 0
+      }
+    },
+    {
+      "run_id": "M08-r1-single-context",
+      "neutral_id": "R0008",
+      "case_id": "M08",
+      "applicability_class": "mini-open-world-investigation",
+      "mode": "single-context",
+      "semantic": {
+        "premature_winner": 0,
+        "correct_abstention": null,
+        "over_abstention": 0,
+        "action_quality": 1,
+        "causal_mechanism_recall": 1.0,
+        "unsupported_mechanisms": 1,
+        "evidence_dependence_errors": 0,
+        "next_test_quality": 1
+      },
+      "structural": {
+        "declared_status": "COEXIST",
+        "declared_status_matches_key": false,
+        "final_structure_consistent": true
+      },
+      "calibration_brier": 0.0,
+      "normalization_repairs": 1,
+      "resource": {
+        "primary_model_calls": 1,
+        "primary_input_tokens": 2034,
+        "primary_output_tokens": 899,
+        "primary_transport_retries": 0,
+        "calibration_model_calls": 1,
+        "calibration_input_tokens": 2702,
+        "calibration_output_tokens": 130,
+        "calibration_transport_retries": 0
+      }
+    }
+  ]
+}
