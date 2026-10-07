@@ -43,7 +43,12 @@ def main() -> int:
 
     result = None
     last_error: Exception | None = None
-    for attempt in range(1, 6):
+    max_transport_attempts = int(settings.get("maxTransportAttempts", 5))
+    if max_transport_attempts < 1:
+        raise ValueError("maxTransportAttempts must be >= 1")
+    transport_attempts = 0
+    for attempt in range(1, max_transport_attempts + 1):
+        transport_attempts = attempt
         req = urllib.request.Request(
             f"{BASE_URL}/chat/completions",
             data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
@@ -66,13 +71,13 @@ def main() -> int:
                 )
             )
             transient_server = exc.code in {500, 502, 503, 504}
-            if (transient_400 or transient_server) and attempt < 5:
+            if (transient_400 or transient_server) and attempt < max_transport_attempts:
                 time.sleep(2 * attempt)
                 continue
             raise last_error from exc
         except (urllib.error.URLError, ConnectionResetError, TimeoutError) as exc:
             last_error = exc
-            if attempt < 5:
+            if attempt < max_transport_attempts:
                 time.sleep(2 * attempt)
                 continue
             raise RuntimeError(f"LM Studio connection failed: {exc}") from exc
@@ -105,6 +110,7 @@ def main() -> int:
                 "cached_content_sent": False,
                 "session_or_previous_interaction_sent": False,
             },
+            "transport_attempts": transport_attempts,
         },
     }
     print(json.dumps(envelope, ensure_ascii=False))
