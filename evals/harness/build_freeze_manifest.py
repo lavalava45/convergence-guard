@@ -40,7 +40,7 @@ def main() -> int:
     evals = repo / "evals"
     manifest = {
         "freeze_status": "frozen",
-        "benchmark_version": "main-v0.1",
+        "benchmark_version": "main-v0.1.1",
         "repository_head": git_output(repo, "rev-parse", "HEAD"),
         "repository_dirty": bool(git_output(repo, "status", "--porcelain")),
         "hashes": {
@@ -63,7 +63,7 @@ def main() -> int:
             "policy": "evals/protocol/RESOURCE-BUDGET-v0.1.md",
             "primary_max_model_calls": 12,
             "primary_max_output_tokens": 32768,
-            "calibration_max_model_calls": 1,
+            "calibration_max_model_calls": 2,
             "calibration_max_output_tokens": 1024,
         },
         "normalization_version": "v0.1",

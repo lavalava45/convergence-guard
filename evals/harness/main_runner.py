@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frozen main-v0.1 LM Studio runner.
+"""Frozen main-v0.1.1 LM Studio runner.
 
 Default invocation is read-only/dry-run. Passing --execute is required before
 any model request is issued.
@@ -31,8 +31,10 @@ MODEL = "gemma-4-12b-it"
 PRIMARY_TEMPERATURE = 0.2
 PRIMARY_MAX_CALLS = 12
 PRIMARY_MAX_OUTPUT = 32768
-CAL_MAX_CALLS = 1
+CAL_MAX_CALLS = 2
 CAL_MAX_OUTPUT = 1024
+EVAL_VERSION = "main-v0.1.1"
+MAX_REQUEST_ATTEMPTS = 2
 MODES = (
     "single-context",
     "shared-context-multi-agent",
@@ -192,35 +194,60 @@ def budgeted_call_adapter(
     if response_path.exists():
         return json.loads(response_path.read_text(encoding="utf-8-sig"))
 
-    requested = dict(settings or {})
-    requested.setdefault("temperature", PRIMARY_TEMPERATURE)
-    requested.setdefault("maxOutputTokens", 8192)
-    requested["maxTransportAttempts"] = 1
-    requested["maxOutputTokens"] = BUDGET.reserve(requested["maxOutputTokens"])
-    request = {
-        "request_id": f"{run_dir.name}-{stage}",
-        "model": model,
-        "messages": [{"role": "user", "content": prompt}],
-        "settings": requested,
-        "response_schema": schema,
-        "tools_enabled": False,
-        "retrieval_enabled": False,
-    }
+    base_settings = dict(settings or {})
+    base_settings.setdefault("temperature", PRIMARY_TEMPERATURE)
+    base_settings.setdefault("maxOutputTokens", 8192)
+    base_settings["maxTransportAttempts"] = 1
     request_path.parent.mkdir(parents=True, exist_ok=True)
-    request_path.write_text(
-        json.dumps(request, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
-    proc = subprocess.run(
-        [sys.executable, str(LM_ADAPTER)],
-        input=json.dumps(request, ensure_ascii=False),
-        text=True,
-        encoding="utf-8",
-        capture_output=True,
-        check=False,
-        timeout=900,
-    )
-    if proc.returncode != 0:
-        raise RuntimeError(proc.stderr.strip() or f"LM Studio adapter failed at {stage}")
+    proc = None
+    request = None
+    for attempt in range(1, MAX_REQUEST_ATTEMPTS + 1):
+        requested = dict(base_settings)
+        requested["maxOutputTokens"] = BUDGET.reserve(
+            base_settings["maxOutputTokens"]
+        )
+        request = {
+            "request_id": f"{run_dir.name}-{stage}",
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "settings": requested,
+            "response_schema": schema,
+            "tools_enabled": False,
+            "retrieval_enabled": False,
+        }
+        request_path.write_text(
+            json.dumps(request, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        proc = subprocess.run(
+            [sys.executable, str(LM_ADAPTER)],
+            input=json.dumps(request, ensure_ascii=False),
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=False,
+            timeout=900,
+        )
+        if proc.returncode == 0:
+            break
+        error = proc.stderr.strip() or f"LM Studio adapter failed at {stage}"
+        transient = any(
+            marker in error
+            for marker in (
+                "ConnectionResetError",
+                "connection failed",
+                "HTTP 500",
+                "HTTP 502",
+                "HTTP 503",
+                "HTTP 504",
+            )
+        )
+        (run_dir / "working" / f"{stage}.attempt{attempt}.transport-error.txt").write_text(
+            error + "\n", encoding="utf-8"
+        )
+        if not transient or attempt >= MAX_REQUEST_ATTEMPTS:
+            raise RuntimeError(error)
+    assert proc is not None and request is not None
     envelope = json.loads(proc.stdout)
     BUDGET.record_output((envelope.get("usage") or {}).get("output_tokens"))
     raw_text = envelope.get("raw_text", "")
@@ -442,7 +469,7 @@ def execute(run: dict[str, Any]) -> int:
     global BUDGET
     BUDGET = BudgetState()
     case_id, mode, repeat = run["case_id"], run["mode"], run["repeat"]
-    run_dir = ROOT / "evals" / "runs" / "main-v0.1" / case_id / f"r{repeat}" / mode
+    run_dir = ROOT / "evals" / "runs" / EVAL_VERSION / case_id / f"r{repeat}" / mode
     run_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = run_dir / "manifest.json"
     manifest = {
@@ -450,7 +477,7 @@ def execute(run: dict[str, Any]) -> int:
         "case_id": case_id,
         "mode": mode,
         "repeat": repeat,
-        "eval_version": "main-v0.1",
+        "eval_version": EVAL_VERSION,
         "runtime": "LM Studio OpenAI-compatible API",
         "model": MODEL,
         "model_settings": {"temperature": PRIMARY_TEMPERATURE},

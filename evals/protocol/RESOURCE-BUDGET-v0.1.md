@@ -9,7 +9,7 @@ The primary comparison uses the same enforceable ceiling for every `case × mode
 - maximum model calls: **12**;
 - maximum generated/output tokens summed across all primary-analysis calls: **32,768**;
 - retries count toward both ceilings;
-- the frozen main runner disables adapter-internal transport retries (`maxTransportAttempts=1`) so no model request can occur outside the run-level call counter;
+- the frozen main runner disables adapter-internal transport retries (`maxTransportAttempts=1`). One runner-level retry is allowed only after a recorded transient transport/server failure; every attempt consumes a run-level model-call slot;
 - calibration is excluded from the primary ceiling and is standardized separately;
 - no mode receives additional calls or output-token budget because its workflow has more stages;
 - a mode may finish below either ceiling;
@@ -23,7 +23,7 @@ The call ceiling is a second hard guard. Provider/transport retries count becaus
 
 Calibration occurs only after a valid immutable primary answer:
 
-- maximum model calls: **1**;
+- maximum model-call attempts: **2**; the second attempt is allowed only after a recorded transient transport/server failure;
 - maximum generated/output tokens: **1,024**;
 - temperature: **0**.
 
