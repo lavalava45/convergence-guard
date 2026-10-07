@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frozen main-v0.1.4 LM Studio runner.
+"""Frozen main-v0.1.5 LM Studio runner.
 
 Default invocation is read-only/dry-run. Passing --execute is required before
 any model request is issued.
@@ -33,7 +33,7 @@ PRIMARY_MAX_CALLS = 12
 PRIMARY_MAX_OUTPUT = 32768
 CAL_MAX_CALLS = 2
 CAL_MAX_OUTPUT = 1024
-EVAL_VERSION = "main-v0.1.4"
+EVAL_VERSION = "main-v0.1.5"
 MAX_REQUEST_ATTEMPTS = 2
 MODES = (
     "single-context",
@@ -465,7 +465,7 @@ def pre_run_checks(run: dict[str, Any]) -> None:
             raise RuntimeError("frozen LM Studio isolation preflight does not permit cg-full")
 
 
-def execute(run: dict[str, Any]) -> int:
+def execute(run: dict[str, Any], *, defer_calibration: bool = False) -> int:
     global BUDGET
     BUDGET = BudgetState()
     case_id, mode, repeat = run["case_id"], run["mode"], run["repeat"]
@@ -510,9 +510,12 @@ def execute(run: dict[str, Any]) -> int:
         )
         normalized = json.loads((run_dir / "final.json").read_text(encoding="utf-8-sig"))
         validate_primary(case_id, run_dir)
-        calibrate(case_id, run_dir, normalized)
         manifest["normalization_repairs"] = repairs
-        manifest["status"] = "complete"
+        if defer_calibration:
+            manifest["status"] = "primary_complete"
+        else:
+            calibrate(case_id, run_dir, normalized)
+            manifest["status"] = "complete"
     except BudgetStop as exc:
         manifest["status"] = "budget_stop"
         manifest["error"] = str(exc)
@@ -520,6 +523,37 @@ def execute(run: dict[str, Any]) -> int:
         manifest["status"] = "invalid"
         manifest["error"] = f"{type(exc).__name__}: {exc}"
     manifest["budget"] = BUDGET.manifest_usage()
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(f"{manifest['status'].upper()} {run['run_id']}")
+    return 0 if manifest["status"] in {"complete", "primary_complete"} else 1
+
+
+def calibrate_existing(run: dict[str, Any]) -> int:
+    global BUDGET
+    case_id, mode, repeat = run["case_id"], run["mode"], run["repeat"]
+    run_dir = ROOT / "evals" / "runs" / EVAL_VERSION / case_id / f"r{repeat}" / mode
+    manifest_path = run_dir / "manifest.json"
+    if not manifest_path.is_file() or not (run_dir / "final.json").is_file():
+        raise RuntimeError(f"no frozen primary result for calibration: {run['run_id']}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
+    if manifest.get("status") not in {"primary_complete", "primary_complete_calibration_failed"}:
+        if manifest.get("status") == "complete" and (run_dir / "calibration.json").is_file():
+            print(f"COMPLETE {run['run_id']} calibration already present")
+            return 0
+        raise RuntimeError(f"primary is not calibration-ready: {run['run_id']} status={manifest.get('status')}")
+
+    BUDGET = BudgetState(phase="calibration")
+    final = json.loads((run_dir / "final.json").read_text(encoding="utf-8-sig"))
+    try:
+        calibrate(case_id, run_dir, final)
+        manifest["status"] = "complete"
+        manifest.pop("calibration_error", None)
+    except Exception as exc:
+        manifest["status"] = "primary_complete_calibration_failed"
+        manifest["calibration_error"] = f"{type(exc).__name__}: {exc}"
+    manifest.setdefault("budget", {})["calibration"] = BUDGET.manifest_usage()["calibration"]
     manifest_path.write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
@@ -535,16 +569,28 @@ def main() -> int:
         action="store_true",
         help="Required to issue model calls. Without it the command is dry-run only.",
     )
+    parser.add_argument(
+        "--defer-calibration",
+        action="store_true",
+        help="Execute and freeze the primary result now; run calibration later.",
+    )
+    parser.add_argument(
+        "--calibrate-existing",
+        action="store_true",
+        help="Calibrate an already frozen primary result without rerunning primary analysis.",
+    )
     args = parser.parse_args()
     run = load_run(args.run_id)
     pre_run_checks(run)
+    if args.calibrate_existing:
+        return calibrate_existing(run)
     if not args.execute:
         print(
             f"DRY-RUN READY {run['run_id']} case={run['case_id']} "
             f"mode={run['mode']} repeat={run['repeat']}"
         )
         return 0
-    return execute(run)
+    return execute(run, defer_calibration=args.defer_calibration)
 
 
 if __name__ == "__main__":

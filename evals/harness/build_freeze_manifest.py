@@ -40,7 +40,7 @@ def main() -> int:
     evals = repo / "evals"
     manifest = {
         "freeze_status": "frozen",
-        "benchmark_version": "main-v0.1.4",
+        "benchmark_version": "main-v0.1.5",
         "repository_head": git_output(repo, "rev-parse", "HEAD"),
         "repository_dirty": bool(git_output(repo, "status", "--porcelain")),
         "hashes": {
@@ -72,6 +72,10 @@ def main() -> int:
             "calibration_max_output_tokens": 1024,
         },
         "normalization_version": "v0.1",
+        "execution_sequence": {
+            "primary_phase": "all 32 primary runs first; final.json frozen before calibration",
+            "calibration_phase": "separate pass over frozen primary results; calibration cannot revise primary",
+        },
         "randomization": {
             "run_plan_seed": args.run_seed,
             "blind_id_seed": args.blind_seed,
