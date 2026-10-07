@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""OpenAI-compatible LM Studio adapter for the eval harness."""
+"""Streaming OpenAI-compatible LM Studio adapter for the eval harness."""
 
 from __future__ import annotations
 
@@ -32,6 +32,8 @@ def main() -> int:
         ],
         "temperature": settings.get("temperature", 0.2),
         "max_tokens": settings.get("maxOutputTokens", 8192),
+        "stream": True,
+        "stream_options": {"include_usage": True},
     }
 
     schema = request.get("response_schema")
@@ -77,7 +79,51 @@ def main() -> int:
         )
         try:
             with urllib.request.urlopen(req, timeout=600) as response:
-                result = json.loads(response.read().decode("utf-8"))
+                pieces: list[str] = []
+                usage: dict[str, Any] = {}
+                provider_request_id = None
+                result_model = model
+                finish_reason = None
+                while True:
+                    raw_line = response.readline()
+                    if not raw_line:
+                        break
+                    line = raw_line.decode("utf-8", errors="strict").strip()
+                    if not line or not line.startswith("data: "):
+                        continue
+                    data = line[6:]
+                    if data == "[DONE]":
+                        break
+                    event = json.loads(data)
+                    provider_request_id = event.get("id") or provider_request_id
+                    result_model = event.get("model") or result_model
+                    if event.get("usage"):
+                        usage = event["usage"]
+                    choices = event.get("choices") or []
+                    if choices:
+                        choice = choices[0]
+                        delta = choice.get("delta") or {}
+                        content = delta.get("content")
+                        if content:
+                            pieces.append(content)
+                        if choice.get("finish_reason") is not None:
+                            finish_reason = choice.get("finish_reason")
+                raw_text = "".join(pieces)
+                if not raw_text or finish_reason is None:
+                    raise RuntimeError(
+                        "LM Studio streaming response ended before a complete answer"
+                    )
+                result = {
+                    "id": provider_request_id,
+                    "model": result_model,
+                    "choices": [
+                        {
+                            "message": {"content": raw_text},
+                            "finish_reason": finish_reason,
+                        }
+                    ],
+                    "usage": usage,
+                }
             break
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")

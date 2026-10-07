@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Calibrate frozen main-v0.1.5 primary results without rerunning them."""
+"""Calibrate frozen main-v0.1.6 primary results without rerunning them."""
 
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ def main() -> int:
         raise RuntimeError("expected frozen 32-run main plan")
     pid, env = backend_env()
     failures: list[str] = []
-    print(f"MAIN v0.1.5 CALIBRATION START pid={pid} runs=32", flush=True)
+    print(f"MAIN v0.1.6 CALIBRATION START pid={pid} runs=32", flush=True)
     for idx, run in enumerate(runs, start=1):
         print(f"[{idx:02d}/32] CAL {run['run_id']}", flush=True)
         proc = subprocess.run(
@@ -52,7 +52,7 @@ def main() -> int:
         )
         if proc.returncode != 0:
             failures.append(run["run_id"])
-    print(f"MAIN v0.1.5 CALIBRATION END failures={len(failures)}", flush=True)
+    print(f"MAIN v0.1.6 CALIBRATION END failures={len(failures)}", flush=True)
     if failures:
         print("FAILED CALIBRATIONS: " + ", ".join(failures), flush=True)
         return 1
