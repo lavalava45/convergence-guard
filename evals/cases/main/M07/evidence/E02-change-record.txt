@@ -1,0 +1,3 @@
+Client library 5.0 introduced zstd-by-default for payloads >8 MiB.
+Proxy firmware 7.4 was rolled to half the gateway fleet.
+Older client 4.8 does not send zstd. Proxy 7.3 and 7.4 both pass ordinary chunked uploads.

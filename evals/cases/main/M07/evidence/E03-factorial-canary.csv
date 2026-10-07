@@ -1,0 +1,6 @@
+client,proxy,payload,encoding,result
+4.8,7.3,12MiB,none,PASS
+5.0,7.3,12MiB,zstd,PASS
+4.8,7.4,12MiB,none,PASS
+5.0,7.4,12MiB,zstd,FAIL
+5.0,7.4,4MiB,zstd,PASS

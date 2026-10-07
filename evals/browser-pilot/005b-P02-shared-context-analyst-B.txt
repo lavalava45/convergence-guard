@@ -1,0 +1,7 @@
+You are now Analyst B in the same shared-context run.
+
+Re-read the participant-visible case and evidence from the first message, and read Analyst A's shared-journal output above. Build on it critically: identify what A may have missed, overclaimed, or conflated; consider causally distinct alternatives; assess evidence and uncertainty; and refine the immediate action and next discriminating test.
+
+Your output is another shared-journal entry for Analyst C and the synthesizer.
+
+Do not return the final normalized JSON yet. Do not ask questions, browse, use Connected Apps, or introduce facts not present in this chat.

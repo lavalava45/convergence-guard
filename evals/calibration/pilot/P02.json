@@ -1,0 +1,13 @@
+{
+  "case_id": "P02",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "The public evidence is sufficient to identify Change A as the unique cause."
+    },
+    {
+      "id": "K2",
+      "claim": "A successful TCP connect rules out a policy-path cause of a later TLS handshake timeout."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+QA retained-sample optical and impurity tests:
+K-771: within incoming specification; no unusual siloxane peak.
+J-118: within incoming specification; no unusual siloxane peak.
+M-442: within incoming specification; no unusual siloxane peak.
+Testing performed on sealed pre-process retained samples.

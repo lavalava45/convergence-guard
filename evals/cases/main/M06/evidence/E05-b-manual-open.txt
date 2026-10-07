@@ -1,0 +1,1 @@
+Before Cluster A repair, technicians manually opened the Cluster B dampers. B1/B2 began cooling immediately while A1/A2 remained warm until their refrigeration-loop repair.

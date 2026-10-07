@@ -1,0 +1,17 @@
+{
+  "case_id": "M03",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "The new resin lot is required to explain the affected-cell pattern."
+    },
+    {
+      "id": "K2",
+      "claim": "The defective calibration table is present on all three affected cells and no unaffected cells."
+    },
+    {
+      "id": "K3",
+      "claim": "A calibration rollback can recover quality without changing resin, firmware, or humidity."
+    }
+  ]
+}

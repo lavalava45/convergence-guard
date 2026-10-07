@@ -1,0 +1,5 @@
+Incident-window observability inventory:
+- producer message UUID was not copied into the analytics table;
+- broker delivery ID retention was disabled;
+- no one-factor canary was run before deployment;
+- only payload hash and timestamps remain in the retained aggregate table.

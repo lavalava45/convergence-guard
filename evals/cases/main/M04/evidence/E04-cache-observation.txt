@@ -1,0 +1,3 @@
+The new dedup cache expires keys at approximately 20 seconds as configured.
+Observed duplicate separations of 22-35 seconds occur after that expiry boundary.
+The current logs do not distinguish broker redelivery of the same message from a producer-created retry.

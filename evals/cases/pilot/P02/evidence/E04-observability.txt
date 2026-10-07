@@ -1,0 +1,7 @@
+Available observability at 12:10:
+
+- client logs contain only the handshake timeout shown in E01;
+- there is no packet capture;
+- the new firewall policy has no per-rule drop telemetry enabled;
+- no isolated worker is currently running the previous TLS client library;
+- the external payment provider exposes no participant-visible server-side handshake log for this incident.

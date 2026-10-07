@@ -1,0 +1,4 @@
+Blinded material swap:
+- R-447 resin molded on control cell C03: 0/40 surface defects.
+- retained prior resin R-441 molded on affected cell C07: 11/40 surface defects.
+No calibration changes were made before this test.

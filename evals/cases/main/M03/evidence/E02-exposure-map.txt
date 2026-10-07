@@ -1,0 +1,4 @@
+New resin lot R-447 is in use on all 12 cells.
+Controller firmware 6.2 is installed on C01-C06 only.
+Humidity rose from 42% to 61% plant-wide.
+Calibration table C3 was loaded during preventive maintenance on C02, C07 and C09 only.

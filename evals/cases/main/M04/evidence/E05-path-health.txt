@@ -1,0 +1,2 @@
+No data corruption, consumer crashes, or broker partition is observed.
+The retained operational metrics do not contain a producer message identifier or broker delivery identifier for the duplicate pairs.

@@ -1,0 +1,7 @@
+payload_hash,first_seen_s,duplicate_seen_s,delta_s
+91af,0,24,24
+3bc2,0,31,31
+7d11,0,22,22
+11e8,0,35,35
+44a0,0,27,27
+The retained audit table stores payload hash but not the original producer message UUID or broker delivery ID.

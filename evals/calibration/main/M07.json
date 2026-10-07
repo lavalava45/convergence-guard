@@ -1,0 +1,17 @@
+{
+  "case_id": "M07",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "Client library 5.0 is sufficient by itself to cause corruption on proxy 7.3."
+    },
+    {
+      "id": "K2",
+      "claim": "Proxy firmware 7.4 is sufficient by itself to corrupt large uncompressed uploads from client 4.8."
+    },
+    {
+      "id": "K3",
+      "claim": "The observed failure depends on the combination of the new client encoding path and proxy 7.4."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "M05",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "The executive summary, support ticket, and R91 dashboard provide three independent confirmations that R91 caused the incident."
+    },
+    {
+      "id": "K2",
+      "claim": "The client SDK rollout changed an input representation used by the internal parser."
+    },
+    {
+      "id": "K3",
+      "claim": "The participant-visible evidence uniquely identifies the vendor ruleset as the cause."
+    },
+    {
+      "id": "K4",
+      "claim": "A crossed old/new SDK and old/new ruleset replay could discriminate the live alternatives."
+    }
+  ]
+}

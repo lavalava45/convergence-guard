@@ -1,0 +1,4 @@
+11:00 combined reliability release:
+A) producer acknowledgement timeout reduced from 45s to 15s, causing a producer retry when acknowledgements are slow.
+B) consumer deduplication TTL reduced from 60s to 20s during migration to a new cache cluster.
+Both changes went live in the same release.

@@ -1,0 +1,44 @@
+{
+  "runtime": "LM Studio OpenAI-compatible local API via stateless adapter",
+  "model": "gemma-4-12b-it",
+  "endpoint": "http://127.0.0.1:1234/v1/chat/completions",
+  "checks": {
+    "parent_transcript": {
+      "status": "PASS",
+      "reason": "Fresh explicit messages array; no parent sentinel observed."
+    },
+    "sibling_outputs": {
+      "status": "PASS",
+      "reason": "Separate stateless HTTP requests; no sibling sentinel observed."
+    },
+    "prior_worker_history": {
+      "status": "PASS",
+      "reason": "Adapter sends no conversation/session identifier or previous-response state."
+    },
+    "account_project_memory": {
+      "status": "PASS",
+      "reason": "Local OpenAI-compatible request contains only the explicit messages supplied by the harness."
+    },
+    "retrieval": {
+      "status": "PASS",
+      "reason": "No retrieval or grounding mechanism is exposed to participant calls."
+    },
+    "filesystem_tools": {
+      "status": "PASS",
+      "reason": "No tools or filesystem access are exposed to participant calls."
+    },
+    "coordinator_handoff": {
+      "status": "PASS",
+      "reason": "The harness constructs each stage from an explicit input allowlist."
+    }
+  },
+  "sentinel_diagnostics": {
+    "parent_seed_ack": "ACK",
+    "parent_probe": "NONE",
+    "sibling_seed_returned_expected": true,
+    "sibling_probe": "NONE",
+    "note": "Negative sentinel probes supplement inspectable stateless request construction; they are not treated as proof by themselves."
+  },
+  "overall": "PASS",
+  "cg_full_enabled": true
+}

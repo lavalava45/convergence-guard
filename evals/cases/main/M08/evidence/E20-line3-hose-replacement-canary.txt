@@ -1,0 +1,6 @@
+07 Oct controlled canary after removing the temporary hose, installing a new untreated OEM hose, and flushing Line 3 per SOP:
+- same raw-material lot J-118 as previously affected B211;
+- process setpoints unchanged;
+- three pilot batches remain optically clear;
+- siloxane not detected in post-hose samples.
+The old temporary hose is retained under QA seal.

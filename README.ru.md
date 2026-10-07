@@ -61,6 +61,17 @@ Full Mode не привязан к конкретному runtime, но треб
 
 В исследованиях с большим объёмом внешних свидетельств Convergence Guard также оценивает **конкретные утверждения, а не престиж источника**. Статус official, peer-reviewed, institutional, fringe или anonymous влияет на стратегию проверки, но не заменяет provenance, проверяемость и анализ общего происхождения evidence.
 
+## Когда Convergence Guard действительно нужен?
+
+Convergence Guard не должен автоматически усложнять любую задачу. Текущий технический пилот уже дал важный сигнал о границе применимости:
+
+- на **прямо разрешимом** инциденте P01 обычный single-context baseline дал правильный по ключу результат `CHOOSE`, тогда как shared-context дал `COEXIST`, а Reduced и Full Mode — `INSUFFICIENT`; при этом все четыре режима рекомендовали правильное корректирующее действие;
+- на **намеренно недоопределённом** инциденте P02 все четыре режима правильно вернули `INSUFFICIENT` и предложили диагностический/canary-шаг вместо принудительного выбора одной причины.
+
+Это **не** доказывает, что CG в целом лучше или хуже. Но формирует конкретную гипотезу для основного бенчмарка: тяжёлый CG может быть избыточным или чрезмерно осторожным, когда одна причина уже практически установлена напрямую, и становиться полезнее по мере роста причинной неоднозначности, confounding, framing risk, зависимости evidence и цены преждевременного решения.
+
+См. двуязычные [Applicability Guide](convergence-guard/references/applicability.md) / [Руководство по применимости](convergence-guard/references/applicability.ru.md) с классами задач, примерами и быстрым activation test. Подробный отчёт о пилоте находится в [evals/PILOT-REPORT-v0.1.md](evals/PILOT-REPORT-v0.1.md).
+
 ## Текущий процесс
 
 Протокол теперь организован в пять больших фаз:
@@ -140,6 +151,8 @@ Convergence Guard/
     └── references/
         ├── explained-simply.md
         ├── explained-simply.ru.md
+        ├── applicability.md
+        ├── applicability.ru.md
         ├── protocol-details.md
         ├── protocol-details.ru.md
         ├── reduced-mode.md
@@ -160,6 +173,7 @@ Convergence Guard/
 | [DESIGN.md](DESIGN.md) | [DESIGN.ru.md](DESIGN.ru.md) | threat model и архитектурное обоснование |
 | [ATTRIBUTION.md](ATTRIBUTION.md) | [ATTRIBUTION.ru.md](ATTRIBUTION.ru.md) | происхождение и граница влияния |
 | [explained-simply.md](convergence-guard/references/explained-simply.md) | [explained-simply.ru.md](convergence-guard/references/explained-simply.ru.md) | простое объяснение метода |
+| [applicability.md](convergence-guard/references/applicability.md) | [applicability.ru.md](convergence-guard/references/applicability.ru.md) | когда CG, вероятно, полезен, а когда избыточен |
 | [protocol-details.md](convergence-guard/references/protocol-details.md) | [protocol-details.ru.md](convergence-guard/references/protocol-details.ru.md) | подробные правила протокола |
 | [reduced-mode.md](convergence-guard/references/reduced-mode.md) | [reduced-mode.ru.md](convergence-guard/references/reduced-mode.ru.md) | fallback для одного контекста |
 
@@ -202,7 +216,7 @@ Convergence Guard/
 
 Текущий tagged pre-release — v0.2.2. Более поздние unreleased changes, когда они появляются, фиксируются в [CHANGELOG.ru.md](CHANGELOG.ru.md).
 
-Метод уже прошёл первый архитектурный и методологический аудит и теперь содержит публичные Full Mode examples: историческую attribution-задачу, актуальный научный вопрос с асимметричным evidence и современную задачу надёжности AI-агентов. Статус остаётся pre-release: нужна более широкая эмпирическая проверка в разных доменах со сравнением против обычного single-context анализа и более лёгких multi-agent схем.
+Метод уже прошёл первый архитектурный и методологический аудит и теперь содержит публичные Full Mode examples: историческую attribution-задачу, актуальный научный вопрос с асимметричным evidence и современную задачу надёжности AI-агентов. Кроме того, автоматический technical pilot на двух cases прогнал все четыре сравниваемых режима и дал первый сигнал о границе применимости: прямо разрешимые задачи могут выявлять over-analysis / over-abstention у тяжёлого CG, а недоопределённые задачи проверяют его легитимный путь отказа от преждевременного выбора. Это pilot evidence, а не performance claim. Перед сильными выводами всё ещё нужен более широкий заранее зафиксированный main benchmark.
 
 ## Происхождение
 

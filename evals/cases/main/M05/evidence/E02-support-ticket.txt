@@ -1,0 +1,3 @@
+Support escalation INC-8821
+Customer reports align with the R91 rollout. Analyst note: 'Most bad flags are R91 matches; likely ruleset regression.'
+The ticket links dashboard FP-R91-INCIDENT as its quantitative source.

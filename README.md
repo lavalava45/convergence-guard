@@ -63,6 +63,17 @@ A central principle of the current architecture is:
 
 For evidence-heavy research, Convergence Guard also evaluates **claims rather than source prestige**. Official, peer-reviewed, institutional, fringe, or anonymous status affects verification strategy but never substitutes for claim-level provenance, inspectability, and evidence ancestry.
 
+## When is Convergence Guard worth using?
+
+Convergence Guard is not meant to make every problem harder. A current technical pilot produced an important applicability signal:
+
+- on a **direct-resolvable** incident (P01), the ordinary single-context baseline returned the keyed `CHOOSE` result, while shared-context returned `COEXIST` and both Reduced and Full Mode returned `INSUFFICIENT`; all four still recommended the correct corrective action;
+- on an **intentionally underdetermined** incident (P02), all four modes correctly returned `INSUFFICIENT` and proposed diagnostic/canary-style next steps.
+
+This does **not** prove that CG is better or worse in general. It suggests a concrete hypothesis for the main benchmark: heavy CG may be unnecessary or over-cautious when one cause is already directly identified, while becoming more useful as causal ambiguity, confounding, framing risk, evidence dependence, and the cost of premature commitment increase.
+
+See the bilingual [Applicability Guide](convergence-guard/references/applicability.md) / [Руководство по применимости](convergence-guard/references/applicability.ru.md) for task classes, examples, and a quick activation test. The detailed pilot record is in [evals/PILOT-REPORT-v0.1.md](evals/PILOT-REPORT-v0.1.md).
+
 ## Current workflow
 
 The public protocol is organized into five phases:
@@ -140,6 +151,8 @@ Convergence Guard/
     └── references/
         ├── explained-simply.md
         ├── explained-simply.ru.md
+        ├── applicability.md
+        ├── applicability.ru.md
         ├── protocol-details.md
         ├── protocol-details.ru.md
         ├── reduced-mode.md
@@ -160,6 +173,7 @@ Convergence Guard/
 | [DESIGN.md](DESIGN.md) | [DESIGN.ru.md](DESIGN.ru.md) | threat model and architectural rationale |
 | [ATTRIBUTION.md](ATTRIBUTION.md) | [ATTRIBUTION.ru.md](ATTRIBUTION.ru.md) | provenance and influence boundary |
 | [explained-simply.md](convergence-guard/references/explained-simply.md) | [explained-simply.ru.md](convergence-guard/references/explained-simply.ru.md) | plain-language explanation |
+| [applicability.md](convergence-guard/references/applicability.md) | [applicability.ru.md](convergence-guard/references/applicability.ru.md) | when CG is likely to help, and when it may be excessive |
 | [protocol-details.md](convergence-guard/references/protocol-details.md) | [protocol-details.ru.md](convergence-guard/references/protocol-details.ru.md) | detailed protocol rules |
 | [reduced-mode.md](convergence-guard/references/reduced-mode.md) | [reduced-mode.ru.md](convergence-guard/references/reduced-mode.ru.md) | single-context fallback |
 
@@ -202,7 +216,7 @@ The exact installation mechanism depends on the client. A compatible client shou
 
 The current tagged pre-release is v0.2.2. Later unreleased changes, when present, are tracked in [CHANGELOG.md](CHANGELOG.md).
 
-The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution, a current evidence-asymmetric scientific-origin question, and a contemporary AI-agent reliability problem. It remains pre-release: broader empirical evaluation is still needed across domains and against ordinary single-context analysis and lighter multi-agent baselines.
+The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution, a current evidence-asymmetric scientific-origin question, and a contemporary AI-agent reliability problem. A two-case automated technical pilot has also exercised all four comparison modes and produced the first applicability signal: direct-resolvable tasks may expose CG over-analysis/over-abstention, while underdetermined tasks exercise its legitimate abstention path. This is pilot evidence, not a performance claim. A broader pre-registered main benchmark is still needed.
 
 ## Attribution
 

@@ -1,0 +1,3 @@
+14:20-14:55: raw vendor rule trace and pre-parser request body are unavailable.
+Available incident summaries and the R91 dashboard all descend from the parser-v5 derived field.
+The incident archive contains no old/new SDK × old/new ruleset factorial replay from that interval.

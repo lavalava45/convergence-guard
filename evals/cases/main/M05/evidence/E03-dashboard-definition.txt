@@ -1,0 +1,3 @@
+Dashboard FP-R91-INCIDENT
+Metric 'R91-match' is not a raw vendor decision code. It is computed by internal parser v5 from normalized client payload fields.
+The same dashboard export was used to produce the 92% number quoted in the executive summary and support ticket.

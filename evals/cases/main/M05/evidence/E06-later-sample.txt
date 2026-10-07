@@ -1,0 +1,3 @@
+Later raw sample, collected after trace retention was enabled:
+For 40 false positives from SDK 12.4 clients, replaying either (a) old payload normalization with R91 or (b) current payload normalization with the prior ruleset substantially reduces alerts.
+The two replay variants were not crossed against each other in this sample.

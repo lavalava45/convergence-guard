@@ -1,0 +1,4 @@
+Bench scan using scanner S2, same optics and lighting:
+- 50 retained v18 labels: 50 decoded successfully.
+- 50 freshly printed v19 labels: 0 decoded; all report missing FNC1 after AI(10).
+- One v19 label reprinted with the FNC1 separator restored: decoded successfully on first attempt.

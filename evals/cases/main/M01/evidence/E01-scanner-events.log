@@ -1,0 +1,6 @@
+09:11:42 line=A scanner=S2 result=OK symbology=GS1-128
+09:12:07 line=A scanner=S2 result=REJECT reason=GS1_PARSE_MISSING_FNC1 field=AI10
+09:12:09 line=A scanner=S1 result=REJECT reason=GS1_PARSE_MISSING_FNC1 field=AI10
+09:12:14 line=A scanner=S3 result=REJECT reason=GS1_PARSE_MISSING_FNC1 field=AI10
+09:13:02 line=A scanner=S4 result=REJECT reason=GS1_PARSE_MISSING_FNC1 field=AI10
+Reject rate from 09:12-09:20: 96.8%.

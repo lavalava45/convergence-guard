@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-07",
+  "runtime": "Gemini consumer web UI in Chrome Incognito using Temporary Chat",
+  "model_label": "flash extended",
+  "checks": {
+    "parent_transcript": {
+      "status": "INCONCLUSIVE",
+      "reason": "A fresh Temporary Chat provides UI separation, but no runtime-level evidence was available to establish that parent transcript or summaries cannot enter the effective model input."
+    },
+    "sibling_outputs": {
+      "status": "INCONCLUSIVE",
+      "reason": "Separate Temporary Chats can be used, but the consumer UI does not expose runtime-level evidence proving absence of sibling-output inheritance or other ambient cross-chat state."
+    },
+    "prior_worker_history": {
+      "status": "INCONCLUSIVE",
+      "reason": "The browser workflow can create new chats but does not expose worker/session internals sufficient to prove absence of retained decision-relevant history."
+    },
+    "account_project_memory": {
+      "status": "INCONCLUSIVE",
+      "reason": "The browser workflow does not provide inspectable runtime evidence sufficient for the protocol's PASS requirement on ambient account/project memory."
+    },
+    "retrieval": {
+      "status": "INCONCLUSIVE",
+      "reason": "Participant prompts prohibit web browsing and Connected Apps, but prompt-level prohibition is not runtime-level evidence that all retrieval channels are unavailable."
+    },
+    "filesystem_tools": {
+      "status": "PASS",
+      "reason": "The participant workflow supplies case material by pasted text only and exposes no local repository or hidden-key filesystem to the Gemini chat."
+    },
+    "coordinator_handoff": {
+      "status": "PASS",
+      "reason": "Manual stage packets are inspectable before paste and can be restricted to explicit stage-authorized material."
+    }
+  },
+  "overall": "INCONCLUSIVE",
+  "cg_full_enabled": false,
+  "decision": "Do not execute or label Gemini browser runs as cg-full. Preserve the planned slots but mark the treatment invalid before participant execution."
+}

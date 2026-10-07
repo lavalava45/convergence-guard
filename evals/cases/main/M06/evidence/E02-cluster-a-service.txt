@@ -1,0 +1,1 @@
+Cluster A refrigeration loop: compressor suction pressure abnormally low. Technician leak check found refrigerant loss at a service valve. Air dampers respond normally.

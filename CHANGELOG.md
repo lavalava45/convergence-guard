@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- added paired English/Russian applicability guidance with task classes, a quick activation test, and explicit examples of when CG may be excessive versus useful;
+- documented the two-case automated local technical pilot, including the P01 over-analysis/over-abstention signal and the P02 underdetermination result;
+- added deterministic output normalization v0.1 for mechanically inconsistent non-choice `preferred_cause` fields, with raw-answer preservation and repair auditing;
 - tightened the installable skill description and clarified that a complete installation includes the operational `references/` package;
 - added API/fresh-request guidance for constructing isolation-dependent workers without inherited session state;
 - allowed a single genuine finalist after coverage/missing-evidence checks, while retaining dossier, sensitivity, and shared-bias review and skipping pairwise collision only;

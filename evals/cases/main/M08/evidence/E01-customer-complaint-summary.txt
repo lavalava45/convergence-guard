@@ -1,0 +1,5 @@
+Customer complaint rollup prepared by Sales QA:
+14 haze complaints were received for shipments made 02-05 October.
+The first 6 complaints involved batches that used Supplier K raw material lot K-771.
+The rollup recommends 'investigate K-771 first'.
+Source note: this document summarizes complaint spreadsheet QS-44; it contains no independent laboratory testing.

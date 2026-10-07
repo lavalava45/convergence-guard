@@ -1,0 +1,4 @@
+Initial incident brief, 05 Oct 09:00:
+Working hypothesis: raw-material variability from new Supplier K lot K-771.
+Rationale cited: first complaint cluster in QS-44 and the timing of K-771 introduction.
+No line-by-line exposure analysis had been completed when this brief was written.

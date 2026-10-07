@@ -1,0 +1,4 @@
+Routine cleaning log shows Lines 1, 2 and 3 all used cleaning solvent CL-4 during the week.
+CL-4 specification contains no silicone component.
+No cleaning deviation was recorded for Lines 1 or 2.
+Line 3 hose soak described in WO-3917 is not part of the standard cleaning procedure.

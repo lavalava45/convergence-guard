@@ -1,0 +1,6 @@
+2026-10-06T12:04:58Z worker-12 payment INFO  connection attempt api.payments.example:443
+2026-10-06T12:05:03Z worker-12 payment ERROR TLS handshake timeout after 5000ms
+2026-10-06T12:05:08Z worker-12 payment ERROR TLS handshake timeout after 5000ms
+2026-10-06T12:05:13Z worker-12 payment ERROR TLS handshake timeout after 5000ms
+
+No certificate-validation error, protocol-version error, or explicit connection-refused error is recorded.

@@ -1,0 +1,17 @@
+{
+  "case_id": "M06",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "The Cluster A refrigerant leak explains the warm temperatures in Cluster B."
+    },
+    {
+      "id": "K2",
+      "claim": "Cluster B cools when its stuck dampers are manually opened even before Cluster A is repaired."
+    },
+    {
+      "id": "K3",
+      "claim": "At least two distinct causal branches are needed to explain all affected zones."
+    }
+  ]
+}

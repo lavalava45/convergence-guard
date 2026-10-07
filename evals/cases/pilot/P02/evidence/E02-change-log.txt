@@ -1,0 +1,10 @@
+Changes completed at 12:00:
+
+Change A:
+  payment-connector base image updated;
+  TLS client library changed from version family 4.x to 5.x.
+
+Change B:
+  outbound firewall policy for the connector subnet migrated to a new policy set.
+
+Both changes reached the affected worker pool before the first recorded timeout.

@@ -1,0 +1,3 @@
+Table C3 inspection found an incorrect mold-pressure compensation coefficient copied from a different tool family.
+C02, C07 and C09 are the only cells with C3.
+The previous table C2 has the correct coefficient for these tools.

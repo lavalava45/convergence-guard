@@ -1,0 +1,3 @@
+Routing client-5.0 traffic through proxy-7.3 eliminates corruption.
+Keeping proxy-7.4 but disabling zstd on client-5.0 also eliminates corruption.
+Neither mitigation changes document content before gateway processing.

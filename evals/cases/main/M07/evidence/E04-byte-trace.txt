@@ -1,0 +1,2 @@
+On the failing 5.0 + 7.4 path, the proxy emits a malformed final chunk after zstd streaming crosses the 8 MiB internal buffer boundary.
+The same client stream captured before proxy ingress has a valid checksum.

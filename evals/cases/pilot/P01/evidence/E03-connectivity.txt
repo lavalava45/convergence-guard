@@ -1,0 +1,8 @@
+Probe executed from the same runtime network namespace at 10:06:
+
+db-proxy.internal
+  DNS: resolves to 10.20.4.17
+  TCP 5432: success
+
+db-proxy-old.internal
+  DNS: NXDOMAIN

@@ -1,0 +1,4 @@
+WO-3917, Line 3, 01 Oct:
+Replaced flexible transfer hose after abrasion finding.
+Temporary spare hose installed from local maintenance stock pending OEM delivery.
+Hose was soaked overnight before installation per technician note. Work order does not identify the soak fluid.

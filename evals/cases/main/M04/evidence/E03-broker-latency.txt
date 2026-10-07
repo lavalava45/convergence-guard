@@ -1,0 +1,3 @@
+During the incident, broker acknowledgement latency intermittently reaches 18-26 seconds.
+This is long enough for the new 15-second producer timeout to trigger retries.
+The telemetry does not record whether a retry created a new message UUID.

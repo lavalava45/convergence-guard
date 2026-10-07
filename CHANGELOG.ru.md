@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- добавлено парное English/Russian руководство по применимости с классами задач, быстрым activation test и явными примерами, когда CG может быть избыточным или полезным;
+- задокументирован автоматический локальный technical pilot на двух cases, включая сигнал over-analysis / over-abstention на P01 и корректную работу с недоопределённостью на P02;
+- добавлена детерминированная normalization policy v0.1 для механически противоречивого `preferred_cause` при non-choice status с сохранением raw-answer и полным audit trail;
 - уточнено краткое описание устанавливаемого skill и явно указано, что полная установка включает рабочий пакет `references/`;
 - добавлены правила API/fresh-request для построения isolation-dependent workers без унаследованного session state;
 - разрешён один настоящий финалист после проверки покрытия / недостающих свидетельств; dossier, sensitivity и shared-bias review сохраняются, а пропускается только pairwise collision;

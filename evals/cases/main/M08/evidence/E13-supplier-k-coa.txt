@@ -1,0 +1,3 @@
+Supplier K certificate of analysis for K-771: all contract properties within range.
+Certificate is supplier-provided and does not test for every possible contaminant.
+Independent retained-sample evidence is in E04.

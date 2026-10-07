@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Convergence Guard comparative eval final answer",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "causal_assessment", "action", "evidence", "uncertainty", "next_test"],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "causal_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "candidate_causes", "preferred_cause"],
+      "properties": {
+        "status": {"enum": ["CHOOSE", "COEXIST", "INSUFFICIENT"]},
+        "candidate_causes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "claim"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "claim": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "preferred_cause": {
+          "type": ["string", "null"],
+          "description": "Candidate ID when status=CHOOSE; null for COEXIST or INSUFFICIENT."
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "CHOOSE"}}},
+          "then": {"properties": {"preferred_cause": {"type": "string", "minLength": 1}}}
+        },
+        {
+          "if": {"properties": {"status": {"enum": ["COEXIST", "INSUFFICIENT"]}}},
+          "then": {"properties": {"preferred_cause": {"type": "null"}}}
+        }
+      ]
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recommended_action", "reason"],
+      "properties": {
+        "recommended_action": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_ids", "claim"],
+        "properties": {
+          "evidence_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "pattern": "^E[0-9]{2}$"}
+          },
+          "claim": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "next_test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["test", "outcome_a_implication", "outcome_b_implication"],
+      "properties": {
+        "test": {"type": "string", "minLength": 1},
+        "outcome_a_implication": {"type": "string", "minLength": 1},
+        "outcome_b_implication": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

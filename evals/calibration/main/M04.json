@@ -1,0 +1,17 @@
+{
+  "case_id": "M04",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "The observed acknowledgement latency is sufficient to trigger the new producer retry timeout."
+    },
+    {
+      "id": "K2",
+      "claim": "The observed duplicate timing is sufficient to prove that dedup-cache expiry is the unique cause."
+    },
+    {
+      "id": "K3",
+      "claim": "The retained incident data distinguishes a producer-created retry from broker redelivery of the same original message."
+    }
+  ]
+}

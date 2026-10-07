@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-06",
+  "runtime": "Chat On Steroids spawned worker",
+  "overall": "FAIL",
+  "cg_full_enabled": false,
+  "checks": {
+    "parent_sentinel": {
+      "result": "NO_LEAK_OBSERVED",
+      "detail": "Fresh worker did not see the random CG-PARENT sentinel before tool use. This is not proof of isolation."
+    },
+    "parent_conversation_history": {
+      "result": "FAIL",
+      "detail": "Worker reported Recent Conversation Content from parent/account context in its supplied model context."
+    },
+    "account_project_memory": {
+      "result": "FAIL",
+      "detail": "Worker reported User Knowledge Memories/account context in its supplied model context."
+    },
+    "prior_worker_history": {
+      "result": "FAIL",
+      "detail": "Worker reported prior worker-related conversation excerpts in Recent Conversation Content."
+    },
+    "sibling_outputs": {
+      "result": "INCONCLUSIVE",
+      "detail": "No sibling was present in this preflight run."
+    },
+    "private_filesystem_boundary": {
+      "result": "FAIL",
+      "detail": "Worker could access the shared private-key directory and read its README. No key.json was opened."
+    },
+    "retrieval_scope": {
+      "result": "INCONCLUSIVE",
+      "detail": "This failed runtime was not separately audited for every retrieval surface because Full Mode was already invalidated by context and filesystem failures."
+    },
+    "coordinator_handoff": {
+      "result": "INCONCLUSIVE",
+      "detail": "No clean allowlisted coordinator-handoff mechanism was established in this runtime configuration."
+    }
+  },
+  "decision": "Do not execute cg-full treatment in this runtime configuration. Participant runs also require hidden keys to be outside every participant-accessible tool or retrieval scope."
+}

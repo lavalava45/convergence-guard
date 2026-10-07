@@ -1,0 +1,2 @@
+GC-MS summary from four hazy finished samples (B203, B205, B209, B211): common low-level cyclic siloxane signature not present in matched retained raw-material samples.
+Two clear finished samples from L1/L2 show no detectable siloxane signature above reporting threshold.

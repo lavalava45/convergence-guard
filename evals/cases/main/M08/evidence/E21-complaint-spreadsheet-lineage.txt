@@ -1,0 +1,4 @@
+Data lineage note:
+E01 and the complaint counts in E02 both derive from spreadsheet QS-44.
+They should not be treated as two independent confirmations of Supplier K.
+QS-44 originally sorted records by complaint arrival time, not production line or supplier exposure.

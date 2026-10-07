@@ -1,0 +1,13 @@
+{
+  "case_id": "P01",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "The deployed database hostname is invalid in the affected runtime."
+    },
+    {
+      "id": "K2",
+      "claim": "CPU saturation is required to explain the outage."
+    }
+  ]
+}

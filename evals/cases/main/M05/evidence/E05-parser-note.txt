@@ -1,0 +1,2 @@
+Parser v5 maps an explicit empty country string to token UNKNOWN_COUNTRY, which contributes to the internally computed 'R91-match' label.
+The actual vendor decision trace for the first 35 minutes was not retained.

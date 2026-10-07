@@ -1,0 +1,6 @@
+2026-10-06T10:03:11Z checkout-7d9f startup INFO  configuration loaded
+2026-10-06T10:03:12Z checkout-7d9f db      ERROR getaddrinfo ENOTFOUND db-proxy-old.internal
+2026-10-06T10:03:12Z checkout-7d9f health  WARN  dependency database unavailable
+2026-10-06T10:03:13Z checkout-7d9f http    WARN  GET /health -> 503
+2026-10-06T10:03:18Z checkout-7d9f db      ERROR getaddrinfo ENOTFOUND db-proxy-old.internal
+2026-10-06T10:03:19Z checkout-7d9f http    WARN  POST /checkout -> 503 dependency unavailable

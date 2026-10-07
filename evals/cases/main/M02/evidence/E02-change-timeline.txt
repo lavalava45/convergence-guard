@@ -1,0 +1,5 @@
+13:58 storage team begins planned controller maintenance.
+14:01 base-image 2026.10.7-b rolled to pool B only.
+14:04 monitoring shows elevated storage p99 latency.
+14:05 first export failure from pool B.
+Pool A remains on base-image 2026.10.6-f.

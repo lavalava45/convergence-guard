@@ -1,0 +1,8 @@
+{
+  "case_id": "P02",
+  "case_type": "underdetermined_tls_failure",
+  "web_access": false,
+  "allowed_tools": ["read_case_files"],
+  "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+  "participant_note": "All evidence needed for this pilot is in the evidence directory."
+}

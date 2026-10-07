@@ -1,0 +1,5 @@
+Storage p99 write latency:
+13:50-13:57: 18-22 ms
+14:02-14:10: 34-41 ms
+The same shared storage serves pools A and B.
+No storage errors or timeouts are recorded. Pool A export success rate remains 99.9%.

@@ -1,0 +1,7 @@
+You are now Analyst C in the same shared-context run.
+
+Re-read the original participant-visible case and evidence, plus the shared-journal outputs from Analysts A and B. Perform an independent critical pass while explicitly using the shared journal: challenge unsupported convergence, reconcile or preserve disagreements, distinguish what is directly evidenced from what remains uncertain, and sharpen the recommended action and next discriminating test.
+
+Your output is the third shared-journal entry for the synthesizer.
+
+Do not return the final normalized JSON yet. Do not ask questions, browse, use Connected Apps, or introduce facts not present in this chat.

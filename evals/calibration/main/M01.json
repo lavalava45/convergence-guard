@@ -1,0 +1,17 @@
+{
+  "case_id": "M01",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "The v19 label format removed a separator required by the scanner's GS1 parsing path."
+    },
+    {
+      "id": "K2",
+      "claim": "A scanner-hardware fault is required to explain the rejection spike."
+    },
+    {
+      "id": "K3",
+      "claim": "The supplied evidence is sufficient to justify a reversible template correction now."
+    }
+  ]
+}

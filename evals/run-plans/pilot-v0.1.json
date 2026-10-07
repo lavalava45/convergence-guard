@@ -1,0 +1,93 @@
+{
+  "design": "blocked-randomization",
+  "seed": 20261006,
+  "modes": [
+    "single-context",
+    "shared-context-multi-agent",
+    "cg-reduced",
+    "cg-full"
+  ],
+  "repeats": 1,
+  "case_count": 2,
+  "run_count": 8,
+  "blocks": [
+    {
+      "block_id": "P01-r1",
+      "case_id": "P01",
+      "repeat": 1,
+      "runs": [
+        {
+          "ordinal": 1,
+          "run_id": "P01-r1-cg-reduced",
+          "case_id": "P01",
+          "repeat": 1,
+          "mode": "cg-reduced",
+          "status": "planned"
+        },
+        {
+          "ordinal": 2,
+          "run_id": "P01-r1-shared-context-multi-agent",
+          "case_id": "P01",
+          "repeat": 1,
+          "mode": "shared-context-multi-agent",
+          "status": "planned"
+        },
+        {
+          "ordinal": 3,
+          "run_id": "P01-r1-single-context",
+          "case_id": "P01",
+          "repeat": 1,
+          "mode": "single-context",
+          "status": "planned"
+        },
+        {
+          "ordinal": 4,
+          "run_id": "P01-r1-cg-full",
+          "case_id": "P01",
+          "repeat": 1,
+          "mode": "cg-full",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "block_id": "P02-r1",
+      "case_id": "P02",
+      "repeat": 1,
+      "runs": [
+        {
+          "ordinal": 5,
+          "run_id": "P02-r1-shared-context-multi-agent",
+          "case_id": "P02",
+          "repeat": 1,
+          "mode": "shared-context-multi-agent",
+          "status": "planned"
+        },
+        {
+          "ordinal": 6,
+          "run_id": "P02-r1-single-context",
+          "case_id": "P02",
+          "repeat": 1,
+          "mode": "single-context",
+          "status": "planned"
+        },
+        {
+          "ordinal": 7,
+          "run_id": "P02-r1-cg-full",
+          "case_id": "P02",
+          "repeat": 1,
+          "mode": "cg-full",
+          "status": "planned"
+        },
+        {
+          "ordinal": 8,
+          "run_id": "P02-r1-cg-reduced",
+          "case_id": "P02",
+          "repeat": 1,
+          "mode": "cg-reduced",
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

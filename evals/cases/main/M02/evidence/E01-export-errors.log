@@ -1,0 +1,5 @@
+14:05:41 pool=B worker=b17 export=failed code=REQUEST_TIME_WINDOW message='signed request timestamp outside ±120s acceptance window'
+14:05:46 pool=B worker=b19 export=failed code=REQUEST_TIME_WINDOW
+14:05:49 pool=A worker=a06 export=ok
+14:06:03 pool=B worker=b21 export=failed code=REQUEST_TIME_WINDOW
+14:06:10 pool=A worker=a02 export=ok

@@ -1,0 +1,6 @@
+Deployment configuration diff at 10:02:
+
+- DATABASE_HOST=db-proxy.internal
++ DATABASE_HOST=db-proxy-old.internal
+
+No application-code files changed in this deployment.

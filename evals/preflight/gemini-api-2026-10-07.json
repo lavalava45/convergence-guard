@@ -1,0 +1,43 @@
+{
+  "runtime": "Gemini Developer API generateContent via local stateless adapter",
+  "model": "gemini-3.5-flash",
+  "checks": {
+    "parent_transcript": {
+      "status": "PASS",
+      "reason": "Each generateContent POST is constructed from a fresh explicit messages array with no session/previous-interaction field; sentinel probe observed no parent token."
+    },
+    "sibling_outputs": {
+      "status": "PASS",
+      "reason": "Sibling calls are separate stateless POSTs and the probe observed no sibling-output sentinel."
+    },
+    "prior_worker_history": {
+      "status": "PASS",
+      "reason": "The adapter does not reuse a provider conversation/session identifier or prior response state."
+    },
+    "account_project_memory": {
+      "status": "PASS",
+      "reason": "No memory/history field is sent; the effective model input is the explicit generateContent request contents."
+    },
+    "retrieval": {
+      "status": "PASS",
+      "reason": "No retrieval, grounding, URL context, file search, or cached content is sent."
+    },
+    "filesystem_tools": {
+      "status": "PASS",
+      "reason": "Participant API calls expose no tools or filesystem access."
+    },
+    "coordinator_handoff": {
+      "status": "PASS",
+      "reason": "The harness constructs each request from an explicit message allowlist; downstream context must be supplied as ordinary message text by the mode executor."
+    }
+  },
+  "sentinel_diagnostics": {
+    "parent_seed_ack": "ACK",
+    "parent_probe": "NONE",
+    "sibling_seed_returned_expected": true,
+    "sibling_probe": "NONE",
+    "note": "Negative sentinel probes supplement, but do not alone prove, isolation. PASS also relies on inspectable stateless request construction and absence of tools/retrieval/session fields."
+  },
+  "overall": "PASS",
+  "cg_full_enabled": true
+}

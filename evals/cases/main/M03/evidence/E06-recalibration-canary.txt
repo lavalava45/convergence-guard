@@ -1,0 +1,3 @@
+C07 was restored from C3 to C2. Resin lot, firmware and ambient conditions were unchanged.
+Before change: 11 defects / 40 parts.
+After change: 0 defects / 60 parts.

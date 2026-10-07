@@ -1,0 +1,2 @@
+Reactor temperature, agitation, cure profile and dosing totals for L3 hazy batches remain inside validated operating ranges.
+No parameter excursion unique to hazy batches was identified.

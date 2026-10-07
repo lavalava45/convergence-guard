@@ -1,0 +1,2 @@
+Among firmware-6.2 cells, only C02 is affected; C01, C03, C04, C05 and C06 remain at baseline.
+Affected cells C07 and C09 still run firmware 6.1.

@@ -1,0 +1,17 @@
+The primary answer above is now frozen. Do not revise, reinterpret, or replace it.
+
+For each claim below, give your probability that the claim is true on a scale from 0 to 1 using only the evidence already supplied in this chat.
+
+K1: The deployed database hostname is invalid in the affected runtime.
+K2: CPU saturation is required to explain the outage.
+
+Return exactly this JSON shape and nothing else:
+{
+  "case_id": "P01",
+  "probabilities": [
+    {"id": "K1", "p": 0.0},
+    {"id": "K2", "p": 0.0}
+  ]
+}
+
+Replace 0.0 with your actual probabilities. Do not revise the frozen primary answer.

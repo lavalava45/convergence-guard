@@ -1,0 +1,4 @@
+During B211 manufacture, archived in-process retains were available:
+- sample U3 taken upstream of the temporary Line 3 hose: clear; siloxane not detected.
+- sample D3 taken after the hose/manifold: haze reproduced after cure; siloxane detected.
+Samples were sealed under QA custody before the current investigation.

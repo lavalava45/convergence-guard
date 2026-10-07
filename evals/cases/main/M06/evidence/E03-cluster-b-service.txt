@@ -1,0 +1,1 @@
+Cluster B refrigeration loop pressures and compressor current are normal. Both supply-air dampers remain commanded open but physically stuck near closed. Actuator linkage is binding.

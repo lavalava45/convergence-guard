@@ -1,0 +1,6 @@
+Packaging template change record
+
+09:12 deployment: label-template v18 -> v19.
+Change note: simplify lot-number field formatting.
+Diff summary: the explicit GS1 FNC1 separator after variable-length AI(10) was removed from the rendered barcode string.
+No scanner configuration was changed in this deployment.

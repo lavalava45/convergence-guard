@@ -1,0 +1,2 @@
+Plant temperature and humidity remained within process limits on all three lines.
+No line-specific environmental excursion aligns with the haze batches.

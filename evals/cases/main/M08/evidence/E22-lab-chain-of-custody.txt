@@ -1,0 +1,4 @@
+QA audit confirms E05, E10, E11 and E20 used separately logged samples with intact chain-of-custody.
+E05 and E11 were collected before the hose-contamination hypothesis was proposed.
+E10 was collected after that hypothesis emerged.
+E20 is an intervention canary.

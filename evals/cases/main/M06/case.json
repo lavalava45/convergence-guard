@@ -1,0 +1,19 @@
+{
+  "case_id": "M06",
+  "case_type": "cold_storage_incident",
+  "web_access": false,
+  "allowed_tools": [
+    "read_case_files"
+  ],
+  "allowed_evidence_ids": [
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06"
+  ],
+  "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+  "calibration_claims": "../../../calibration/main/M06.json",
+  "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+}

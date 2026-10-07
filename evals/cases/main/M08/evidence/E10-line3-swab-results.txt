@@ -1,0 +1,6 @@
+06 Oct swab/extract test:
+- Line 3 temporary hose inner wall: positive for siloxane residue.
+- Line 3 upstream stainless pipe before hose: not detected.
+- Line 3 downstream transfer manifold: positive trace.
+- Line 1 corresponding hose/manifold: not detected.
+Chain-of-custody IDs QC-811 through QC-814.

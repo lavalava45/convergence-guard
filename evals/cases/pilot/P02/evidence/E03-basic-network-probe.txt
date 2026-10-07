@@ -1,0 +1,6 @@
+Read-only probe from an affected worker at 12:09:
+
+DNS lookup api.payments.example: success
+TCP connect api.payments.example:443: success
+
+The probe did not capture or inspect the TLS handshake payload.

@@ -1,0 +1,17 @@
+{
+  "case_id": "M02",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "The storage maintenance is sufficient to explain why pool B fails while pool A succeeds."
+    },
+    {
+      "id": "K2",
+      "claim": "Pool B has a clock offset large enough to violate the request-signing acceptance window."
+    },
+    {
+      "id": "K3",
+      "claim": "Correcting time on a pool-B worker restores exports while the storage condition remains unchanged."
+    }
+  ]
+}

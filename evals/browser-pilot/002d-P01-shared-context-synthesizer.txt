@@ -1,0 +1,7 @@
+You are now the synthesizer for this shared-context run.
+
+Using only the original participant-visible case/evidence and the three analyst shared-journal entries in this Temporary Chat, produce the final answer.
+
+Return exactly one JSON object and nothing else. Do not use Markdown fences, preamble, commentary, or follow-up text. The JSON must conform exactly to the OUTPUT-SCHEMA embedded in the first message and must use "case_id": "P01".
+
+Do not browse, use Connected Apps, ask questions, or add facts from outside this chat.

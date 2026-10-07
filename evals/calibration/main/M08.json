@@ -1,0 +1,21 @@
+{
+  "case_id": "M08",
+  "claims": [
+    {
+      "id": "K1",
+      "claim": "Supplier K lot K-771 is a necessary exposure for all confirmed hazy batches."
+    },
+    {
+      "id": "K2",
+      "claim": "Confirmed hazy batches span multiple raw-material supplier lots but share Line 3 exposure."
+    },
+    {
+      "id": "K3",
+      "claim": "Siloxane is detected downstream of the temporary Line 3 hose but not in matched upstream material."
+    },
+    {
+      "id": "K4",
+      "claim": "Replacing the temporary Line 3 hose while keeping raw-material lot and process settings fixed eliminates the observed haze in the canary."
+    }
+  ]
+}

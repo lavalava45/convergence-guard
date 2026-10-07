@@ -1,0 +1,4 @@
+Time synchronization check at 14:09:
+pool A median offset: +0.04 s
+pool B median offset: +371.8 s
+Image 2026.10.7-b service manifest: time-sync daemon disabled by an unintended preset override.

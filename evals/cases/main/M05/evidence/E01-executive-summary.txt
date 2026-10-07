@@ -1,0 +1,2 @@
+Executive incident summary, 16:30
+False-positive spike began shortly after ruleset R91 activation. 92% of reviewed false positives are marked 'R91-match'. Working hypothesis: R91 is too aggressive.

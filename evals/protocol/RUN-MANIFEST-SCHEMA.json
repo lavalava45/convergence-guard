@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Convergence Guard comparative eval run manifest",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["run_id", "case_id", "mode", "repeat", "eval_version", "status"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "case_id": {"type": "string", "minLength": 1},
+    "mode": {
+      "enum": ["single-context", "shared-context-multi-agent", "cg-reduced", "cg-full"]
+    },
+    "repeat": {"type": "integer", "minimum": 1},
+    "eval_version": {"type": "string", "minLength": 1},
+    "model": {"type": ["string", "null"]},
+    "model_settings": {"type": ["object", "null"]},
+    "normalization_version": {"type": ["string", "null"]},
+    "normalization_repairs": {"type": ["integer", "null"], "minimum": 0},
+    "case_hash": {"type": ["string", "null"]},
+    "protocol_hash": {"type": ["string", "null"]},
+    "start_time": {"type": ["string", "null"]},
+    "end_time": {"type": ["string", "null"]},
+    "status": {"enum": ["planned", "running", "complete", "invalid", "budget_stop", "error"]},
+    "isolation_preflight": {"enum": ["PASS", "FAIL", "INCONCLUSIVE", "NOT_APPLICABLE", "NOT_RUN"]},
+    "usage": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "input_tokens": {"type": ["integer", "string", "null"]},
+        "output_tokens": {"type": ["integer", "string", "null"]},
+        "reasoning_tokens": {"type": ["integer", "string", "null"]},
+        "cached_tokens": {"type": ["integer", "string", "null"]},
+        "model_calls": {"type": ["integer", "string", "null"]},
+        "retries": {"type": ["integer", "string", "null"]},
+        "cost": {"type": ["number", "string", "null"]},
+        "wall_clock_seconds": {"type": ["number", "string", "null"]}
+      }
+    }
+  }
+}

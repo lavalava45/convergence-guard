@@ -1,0 +1,3 @@
+Corruption occurs only for uploads larger than 8 MiB using content-encoding zstd.
+Small uploads and large uncompressed uploads are unaffected.
+Affected requests all traversed proxy firmware 7.4.

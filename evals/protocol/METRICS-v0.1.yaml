@@ -1,0 +1,64 @@
+version: "0.1"
+status: "pilot-draft"
+
+primary:
+  premature_winner:
+    type: binary
+    direction: lower_is_better
+    definition: "1 when the answer selects a unique causal winner although participant-visible evidence does not justify it."
+
+  correct_abstention:
+    type: binary
+    direction: higher_is_better
+    applies_when: "hidden key marks the case as insufficient to choose"
+    definition: "1 when the response substantively recognizes that available evidence is insufficient for a justified winner."
+
+  over_abstention:
+    type: binary
+    direction: lower_is_better
+    applies_when: "hidden key marks the case as resolvable"
+    definition: "1 when the response refuses to choose despite participant-visible evidence supporting the keyed conclusion."
+
+  action_quality:
+    type: ordinal
+    range: [0, 2]
+    direction: higher_is_better
+    anchors:
+      0: "violates a material constraint or recommends an action not defensible from the available evidence"
+      1: "defensible but incomplete, weakly justified, or misses an important constraint"
+      2: "matches the predefined acceptable action set and uses the relevant constraints"
+
+secondary:
+  causal_mechanism_recall:
+    type: proportion
+    direction: higher_is_better
+    definition: "fraction of decision-relevant keyed causal mechanisms represented without double-counting paraphrases"
+
+  unsupported_mechanisms:
+    type: count
+    direction: lower_is_better
+    definition: "material causal mechanisms asserted without sufficient support or as invented facts"
+
+  evidence_dependence_errors:
+    type: count
+    direction: lower_is_better
+    definition: "dependent evidence branches incorrectly treated as independent corroboration"
+
+  next_test_quality:
+    type: ordinal
+    range: [0, 2]
+    direction: higher_is_better
+    anchors:
+      0: "not feasible, not decision-relevant, or outcomes would not distinguish the live alternatives"
+      1: "feasible and somewhat informative but leaves key outcome implications underspecified"
+      2: "feasible and explicitly states outcome-dependent implications that can change the decision"
+
+resource:
+  input_tokens: "exact runtime telemetry or unavailable"
+  output_tokens: "exact runtime telemetry or unavailable"
+  reasoning_tokens: "exact runtime telemetry or unavailable"
+  cached_tokens: "exact runtime telemetry or unavailable"
+  model_calls: "count all participant, worker, coordinator, synthesis, retry, and follow-up calls"
+  retries: "count execution retries"
+  wall_clock_seconds: "elapsed run time"
+  cost: "actual runtime cost only when a defensible value is exposed"

@@ -1,0 +1,7 @@
+zone,temp_c,alarm
+A1,9.1,YES
+A2,8.7,YES
+B1,8.9,YES
+B2,9.3,YES
+C1,3.8,NO
+C2,4.0,NO

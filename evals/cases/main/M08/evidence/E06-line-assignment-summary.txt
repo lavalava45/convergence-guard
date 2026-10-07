@@ -1,0 +1,4 @@
+Production scheduling extract:
+All confirmed hazy batches in the current investigation were processed on Line 3.
+K-771 was also processed on Lines 1 and 2 without confirmed haze.
+Line 3 processed K-771, J-118 and M-442 during the affected period.
