@@ -135,7 +135,10 @@ def main() -> int:
             "transport_attempts": transport_attempts,
         },
     }
-    print(json.dumps(envelope, ensure_ascii=False))
+    # Keep the subprocess transport ASCII-only on Windows. The parent runner
+    # decodes stdout as UTF-8; escaping non-ASCII here avoids dependence on the
+    # active Windows console code page without changing the parsed JSON value.
+    print(json.dumps(envelope, ensure_ascii=True))
     return 0
 
 

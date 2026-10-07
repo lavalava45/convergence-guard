@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute the frozen main-v0.1.3 plan sequentially against one loaded LM Studio backend."""
+"""Execute the frozen main-v0.1.4 plan sequentially against one loaded LM Studio backend."""
 
 from __future__ import annotations
 
@@ -54,14 +54,14 @@ def main() -> int:
     plan = json.loads(PLAN.read_text(encoding="utf-8-sig"))
     runs = [run for block in plan["blocks"] for run in block["runs"]]
     if len(runs) != 32 or any(run["repeat"] != 1 for run in runs):
-        raise RuntimeError("main-v0.1.3 requires exactly 32 repeat-1 runs")
+        raise RuntimeError("main-v0.1.4 requires exactly 32 repeat-1 runs")
 
     pid, port, key, cmd = discover_backend()
     validate_load_profile(cmd)
     env = dict(os.environ)
     env["LMSTUDIO_BASE_URL"] = f"http://127.0.0.1:{port}/v1"
     env["LMSTUDIO_API_KEY"] = key
-    print(f"MAIN v0.1.3 START pid={pid} runs={len(runs)}", flush=True)
+    print(f"MAIN v0.1.4 START pid={pid} runs={len(runs)}", flush=True)
 
     started = time.perf_counter()
     for idx, run in enumerate(runs, start=1):
@@ -85,7 +85,7 @@ def main() -> int:
             return proc.returncode
 
     total = time.perf_counter() - started
-    print(f"MAIN v0.1.3 COMPLETE runs=32 elapsed={total:.1f}s", flush=True)
+    print(f"MAIN v0.1.4 COMPLETE runs=32 elapsed={total:.1f}s", flush=True)
     return 0
 
 

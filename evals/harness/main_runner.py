@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frozen main-v0.1.3 LM Studio runner.
+"""Frozen main-v0.1.4 LM Studio runner.
 
 Default invocation is read-only/dry-run. Passing --execute is required before
 any model request is issued.
@@ -33,7 +33,7 @@ PRIMARY_MAX_CALLS = 12
 PRIMARY_MAX_OUTPUT = 32768
 CAL_MAX_CALLS = 2
 CAL_MAX_OUTPUT = 1024
-EVAL_VERSION = "main-v0.1.3"
+EVAL_VERSION = "main-v0.1.4"
 MAX_REQUEST_ATTEMPTS = 2
 MODES = (
     "single-context",
