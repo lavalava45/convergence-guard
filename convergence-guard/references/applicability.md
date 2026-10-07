@@ -6,18 +6,20 @@ This guide distinguishes task classes where the protocol is likely to help from 
 
 ## Evidence status
 
-The boundaries below are partly architectural and partly informed by the current technical pilot. The pilot is **not a performance proof**: it used only two cases, one repeat, and one local model. It is sufficient to identify a concrete failure mode and an applicability hypothesis worth testing in the main benchmark.
+The boundaries below are architectural, but they are now also informed by the frozen `main-v0.1.7` benchmark: 8 cases × 4 modes × 1 repeat = 32 participant runs using one fixed local model, followed by calibration and blind semantic judging. This is **evidence for an applicability map, not a universal performance proof**. One model, eight authored cases, and one repeat per cell do not establish a population-wide ranking.
 
-In the local pilot:
+The main benchmark produced four useful signals:
 
-- **P01 — direct resolvable:** the single-context baseline returned the keyed `CHOOSE` result. Shared-context returned `COEXIST`; Reduced and Full Mode returned `INSUFFICIENT`. All four still recommended the correct corrective action.
-- **P02 — intentionally underdetermined:** all four modes returned `INSUFFICIENT` and recommended diagnostic/canary-style next steps instead of forcing a causal winner.
+- **Full Mode had fewer observed premature winners in this 8-case set:** `cg-full` had 0/8 premature winners; single-context and `cg-reduced` each had 1/8. This is descriptive, not a causal or population-level effect estimate.
+- **The strongest separation appeared on deceptive underdetermination:** on M05, where apparently abundant evidence largely descended from one evidence branch, Full Mode and shared-context preserved the live alternatives while single-context and Reduced each received `premature_winner=1` and `correct_abstention=0` from the blind judge.
+- **Simple/resolvable cases did not justify Full Mode's cost:** on direct and strongly resolvable cases, Full Mode did not produce a decision-quality advantage commensurate with roughly 9.1 model calls per case versus 1 for single-context.
+- **Full Mode is not a universal winner:** shared-context multi-agent also achieved 0/8 premature winners at lower cost, and Full Mode sometimes expressed overly cautious literal statuses on keyed `COEXIST` cases.
 
-The current interpretation is therefore a **testable hypothesis**, not a universal claim:
+All blind semantic scores above use the frozen normalized participant artifact. In raw Full Mode outputs for the two keyed-insufficient cases M04 and M05, `preferred_cause` was still populated despite `status=INSUFFICIENT`; the predeclared treatment-independent normalization rule cleared that field before judging. This makes the published abstention scores valid under the frozen protocol, but it is a material output/interpretation caveat rather than evidence of perfectly clean raw abstention behavior.
 
-> Convergence Guard may be unnecessary or over-cautious on direct-resolvable problems, while becoming more useful as causal ambiguity, confounding, framing risk, evidence dependence, and the cost of premature commitment increase.
+The current interpretation is therefore:
 
-The planned main benchmark is designed to test that hypothesis across more task classes.
+> Convergence Guard is most justified when causal ambiguity, framing risk, evidence dependence, or the cost of premature commitment is high. Interaction/`COEXIST` structure requires explicit checking, but it is **not by itself** a reason to escalate to Full Mode; escalation is justified when the interaction is hard to separate and additional evidence-dependence, framing/open-world, or commitment-risk factors make the isolation overhead worthwhile. It is usually unnecessary for directly resolved problems, and Full Mode should not be treated as the default when a cheaper workflow already separates the live causes adequately.
 
 ## Task classes
 
@@ -55,9 +57,9 @@ Typical characteristics:
 - several observations are compatible with both;
 - the decisive evidence is easy to overlook.
 
-This is a core Convergence Guard target. The method should help prevent the first plausible explanation from monopolizing later reasoning.
+This is a core Convergence Guard target. The benchmark supports the value of structured multi-stage analysis here, but does not show that Full Mode is always better than a cheaper multi-pass comparator.
 
-**Recommended treatment:** Full Mode is often justified when the wrong commitment is materially costly.
+**Recommended treatment:** use Full Mode when the wrong commitment is materially costly **and** the extra isolation/anti-anchoring guarantees justify its cost. If Full Mode is unnecessary despite being available, prefer ordinary or cheaper multi-pass analysis rather than relabeling it Reduced Mode. Use Reduced Mode as the explicit fallback when genuine isolation is unavailable and the user accepts that limitation.
 
 ### 4. Interacting or layered causes
 
@@ -70,7 +72,7 @@ Typical characteristics:
 
 These problems are poorly represented as a forced `A OR B`.
 
-**Recommended treatment:** Reduced or Full Mode, with explicit attention to `COEXIST`, interaction, nesting, and causal roles.
+**Recommended treatment:** explicitly model `COEXIST`, interaction, nesting, and causal roles in whatever workflow is used. Escalate to Full Mode only when the interaction is hard to separate **and** another material risk—such as evidence dependence, framing/open-world search risk, or costly irreversible commitment—makes stronger isolation worth the overhead. If isolation is unavailable and the user accepts the limitation, Reduced Mode is the fallback.
 
 ### 5. Open-world causal investigation
 
@@ -95,7 +97,7 @@ Convergence Guard becomes more justified as more of the following are true:
 |---|---|---|
 | Competing causes | one obvious mechanism | several causally distinct live models |
 | Evidence separability | direct discriminating evidence | evidence is compatible with multiple stories |
-| Confounding / interaction | negligible | material |
+| Confounding / interaction | negligible or easy to separate | material **and hard to separate in a decision-relevant way** |
 | Framing risk | low | plausible missing causal families |
 | Evidence provenance | direct and independent | indirect, conflicting, or common-ancestry |
 | Testability | cheap decisive test exists | tests are costly, delayed, or ambiguous |
@@ -104,26 +106,19 @@ Convergence Guard becomes more justified as more of the following are true:
 
 If nearly every signal is in the left column, a heavy Convergence Guard run is probably unnecessary.
 
-## What the pilot currently supports
+## What the current benchmark supports
 
-The current pilot supports only three modest conclusions:
+The completed `main-v0.1.7` study supports four modest conclusions:
 
-1. Full Mode can be executed end-to-end in an auditable local stateless runtime.
-2. Direct-resolvable cases can expose a real **over-abstention / over-analysis** failure mode.
-3. Intentionally underdetermined cases can exercise the protocol's legitimate abstention path.
+1. Full Mode can be executed end-to-end in an auditable isolated local runtime; in this 8-case set it had fewer observed unsupported winner selections on ambiguity-heavy cases than single-context and Reduced Mode.
+2. The strongest observed benefit appeared where evidence dependence and framing created false confidence, not on directly resolvable cases.
+3. Full Mode's quality gains come with substantial resource overhead, so selective activation matters.
+4. Some benefit appears to come from multi-pass analysis generally: shared-context multi-agent performed strongly on several primary metrics, so the current study does not isolate a pure effect of CG-specific information boundaries.
 
-It does **not** establish that CG is generally better than single-context analysis, nor does it establish a universal activation threshold.
+It still does **not** establish that CG is generally superior to ordinary analysis, nor does it establish a universal numeric activation threshold. The benchmark also exposed a metric gap around complete semantic causal-structure correctness for `CHOOSE / COEXIST / INSUFFICIENT` outcomes.
 
-## What the main benchmark should establish
-
-The next benchmark should use new frozen cases spanning the task classes above, with the classes defined **before** results are inspected.
-
-The useful empirical question is not simply:
-
-> Does Convergence Guard win more often?
-
-It is:
+The useful empirical question remains:
 
 > Under which causal regimes does Convergence Guard improve decision quality enough to justify its additional cost, and under which regimes does it add unnecessary caution or overhead?
 
-That result can support a practical activation guide for users and, eventually, an automatic triage step before choosing ordinary analysis, Reduced Mode, or Full Mode.
+The current result is enough to support a practical activation guide. The next evidence-building step should be replication on another model/runtime and/or targeted retesting of the cases where modes diverged most, not merely making every run larger.

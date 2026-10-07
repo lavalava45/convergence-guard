@@ -547,6 +547,8 @@ This primarily controls T5 and T6 and can affect T9 when the feasibility or cost
 
 The lens is used only when stakeholders materially affect the outcome. Statements about them retain evidence provenance so the analysis does not invent preferences or motives merely to fill missing information.
 
+Optional lenses are not side channels into adjudication. If a premortem or stakeholder review exposes a new factual claim, missing causal family, system-boundary issue, proxy objective, or decision-contract change, the finding must re-enter through the ordinary evidence/contract/search checkpoint and affected stages must be rerun. If the finding only adds a supported action-risk or implementation constraint without changing the causal slate, it may be passed forward explicitly as a neutral lens finding to D2/E1. This preserves the same stage-boundary discipline used elsewhere in Full Mode.
+
 ---
 
 ## 13. Why adjudication is slate-level and fresh
@@ -603,7 +605,9 @@ A second opinion has value when the first adjudication is structurally fragile:
 
 Running it automatically would create T11 and risk turning repeated reasoning into pseudo-corroboration.
 
-The second-opinion reviewer therefore reconstructs the decisive inference from raw evidence provenance and neutral claims rather than merely rereading the polished winner.
+The second-opinion reviewer therefore reconstructs the decisive inference from the decision contract, a neutral feasible-action frame, raw evidence provenance, neutral candidate claims, and only the dossier material needed to audit added premises. It does not receive a labeled winner or D2's pairwise preferences.
+
+Its output is operational rather than advisory prose: `CONFIRM`, `QUALIFY`, or `CHALLENGE`. `CONFIRM` leaves D2 standing; `QUALIFY` carries explicit conditions into Phase E; `CHALLENGE` triggers the ordinary checkpoint/new-hypothesis machinery when it introduces new evidence, a missing family, or a revised mechanism. An unresolved decision-changing D2/D3 conflict blocks commitment under E2. This avoids turning the second opinion into either a hidden veto or an informal majority vote.
 
 ---
 
@@ -902,7 +906,7 @@ Authority is ordered as follows:
 1. [convergence-guard/SKILL.md](convergence-guard/SKILL.md) — canonical executable protocol;
 2. [protocol-details.md](convergence-guard/references/protocol-details.md) — detailed operational rules;
 3. DESIGN.md — architectural rationale and threat model;
-4. explanatory guides and runtime profiles — human guidance and environment-specific integration.
+4. explanatory guides and runtime/integration guidance — human guidance and environment-specific integration.
 
 If this document and the canonical skill ever disagree on an operational rule, the skill wins and the design document must be updated.
 

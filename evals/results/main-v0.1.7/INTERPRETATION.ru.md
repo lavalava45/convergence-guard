@@ -18,6 +18,8 @@
 - средний recall decision-relevant mechanisms: **1.000** у `cg-full`, shared-context и single-context; 0.958 у `cg-reduced`;
 - по next-test quality Full Mode **не** оказался лучшим: 1.500 у `cg-full` против 1.625 у single-context и `cg-reduced`.
 
+Эти semantic scores относятся к frozen normalized артефактам `final.json`. В обоих keyed-insufficient Full Mode runs (M04 и M05) raw participant answer объявлял `INSUFFICIENT`, но одновременно оставлял ненулевой `preferred_cause`; predeclared normalization rule N1 очистила это поле до blind judging. Поэтому результат `2/2 correct abstentions` корректен по frozen scoring protocol, но raw-output behavior был менее чистым, чем можно подумать по одной агрегированной цифре.
+
 Самый ясный сигнал границы применимости появился на **M05 — deceptive underdetermination**. `cg-full` и shared-context сохранили реально живые альтернативы, тогда как single-context и `cg-reduced` получили от blind judge `premature_winner=1` и `correct_abstention=0`. Это соответствует исходной гипотезе: дополнительная структура особенно полезна, когда кажущееся изобилие evidence на деле зависит от одной производной evidence-ветки и присутствует сильное framing pressure.
 
 ## Цена улучшения
@@ -46,19 +48,19 @@ Blind semantic metrics и буквальный status token дают не пол
 
 В частности, `cg-full` объявил `INSUFFICIENT` на M06 и M07, где frozen key ожидал `COEXIST`. При этом содержательно ответы всё равно отражали важные механизмы и действия и поэтому получили хорошие оценки по frozen semantic metrics. Это выявило ограничение текущего metric set: в нём есть отдельные premature-winner и abstention metrics, но нет одной прямой semantic-метрики **causal-structure correctness**, которая одинаково штрафует все ошибки между `CHOOSE / COEXIST / INSUFFICIENT`.
 
-Поэтому корректный вывод уже: **в этих восьми cases Full Mode лучше защищал от unsupported winner selection и давал наиболее сильные actions, но не доминировал по всем structural и efficiency diagnostics.** Status-mismatch pattern нужно использовать как требование к следующей версии benchmark, а не прятать за агрегатом.
+Поэтому корректный вывод уже: **в этих восьми cases у Full Mode не наблюдалось unsupported winner selections и он давал наиболее сильные actions, но не доминировал по всем structural и efficiency diagnostics.** Status-mismatch pattern нужно использовать как требование к следующей версии benchmark, а не прятать за агрегатом.
 
 ## Calibration и output compliance
 
 Средние Brier scores были очень низкими у всех режимов: 0.004 single-context, 0.007 `cg-full`, 0.015 `cg-reduced` и 0.027 shared-context. Как и было заранее оговорено в protocol, это малое число коррелированных binary claims, поэтому самостоятельный сильный calibration claim из этих цифр делать нельзя.
 
-Normalization срабатывала часто: 5/8 Full, 5/8 single-context, 7/8 Reduced и 7/8 shared-context runs потребовали заранее зафиксированного механического ремонта, который обнуляет `preferred_cause` при `COEXIST` или `INSUFFICIENT`. Это проблема output compliance тестируемой модели/runtime, а не скрываемая часть reasoning score.
+Normalization срабатывала часто: 5/8 Full, 5/8 single-context, 7/8 Reduced и 7/8 shared-context runs потребовали заранее зафиксированного механического ремонта, который обнуляет `preferred_cause` при `COEXIST` или `INSUFFICIENT`. Это несомненно проблема output-contract/compliance, но её нельзя считать чисто косметической: ненулевой preferred cause может одновременно нести winner-like semantic signal. Поскольку N1 была заморожена до main study и одинаково применялась ко всем режимам, использование normalized artifact процедурно корректно; однако расхождение raw и normalized — существенное ограничение интерпретации, которое следующая eval-версия должна измерять явно.
 
 Более сложные workflows также потребовали transport retries во время primary execution: всего 6 у `cg-full`, 3 у shared-context и 0 у single-context/Reduced. Финальный standalone runtime без prompt cache завершил все frozen runs, но runtime complexity сама является частью практической цены multi-call workflows.
 
 ## Что benchmark показывает и чего не показывает
 
-Этот результат — полезное evidence для **карты применимости**, а не универсальный рейтинг методов. Он поддерживает утверждение, что структурированный многостадийный анализ способен уменьшать преждевременное причинное решение на специально сложных ambiguous cases, но его дополнительная цена часто не оправдана на простых задачах. Одновременно сильный результат shared-context показывает, что часть эффекта может объясняться multi-pass analysis вообще, а не только CG-specific isolation.
+Этот результат — полезное evidence для **карты применимости**, а не универсальный рейтинг методов. В этом 8-case наборе структурированные многостадийные режимы показали меньше observed premature winner selections на самом adversarially ambiguous case, чем single-context и Reduced Mode, но их дополнительная цена часто не оправдана на простых задачах. Одновременно сильный результат shared-context показывает, что часть наблюдаемого преимущества может объясняться multi-pass analysis вообще, а не только CG-specific isolation.
 
 Исследование **не** доказывает общего превосходства Convergence Guard. Ограничения существенны: одна локальная модель; восемь authored cases; один repeat на ячейку; только одна blind semantic оценка каждого ответа вместо replicated inter-rater judging; высокая частота normalization; и выявленный metric gap для полной causal-structure correctness. Из этого dataset нельзя честно выводить статистическую значимость или широкие population claims.
 

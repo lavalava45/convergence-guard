@@ -521,7 +521,7 @@ But before they begin, the teacher tells each of them:
 
 The rooms are separate, but now they share the same anchoring thought.
 
-That is why the new Convergence Guard v0.2.1 rule is:
+That is why the isolation rule introduced in v0.2.1 and retained in the current architecture is:
 
 > A different chat or a separate worker does not, by itself, prove independence.
 
@@ -849,6 +849,8 @@ They ask:
 ### Step 9. Decide separately what to believe and what to do
 
 Those answers may be different.
+
+For example, the analysis may already establish that **two causes coexist**, while still lacking enough evidence to choose between two costly interventions. In that case the model judgment should stay `COEXISTING`; only the action judgment is insufficient. The reverse is also possible: one low-regret action may be sensible across several unresolved causes without proving which cause is true.
 
 ### Step 10. If the evidence is insufficient, do not manufacture certainty
 

@@ -36,7 +36,7 @@ Distribute the entire skill directory with its operational references. A single-
 
 Use these labels consistently:
 
-- `CONFIRMED`: inspected directly in the current analysis or available primary evidence.
+- `CONFIRMED`: directly inspected in the current analysis, including inspectable primary evidence actually examined in this run.
 - `REPORTED`: asserted by a user, operator, witness, secondary source, or prior analysis but not independently inspected here.
 - `STRONGLY INFERRED`: supported by a coherent evidence chain but not directly observed.
 - `HYPOTHESIS / ASSUMPTION`: plausible but unverified.
@@ -294,6 +294,8 @@ Run a separate boundary critic only if:
 
 Skip the boundary critic otherwise.
 
+The critic receives only the shared evidence brief, decision contract, and the disputed neutral candidate material required to evaluate the boundary: claims, mechanisms, necessary conditions, predictions, implied actions, disconfirming evidence, and the mapper's disputed merge or relation statement. It must not receive C1 scores/danger flags, source-worker identity, coordinator preference, or downstream finalist-selection signals.
+
 The critic asks whether a plausible condition or intervention would produce materially different predictions and different actions. If not, the distinction is not decision-relevant.
 
 ## 12. Finalist slate and information probe
@@ -370,11 +372,15 @@ Ask for the most plausible **sequence** by which the action fails, the earliest 
 
 Do not use premortem automatically for trivial or easily reversible choices.
 
+Route material findings explicitly. A new factual claim, missing mechanism/family, system-boundary issue, or decision-contract change goes back through the ordinary evidence/contract/search checkpoint and affected downstream reruns. A supported action-risk or implementation constraint that does not change the causal slate may be retained as a neutral premortem finding and passed explicitly to D2/E1. Do not silently inject lens conclusions into later stages.
+
 ## 16. Optional stakeholder lens
 
 Use only when distinct stakeholders materially affect outcomes or constraints.
 
 For statements about stakeholders, preserve evidence provenance: observed, reported, inferred, or hypothetical. Do not invent preferences to fill missing evidence.
+
+Apply the same routing rule as for premortem. If the stakeholder lens reveals a new causal mechanism, missing system boundary, proxy objective, factual claim, or material contract constraint, update the appropriate upstream artifact through the checkpoint path and rerun affected stages. If it only contributes a supported action constraint without changing the slate, carry it forward explicitly as a neutral lens finding to D2/E1.
 
 ## 17. Assumption sensitivity
 
@@ -401,6 +407,8 @@ mutated assumption
 `ROBUST`, `CONDITIONAL`, and `BROKEN` describe the action/model response under the tested mutation only.
 
 ## 18. Shared-bias audit
+
+The slate-level adjudicator receives the shared evidence brief, decision contract, and neutral finalist dossiers. Do not add a specially labeled excluded or “outside” candidate merely to broaden the review; that label leaks selection role. If the audit identifies a missing family or a previously excluded model that could materially change the slate, route it through the ordinary C4/search/evidence checkpoint path before treating it as part of the adjudicated model set.
 
 The slate-level adjudicator checks for:
 
@@ -446,9 +454,15 @@ Trigger when:
 - a serious shared blind spot was found;
 - the adjudicator's result sharply conflicts with earlier conclusions for reasons that are not yet explained.
 
-The second-opinion reviewer receives raw evidence provenance and neutral candidate claims, plus only the dossier material needed to audit added premises. Hide the coordinator's favorite and adjudicator winner.
+The second-opinion reviewer receives the decision contract, a neutral feasible-action frame, raw evidence provenance and neutral candidate claims, plus only the dossier material needed to audit added premises. Hide coordinator preference and D2's pairwise action preferences. Do not label any candidate or action as the adjudicator winner.
 
-The reviewer reconstructs the decisive inference rather than merely rereading polished dossiers.
+The reviewer reconstructs the decisive inference rather than merely rereading polished dossiers and returns one disposition:
+
+- `CONFIRM` — D2's action logic survives independent reconstruction;
+- `QUALIFY` — the logic is usable only with explicit conditions or limits that must be carried into E;
+- `CHALLENGE` — a material unsupported premise, missing evidence/family, or conflicting action inference remains.
+
+A `CHALLENGE` does not automatically overrule D2. Route new evidence, a revised mechanism, or a missing family through the ordinary checkpoint/new-hypothesis rules and rerun affected stages. If a decision-changing D2/D3 conflict remains unresolved within the run budget, E2 must return insufficiency for that commitment. Do not resolve the conflict by vote, reviewer seniority, or confidence wording.
 
 ## 21. Belief versus decision
 
@@ -457,6 +471,8 @@ Convergence Guard produces two linked but distinct outputs.
 ### Model judgment
 
 What causal model or combination is best supported, with what relation type and what unresolved uncertainty?
+
+Model relation and action sufficiency are orthogonal. Preserve a supported `COEXISTING`, `INTERACTING`, `NESTED`, or `EXCLUSIVE` relation even when the action remains unresolved. Likewise, a robust action across unresolved models does not make the causal model identified.
 
 ### Decision judgment
 
@@ -486,7 +502,7 @@ A best action is defensible only when:
 - residual uncertainty is explicit and bounded;
 - downside and reversibility are understood enough for the stakes.
 
-Otherwise use `INSUFFICIENT DATA TO CHOOSE`.
+Otherwise use `INSUFFICIENT DATA TO CHOOSE` for the unresolved **decision judgment only**. Do not overwrite or downgrade the model judgment or relation from §21. A valid result may simultaneously state `Model judgment: COEXISTING` and `Decision judgment: INSUFFICIENT DATA TO CHOOSE`.
 
 Assess a check's practical value against its cost, delay, and the cost of committing incorrectly; exact numerical value-of-information estimates are not required. An unavailable or unjustifiably costly check does not automatically block action, but all other gate conditions still apply. Running out of analysis budget does not make an outstanding worthwhile check unnecessary.
 

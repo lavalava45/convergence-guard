@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+- added a benchmark-informed selective activation triage to the canonical skill: prefer ordinary analysis for directly resolved, cheap-to-check, reversible cases; reserve Full Mode mainly for remaining causal ambiguity where evidence dependence, framing/open-world risk, hard-to-separate confounding/interaction, or costly irreversible commitment justify the overhead;
+- hardened Full Mode stage boundaries after a post-benchmark audit: explicit C3 boundary-critic allowlist, removal of the ambiguous labeled "outside alternative" from D2, explicit routing for premortem/stakeholder findings, and a complete D3 second-opinion input/disposition/reconciliation contract;
+- separated causal-structure judgment from action sufficiency explicitly, so a supported `COEXISTING`/`INTERACTING` model judgment is not overwritten by `INSUFFICIENT DATA TO CHOOSE` for the action decision;
+- qualified benchmark claims to state that blind semantic scores use the predeclared normalized artifacts; raw M04/M05 Full outputs still contained non-null `preferred_cause` values that frozen rule N1 cleared before judging;
+- refreshed the applicability guide from pilot-era hypotheses to the completed `main-v0.1.7` evidence and added historical-status notes to the original 64-run planning documents;
 - completed the frozen `main-v0.1.7` comparative benchmark: 8 cases × 4 modes × 1 repeat = 32 primary runs, followed by 32/32 calibration completions and blind semantic judging under neutral answer IDs;
 - added machine-readable and human-readable main-study results under `evals/results/main-v0.1.7/`, including paired English/Russian interpretation and explicit resource-cost, calibration, normalization, and metric-limit caveats;
 - documented the final dedicated `llama-server 2.52.0` no-prompt-cache runtime used to complete the frozen study after earlier LM Studio-managed transport/cache failures;

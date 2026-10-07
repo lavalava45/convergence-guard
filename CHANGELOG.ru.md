@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+- в canonical skill добавлен benchmark-informed selective activation triage: для напрямую разрешённых, дешёвых в проверке и обратимых cases предпочтителен обычный анализ; Full Mode следует включать главным образом при сохраняющейся causal ambiguity, когда evidence dependence, framing/open-world risk, трудно разделимые confounding/interaction или дорогой необратимый commitment оправдывают overhead;
+- после post-benchmark аудита усилены stage boundaries Full Mode: явный allowlist для C3 boundary critic, удалён неоднозначный помеченный "outside alternative" из D2, задан явный routing для premortem/stakeholder findings и полный D3 second-opinion contract для inputs/disposition/reconciliation;
+- causal-structure judgment и action sufficiency явно разведены: поддержанный `COEXISTING`/`INTERACTING` model judgment больше не должен затираться `INSUFFICIENT DATA TO CHOOSE` для решения о действии;
+- benchmark claims уточнены: blind semantic scores относятся к заранее нормализованным artifacts; raw Full outputs M04/M05 всё ещё содержали ненулевой `preferred_cause`, который frozen rule N1 очистила до judging;
+- applicability guide обновлён от pilot-era hypotheses к результатам завершённого `main-v0.1.7`, а исходные документы планирования 64-run study получили явные historical-status notes;
 - завершён замороженный comparative benchmark `main-v0.1.7`: 8 cases × 4 modes × 1 repeat = 32 primary runs, затем 32/32 calibration completions и blind semantic judging по нейтральным answer IDs;
 - добавлены машиночитаемые и человекочитаемые main-study results в `evals/results/main-v0.1.7/`, включая парную English/Russian интерпретацию и явные caveats по resource cost, calibration, normalization и ограничениям metric set;
 - задокументирован финальный dedicated runtime `llama-server 2.52.0` без prompt cache, на котором frozen study был завершён после предыдущих transport/cache failures управляемого LM Studio backend;

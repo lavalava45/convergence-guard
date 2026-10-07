@@ -547,6 +547,8 @@ Premortem ценен, когда рассматриваемое действие
 
 Lens используется только тогда, когда заинтересованные стороны существенно влияют на исход. Высказывания о них сохраняют происхождение свидетельств, чтобы анализ не выдумывал предпочтения или мотивы лишь ради заполнения недостающей информации.
 
+Optional lenses не являются боковым каналом в adjudication. Если premortem или stakeholder review выявляет новый factual claim, пропущенное causal family, проблему system boundary, proxy objective или изменение decision contract, находка должна вернуться через обычный evidence/contract/search checkpoint с повтором затронутых стадий. Если находка лишь добавляет поддержанный action-risk или implementation constraint и не меняет causal slate, её можно явно передать как neutral lens finding в D2/E1. Так сохраняется та же stage-boundary discipline, что и в остальных частях Full Mode.
+
 ---
 
 ## 13. Почему adjudication выполняется на уровне slate и в свежем контексте
@@ -603,7 +605,9 @@ Adjudicator должен быть свежим, потому что ему ну�
 
 Автоматический запуск создавал бы T11 и риск превращения повторного рассуждения в псевдокорроборацию.
 
-Поэтому reviewer второго мнения реконструирует решающий вывод из сырого происхождения свидетельств и нейтральных утверждений, а не просто перечитывает отполированного победителя.
+Поэтому reviewer второго мнения реконструирует решающий вывод из decision contract, нейтрального feasible-action frame, сырого происхождения свидетельств, neutral candidate claims и только того dossier material, который нужен для аудита добавленных предпосылок. Он не получает помеченного winner или pairwise preferences D2.
+
+Его output имеет операционный, а не консультативный статус: `CONFIRM`, `QUALIFY` или `CHALLENGE`. `CONFIRM` оставляет D2 в силе; `QUALIFY` переносит явные условия в Phase E; `CHALLENGE` запускает обычный checkpoint/new-hypothesis machinery, если обнаружены новые evidence, missing family или revised mechanism. Неразрешённый decision-changing конфликт D2/D3 блокирует commitment по E2. Это не позволяет second opinion превращаться ни в скрытое veto, ни в неформальное голосование.
 
 ---
 
@@ -902,7 +906,7 @@ Coverage gates и условные critics должны обеспечивать
 1. [convergence-guard/SKILL.md](convergence-guard/SKILL.md) — канонический исполняемый протокол;
 2. [protocol-details.md](convergence-guard/references/protocol-details.md) — подробные операционные правила;
 3. DESIGN.md — архитектурное обоснование и модель угроз;
-4. пояснительные руководства и runtime profiles — рекомендации для людей и интеграция, специфичная для среды.
+4. пояснительные руководства и runtime/integration guidance — рекомендации для людей и интеграция, специфичная для среды.
 
 Если этот документ и канонический skill когда-либо расходятся в операционном правиле, приоритет имеет skill, а design document должен быть обновлён.
 

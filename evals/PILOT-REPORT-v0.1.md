@@ -4,6 +4,8 @@ Date: 2026-10-07
 
 Status: **technical pilot complete; not a performance result**
 
+> **Subsequent status:** the pilot was followed by the completed frozen `main-v0.1.7` benchmark (32 participant runs, 32 calibration completions, blind semantic judging). References below to the then-planned 64-run main study are preserved as historical pilot-era planning, not the final executed design. See `results/main-v0.1.7/`.
+
 ## Executive summary
 
 The manual browser pilot completed all eight planned run slots. Five runs produced valid primary answers and completed calibration. Three slots were invalid for procedural reasons:

@@ -18,6 +18,8 @@ All **32/32 primary runs** completed and were frozen before calibration. All **3
 - mean decision-relevant mechanism recall: **1.000** for `cg-full`, shared-context, and single-context; 0.958 for `cg-reduced`;
 - mean next-test quality was **not** best for Full Mode: 1.500 for `cg-full` versus 1.625 for both single-context and `cg-reduced`.
 
+These semantic scores are scores of the frozen normalized `final.json` artifacts. For both keyed-insufficient Full Mode runs (M04 and M05), the raw participant answer declared `INSUFFICIENT` while still populating a non-null `preferred_cause`; predeclared normalization rule N1 cleared that field before blind judging. Thus the `2/2 correct abstentions` result is valid under the frozen scoring protocol, but raw-output behavior was less clean than that aggregate alone suggests.
+
 The clearest applicability signal appeared on **M05, deceptive underdetermination**. Both `cg-full` and shared-context preserved the live alternatives under blind semantic judging; single-context and `cg-reduced` each received `premature_winner=1` and `correct_abstention=0`. This is consistent with the hypothesis that additional structure becomes useful when apparently abundant evidence is dependent on one evidence branch and framing pressure is high.
 
 ## Cost of the improvement
@@ -46,19 +48,19 @@ The blind semantic metrics and the declared status token do not tell exactly the
 
 In particular, `cg-full` declared `INSUFFICIENT` on M06 and M07, where the frozen key expected `COEXIST`. Some answers nevertheless represented the required decision-relevant mechanisms and actions well enough to score strongly on the frozen semantic metrics. This exposes a limitation in the current metric set: it has explicit premature-winner and abstention metrics, but no single direct semantic **causal-structure correctness** metric covering every `CHOOSE / COEXIST / INSUFFICIENT` error mode.
 
-The correct conclusion is therefore narrower: **Full Mode reduced unsupported winner selection and produced the strongest actions in this 8-case set, but it did not dominate every structural or efficiency diagnostic.** The status-mismatch pattern should be treated as a target for the next benchmark revision rather than hidden by the aggregate.
+The correct conclusion is therefore narrower: **in this 8-case set, Full Mode had no observed unsupported winner selections and produced the strongest actions, but it did not dominate every structural or efficiency diagnostic.** The status-mismatch pattern should be treated as a target for the next benchmark revision rather than hidden by the aggregate.
 
 ## Calibration and output compliance
 
 Mean Brier scores were very low for all modes: 0.004 single-context, 0.007 `cg-full`, 0.015 `cg-reduced`, and 0.027 shared-context. The protocol already warns that this is a small set of correlated binary claims, so these values should not support a standalone calibration claim.
 
-Normalization was invoked frequently: 5/8 Full, 5/8 single-context, 7/8 Reduced, and 7/8 shared-context runs required the frozen mechanical repair that clears a non-null `preferred_cause` under `COEXIST` or `INSUFFICIENT`. This is an output-compliance problem of the tested model/runtime and is reported separately from reasoning quality.
+Normalization was invoked frequently: 5/8 Full, 5/8 single-context, 7/8 Reduced, and 7/8 shared-context runs required the frozen mechanical repair that clears a non-null `preferred_cause` under `COEXIST` or `INSUFFICIENT`. This is certainly an output-contract/compliance problem, but it cannot be treated as purely cosmetic: a non-null preferred cause can also carry a winner-like semantic signal. Because N1 was frozen before the main study and applied treatment-independently, using the normalized artifact is procedurally valid; nevertheless raw-versus-normalized disagreement is a material interpretive limitation and should be measured explicitly in the next eval.
 
 The more complex workflows also incurred transport retries during primary execution: 6 total for `cg-full`, 3 for shared-context, and none for single-context or Reduced. The final standalone no-prompt-cache runtime completed every frozen run, but runtime complexity is part of the practical cost of the multi-call workflows.
 
 ## What this benchmark does and does not establish
 
-This result is useful evidence for an **applicability map**, not a universal model ranking. It supports the claim that structured multi-stage analysis can reduce premature causal commitment on adversarially ambiguous cases, while its extra cost is often unnecessary on simpler cases. It also shows that some of the benefit may come from multi-pass analysis generally rather than from CG-specific isolation alone, because shared-context multi-agent performed strongly on several primary metrics.
+This result is useful evidence for an **applicability map**, not a universal model ranking. In this 8-case set, the structured multi-stage modes showed fewer observed premature winner selections on the most adversarially ambiguous case than single-context and Reduced Mode, while their extra cost was often unnecessary on simpler cases. Some of that observed benefit may come from multi-pass analysis generally rather than from CG-specific isolation alone, because shared-context multi-agent performed strongly on several primary metrics.
 
 The study does **not** establish general superiority of Convergence Guard. Important limitations are: one local model; eight authored cases; one repeat per cell; one blind semantic judgment per answer rather than replicated inter-rater judging; high normalization rates; and a metric gap around full causal-structure correctness. No significance test or broad population claim is justified from this dataset.
 

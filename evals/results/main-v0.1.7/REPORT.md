@@ -49,3 +49,5 @@ This report contains the unblinded aggregate after blind semantic judging. No po
 | M08 | single-context | COEXIST | 0 | 0 | N/A | 0 | 1 | 1.000 | 1 | 0 | 1 | 0.000 | 1 | 899 |
 
 Primary semantic metrics are blind-judge outputs; declared-status matching is diagnostic only.
+
+Blind judging used the frozen normalized `final.json` artifact. Rule N1 could clear a non-null `preferred_cause` under `COEXIST` or `INSUFFICIENT`; raw-output repair counts therefore remain a material compliance/interpretation diagnostic. In particular, Full Mode M04 and M05 had non-null raw `preferred_cause` values that were cleared before judging.

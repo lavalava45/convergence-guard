@@ -2,6 +2,8 @@
 
 Status: **PILOT DRAFT — NOT FROZEN FOR MAIN STUDY**
 
+> **Historical note:** this document preserves the original pilot-era protocol draft, including the proposed 2-repeat / 64-run main design below. It is not a description of the final executed study. The executed benchmark was versioned through the recorded execution amendments and frozen as `main-v0.1.7`: 8 cases × 4 modes × 1 repeat = 32 participant runs, followed by calibration and blind semantic judging. See `../FREEZE-MANIFEST-main-v0.1.7.json` and `../results/main-v0.1.7/`.
+
 ## 1. Research question
 
 Compare four complete analysis workflows on fixed cases with participant-visible evidence and a separately stored hidden evaluation key.

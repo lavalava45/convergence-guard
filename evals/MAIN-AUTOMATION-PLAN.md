@@ -1,6 +1,8 @@
 # Main-study automation plan
 
-Goal: execute the 64-run main study without manual participant copy/paste while preserving the information boundaries defined by the evaluation protocol.
+> **Historical planning note:** this file records the automation design created when the main study still targeted 64 runs. Before the final executed version, the study was predeclared as one repeat per `case × mode` cell and frozen as `main-v0.1.7` with 32 participant runs. The architecture below remains useful historical design context; the executed runtime and amendments are recorded in the freeze manifest and `evals/protocol/EXECUTION-*` files.
+
+Original goal: execute the planned 64-run main study without manual participant copy/paste while preserving the information boundaries defined by the evaluation protocol.
 
 ## Architecture
 

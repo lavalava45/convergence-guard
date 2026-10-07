@@ -37,6 +37,8 @@ Use Convergence Guard when:
 
 Do **not** use the full protocol for simple factual lookup, routine procedure, syntax edits, a known-root-cause bug, or a case where factual inspection leaves only one viable action.
 
+Before paying for Full Mode, run a cheap triage. Prefer ordinary analysis when direct discriminating evidence already resolves the important mechanism, a cheap decisive check can be run before commitment, and the available action is low-cost or readily reversible. Escalate toward Full Mode mainly when multiple live causal models remain **and** at least one additional risk is material: common evidence ancestry/dependence, framing or open-world search risk, confounding/interaction that is hard to separate, or a costly/hard-to-reverse premature commitment. `COEXISTING` or `INTERACTING` structure by itself is not a reason to use Full Mode if a cheaper workflow can establish it reliably. See the [Applicability Guide](references/applicability.md).
+
 ### Full Mode
 
 Full Mode requires genuine context isolation for every operation whose value depends on independence or blindness. Never simulate several sequential personas in one context and report that as a Full Mode run.
@@ -231,6 +233,8 @@ Freeze the map.
 
 Use a fresh boundary critic only for disputed merges, uncertain relation types, or neighboring families whose distinction could change the decision. Skip this operation when the map has no decision-relevant ambiguity.
 
+The critic's decision-relevant input allowlist is: the shared evidence brief, decision contract, and only the disputed neutral candidate material needed to assess the boundary — claims, mechanisms, necessary conditions, predictions, implied actions, disconfirming evidence, and the mapper's disputed merge/relation statement. Hide C1 scores and danger flags, source-worker identity, coordinator preference, and downstream finalist-selection signals.
+
 ## C4. Build the decision-relevant slate
 
 Now combine the frozen screening and frozen causal map.
@@ -267,13 +271,15 @@ Mark such revisions `PENDING` until all affected C and D checks, including D2 an
 
 Optional premortem and stakeholder lenses run after the dossier only when triggered. See [protocol details](references/protocol-details.md).
 
+Treat their outputs as decision-relevant only through explicit routing. If a lens surfaces a new factual claim, evidence item, missing system boundary, proxy-objective problem, stakeholder constraint, or causal mechanism that could change the slate or decision contract, route it through the ordinary evidence/contract/search checkpoint and rerun affected stages. If it only adds a supported action-risk or implementation constraint without changing the causal slate, record it as a neutral lens finding and pass it explicitly into D2/E1. Never let optional-lens conclusions enter downstream reasoning implicitly.
+
 ### Optional probe mini-dossier
 
 If C4's information probe needs elaboration for E3, the coordinator may prepare a separate planning note after C is frozen, within the same budget: target uncertainty and source IDs, contrasting predictions, decision-changing outcomes, feasibility/cost, and confounders. It is not a finalist, independent validation, or an extra mandatory worker. Keep it out of isolated finalist dossier inputs; pass it separately to E3 and recheck it against the final model judgment. New evidence or a materially revised causal model still requires the usual checkpoint; if none is needed, design the test directly in E3.
 
 ## D2. Fresh slate-level adjudication
 
-Use a fresh adjudicator that did not author the search branches, screening, mapping, or dossiers. Give it the neutral finalist dossiers, evidence brief, contract, and relevant outside alternative. Hide early screening ranks/selection roles and coordinator preference.
+Use a fresh adjudicator that did not author the search branches, screening, mapping, or dossiers. Give it the neutral finalist dossiers, evidence brief, and decision contract. Hide early screening ranks/selection roles and coordinator preference. Do not inject a specially labeled excluded or “outside” candidate: that label itself leaks selection information. If the shared-bias audit reveals a genuinely missing family or excluded model that could change the slate, route it through the ordinary C4/search/evidence checkpoint path instead of smuggling it into adjudication.
 
 The adjudicator performs three operations in order.
 
@@ -320,15 +326,19 @@ A preference cycle may indicate criterion drift, model interaction, or missing e
 
 ## D3. Conditional independent second opinion
 
-Use a new second-opinion reviewer when pairwise results are cyclic or repeatedly `UNDETERMINED`, evidence for the apparent winner remains weak, the decision is unusually hard to reverse, or the adjudicator exposes a serious shared blind spot.
+Use a new second-opinion reviewer when pairwise results are cyclic or repeatedly `UNDETERMINED`, evidence for the apparent winner remains weak, the decision is unusually hard to reverse, the adjudicator exposes a serious shared blind spot, or the adjudicator's result sharply conflicts with earlier conclusions for reasons that are not yet explained.
 
-The reviewer should reconstruct the decisive inference from **raw evidence provenance plus neutral candidate claims** and audit unsupported additions made during dossier refinement. Hide the coordinator's favorite and the adjudicator's winner.
+The reviewer receives the decision contract, a neutral feasible-action frame, raw evidence provenance, neutral candidate claims, and only the dossier material needed to audit added premises. Hide coordinator preference and D2's pairwise action preferences. Do not describe any candidate or action as the winner.
+
+Require D3 to return one of `CONFIRM`, `QUALIFY`, or `CHALLENGE`, with the decisive inference, any unsupported premise or missing family/evidence, and whether the disagreement could change the action. `CONFIRM` leaves D2 standing. `QUALIFY` adds explicit conditions/limits that must be carried into E. `CHALLENGE` does not automatically replace D2: route any new evidence, revised mechanism, or missing family through the ordinary checkpoint/new-ID rules. If a decision-changing D2/D3 conflict remains unresolved within budget, E2 must return insufficiency for that commitment rather than choosing whichever reviewer sounds more confident.
 
 # Phase E — Converge on action and learning
 
 ## E1. Separate belief from action
 
 First state the **model judgment**: which causal model(s) are best supported, how they relate, and what major uncertainty remains.
+
+Keep model relation and action sufficiency separate. If the evidence supports `COEXISTING`, `INTERACTING`, `NESTED`, or another explicit model relation, preserve that relation even when no action is yet justified. Conversely, a robust action across unresolved models does not establish that one causal model has been identified.
 
 Then make a separate **decision judgment** over feasible actions. Evaluate actions across the surviving plausible models using the decision contract, including:
 
@@ -353,7 +363,7 @@ Choose one best action only when all are true:
 - residual uncertainty is stated and bounded;
 - the action's downside and reversibility are understood well enough for the stakes.
 
-Otherwise return `INSUFFICIENT DATA TO CHOOSE` and identify the one observation or test with the highest practical decision value, if one is available. Budget exhaustion does not waive this gate: report an outstanding worthwhile check as deferred, not completed.
+Otherwise return `INSUFFICIENT DATA TO CHOOSE` **for the unresolved decision judgment only** and identify the one observation or test with the highest practical decision value, if one is available. Do not overwrite, downgrade, or relabel an already supported model judgment merely because action choice is insufficient. A run may therefore simultaneously report, for example, `Model judgment: COEXISTING` and `Decision judgment: INSUFFICIENT DATA TO CHOOSE`. Budget exhaustion does not waive this gate: report an outstanding worthwhile check as deferred, not completed.
 
 ## E3. Minimum discriminating observation or experiment
 
@@ -409,6 +419,7 @@ Install the entire `convergence-guard/` directory, including `references/`, and 
 
 - [Detailed protocol rules](references/protocol-details.md)
 - [Reduced Mode](references/reduced-mode.md)
+- [Applicability Guide](references/applicability.md)
 - [Historical Russian v0.1.0 protocol](references/protocol.ru.md)
 
 Convergence Guard is a decision-analysis protocol, not a source of truth. Facts, safety constraints, explicit user decisions, and project rules take precedence.
