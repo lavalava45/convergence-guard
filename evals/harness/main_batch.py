@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute the frozen main-v0.1.6 primary plan against one loaded LM Studio backend."""
+"""Execute the frozen main-v0.1.7 primary plan against standalone llama-server."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ PLAN = ROOT / "evals" / "run-plans" / "main-v0.1.json"
 RUNNER = HERE / "main_runner.py"
 
 
-def discover_backend() -> tuple[int, str, str, list[str]]:
+def discover_backend() -> tuple[int, str, str | None, list[str]]:
     servers = [
         p
         for p in psutil.process_iter(["pid", "name", "cmdline"])
@@ -30,7 +30,7 @@ def discover_backend() -> tuple[int, str, str, list[str]]:
     proc = servers[0]
     cmd = proc.info["cmdline"] or []
     port = cmd[cmd.index("--port") + 1]
-    key = cmd[cmd.index("--api-key") + 1]
+    key = cmd[cmd.index("--api-key") + 1] if "--api-key" in cmd else None
     return int(proc.info["pid"]), port, key, cmd
 
 
@@ -42,6 +42,9 @@ def validate_load_profile(cmd: list[str]) -> None:
         "--n-gpu-layers 999999",
         "--kv-offload",
         "--parallel 1",
+        "--no-cache-prompt",
+        "--cache-ram 0",
+        "--no-cache-idle-slots",
     )
     missing = [item for item in required if item not in joined]
     if missing:
@@ -54,14 +57,17 @@ def main() -> int:
     plan = json.loads(PLAN.read_text(encoding="utf-8-sig"))
     runs = [run for block in plan["blocks"] for run in block["runs"]]
     if len(runs) != 32 or any(run["repeat"] != 1 for run in runs):
-        raise RuntimeError("main-v0.1.6 requires exactly 32 repeat-1 runs")
+        raise RuntimeError("main-v0.1.7 requires exactly 32 repeat-1 runs")
 
     pid, port, key, cmd = discover_backend()
     validate_load_profile(cmd)
     env = dict(os.environ)
     env["LMSTUDIO_BASE_URL"] = f"http://127.0.0.1:{port}/v1"
-    env["LMSTUDIO_API_KEY"] = key
-    print(f"MAIN v0.1.6 PRIMARY START pid={pid} runs={len(runs)}", flush=True)
+    if key:
+        env["LMSTUDIO_API_KEY"] = key
+    else:
+        env.pop("LMSTUDIO_API_KEY", None)
+    print(f"MAIN v0.1.7 PRIMARY START pid={pid} runs={len(runs)}", flush=True)
 
     started = time.perf_counter()
     for idx, run in enumerate(runs, start=1):
@@ -92,7 +98,7 @@ def main() -> int:
             return proc.returncode
 
     total = time.perf_counter() - started
-    print(f"MAIN v0.1.6 PRIMARY COMPLETE runs=32 elapsed={total:.1f}s", flush=True)
+    print(f"MAIN v0.1.7 PRIMARY COMPLETE runs=32 elapsed={total:.1f}s", flush=True)
     return 0
 
 

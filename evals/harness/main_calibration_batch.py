@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Calibrate frozen main-v0.1.6 primary results without rerunning them."""
+"""Calibrate frozen main-v0.1.7 primary results without rerunning them."""
 
 from __future__ import annotations
 
@@ -29,7 +29,10 @@ def backend_env() -> tuple[int, dict[str, str]]:
     cmd = p.info["cmdline"] or []
     env = dict(os.environ)
     env["LMSTUDIO_BASE_URL"] = f"http://127.0.0.1:{cmd[cmd.index('--port') + 1]}/v1"
-    env["LMSTUDIO_API_KEY"] = cmd[cmd.index("--api-key") + 1]
+    if "--api-key" in cmd:
+        env["LMSTUDIO_API_KEY"] = cmd[cmd.index("--api-key") + 1]
+    else:
+        env.pop("LMSTUDIO_API_KEY", None)
     return int(p.info["pid"]), env
 
 
@@ -40,7 +43,7 @@ def main() -> int:
         raise RuntimeError("expected frozen 32-run main plan")
     pid, env = backend_env()
     failures: list[str] = []
-    print(f"MAIN v0.1.6 CALIBRATION START pid={pid} runs=32", flush=True)
+    print(f"MAIN v0.1.7 CALIBRATION START pid={pid} runs=32", flush=True)
     for idx, run in enumerate(runs, start=1):
         print(f"[{idx:02d}/32] CAL {run['run_id']}", flush=True)
         proc = subprocess.run(
@@ -52,7 +55,7 @@ def main() -> int:
         )
         if proc.returncode != 0:
             failures.append(run["run_id"])
-    print(f"MAIN v0.1.6 CALIBRATION END failures={len(failures)}", flush=True)
+    print(f"MAIN v0.1.7 CALIBRATION END failures={len(failures)}", flush=True)
     if failures:
         print("FAILED CALIBRATIONS: " + ", ".join(failures), flush=True)
         return 1

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frozen main-v0.1.6 LM Studio runner.
+"""Frozen main-v0.1.7 standalone llama-server runner.
 
 Default invocation is read-only/dry-run. Passing --execute is required before
 any model request is issued.
@@ -33,7 +33,7 @@ PRIMARY_MAX_CALLS = 12
 PRIMARY_MAX_OUTPUT = 32768
 CAL_MAX_CALLS = 2
 CAL_MAX_OUTPUT = 1024
-EVAL_VERSION = "main-v0.1.6"
+EVAL_VERSION = "main-v0.1.7"
 MAX_REQUEST_ATTEMPTS = 2
 MODES = (
     "single-context",
@@ -478,7 +478,7 @@ def execute(run: dict[str, Any], *, defer_calibration: bool = False) -> int:
         "mode": mode,
         "repeat": repeat,
         "eval_version": EVAL_VERSION,
-        "runtime": "LM Studio direct loaded llama-server OpenAI-compatible API",
+        "runtime": "standalone llama-server 2.52.0 OpenAI-compatible streaming API",
         "model": MODEL,
         "model_settings": {"temperature": PRIMARY_TEMPERATURE},
         "normalization_version": NORMALIZATION_VERSION,

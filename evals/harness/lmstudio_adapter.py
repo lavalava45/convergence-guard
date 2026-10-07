@@ -7,12 +7,11 @@ import json
 import os
 import sys
 import time
-import urllib.error
-import urllib.request
 import copy
 from typing import Any
 
 import jsonschema
+import requests
 
 
 BASE_URL = os.environ.get("LMSTUDIO_BASE_URL", "http://127.0.0.1:1234/v1")
@@ -68,27 +67,27 @@ def main() -> int:
     transport_attempts = 0
     for attempt in range(1, max_transport_attempts + 1):
         transport_attempts = attempt
-        req = urllib.request.Request(
-            f"{BASE_URL}/chat/completions",
-            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-            headers={
-                "Content-Type": "application/json",
-                **({"Authorization": f"Bearer {API_KEY}"} if API_KEY else {}),
-            },
-            method="POST",
-        )
         try:
-            with urllib.request.urlopen(req, timeout=600) as response:
+            with requests.post(
+                f"{BASE_URL}/chat/completions",
+                json=payload,
+                headers={
+                    "Content-Type": "application/json",
+                    **({"Authorization": f"Bearer {API_KEY}"} if API_KEY else {}),
+                },
+                stream=True,
+                timeout=(10, 180),
+            ) as response:
+                response.raise_for_status()
                 pieces: list[str] = []
                 usage: dict[str, Any] = {}
                 provider_request_id = None
                 result_model = model
                 finish_reason = None
-                while True:
-                    raw_line = response.readline()
-                    if not raw_line:
-                        break
-                    line = raw_line.decode("utf-8", errors="strict").strip()
+                for raw_line in response.iter_lines(decode_unicode=True):
+                    if raw_line is None:
+                        continue
+                    line = raw_line.strip()
                     if not line or not line.startswith("data: "):
                         continue
                     data = line[6:]
@@ -125,23 +124,29 @@ def main() -> int:
                     "usage": usage,
                 }
             break
-        except urllib.error.HTTPError as exc:
-            detail = exc.read().decode("utf-8", errors="replace")
-            last_error = RuntimeError(f"LM Studio HTTP {exc.code}: {detail}")
+        except requests.HTTPError as exc:
+            status = exc.response.status_code if exc.response is not None else 0
+            detail = exc.response.text if exc.response is not None else str(exc)
+            last_error = RuntimeError(f"LM Studio HTTP {status}: {detail}")
             transient_400 = (
-                exc.code == 400
+                status == 400
                 and (
                     '"terminated"' in detail
                     or "fetch failed" in detail.lower()
                     or "engine protocol predict request failed" in detail.lower()
                 )
             )
-            transient_server = exc.code in {500, 502, 503, 504}
+            transient_server = status in {500, 502, 503, 504}
             if (transient_400 or transient_server) and attempt < max_transport_attempts:
                 time.sleep(2 * attempt)
                 continue
             raise last_error from exc
-        except (urllib.error.URLError, ConnectionResetError, TimeoutError) as exc:
+        except (
+            requests.ConnectionError,
+            requests.Timeout,
+            ConnectionResetError,
+            TimeoutError,
+        ) as exc:
             last_error = exc
             if attempt < max_transport_attempts:
                 time.sleep(2 * attempt)
@@ -169,7 +174,7 @@ def main() -> int:
         },
         "metadata": {
             "finish_reason": choice.get("finish_reason"),
-            "local_runtime": "LM Studio",
+            "local_runtime": "standalone llama-server 2.52.0",
             "base_url": BASE_URL,
             "request_features": {
                 "message_count": len(messages),
