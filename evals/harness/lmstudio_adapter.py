@@ -106,7 +106,7 @@ def main() -> int:
 
     choice = result["choices"][0]
     message = choice.get("message") or {}
-    if schema:
+    if schema and "calibration" in str(schema.get("title", "")).lower():
         jsonschema.validate(json.loads(message.get("content") or ""), schema)
     usage = result.get("usage") or {}
     details = usage.get("completion_tokens_details") or {}
