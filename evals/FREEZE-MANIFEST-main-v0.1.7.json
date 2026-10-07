@@ -1,0 +1,60 @@
+{
+  "freeze_status": "frozen",
+  "benchmark_version": "main-v0.1.7",
+  "repository_head": "328bd83af8773ec23cef3cbf28a1069695cd1a64",
+  "repository_dirty": false,
+  "hashes": {
+    "public_main_cases_sha256": "48308f6b0987f56aca573c27c3780be85b19fa3b0d9c1c8b3c6014051394830f",
+    "public_main_calibration_sha256": "08af0bde6571e790452c9196f945e86f2e05b267294d3f5c3875a5941016b80f",
+    "protocol_sha256": "c4c62b183866b9b33bf41187c590f2217c9d46cea1847ffbdcde4b528b99a893",
+    "harness_sha256": "74d5488ec46b475caf751276faa717d1824f148c277aaf780a39d43a2d237670",
+    "cg_under_test_sha256": "5c0142c7af321e5d2625399605dbce7302a2ad7aa8d50d9f99aa730ef53b8d16",
+    "private_main_tree_sha256": "361c3c166898d6d410f1207db8c9df5720d0d0c21abfa91a0aba42f9823a13bd"
+  },
+  "runtime": {
+    "name": "standalone llama-server 2.52.0 OpenAI-compatible streaming API",
+    "model": "gemma-4-12b-it",
+    "model_file": "gemma-4-12b-it-Q6_K.gguf",
+    "context_size": 15000,
+    "gpu_layers": "all (--n-gpu-layers 999999)",
+    "kv_offload": true,
+    "parallel_slots": 1,
+    "prompt_cache": false,
+    "cache_ram_mib": 0,
+    "cache_idle_slots": false,
+    "context_checkpoints": 0,
+    "temperature": 0.2,
+    "tools_enabled": false,
+    "retrieval_enabled": false,
+    "response_transport": "OpenAI-compatible SSE streaming via requests",
+    "isolation_preflight": "evals/preflight/lmstudio-local-2026-10-07.json"
+  },
+  "resource_budget": {
+    "policy": "evals/protocol/RESOURCE-BUDGET-v0.1.md",
+    "primary_max_model_calls": 12,
+    "primary_max_output_tokens": 32768,
+    "calibration_max_model_calls": 2,
+    "calibration_max_output_tokens": 1024
+  },
+  "normalization_version": "v0.1",
+  "execution_sequence": {
+    "primary_phase": "all 32 primary runs first; final.json frozen before calibration",
+    "calibration_phase": "separate pass over frozen primary results; calibration cannot revise primary"
+  },
+  "randomization": {
+    "run_plan_seed": 20261007,
+    "blind_id_seed": 2026100701,
+    "run_plan": "evals/run-plans/main-v0.1.json"
+  },
+  "design": {
+    "case_count": 8,
+    "modes": [
+      "single-context",
+      "shared-context-multi-agent",
+      "cg-reduced",
+      "cg-full"
+    ],
+    "repeats": 1,
+    "run_count": 32
+  }
+}
