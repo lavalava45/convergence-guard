@@ -2,6 +2,8 @@
 
 Status: **design to freeze before any participant run**
 
+Execution note: the first frozen execution (`isolation-ablation-v0.1`) was aborted before scoring after a structured search response hit its token ceiling. The replacement execution version `isolation-ablation-v0.1.1` preserves this experimental design exactly and changes only the execution controls documented in [`EXECUTION-INCIDENT-isolation-001.md`](EXECUTION-INCIDENT-isolation-001.md): the already-stated 2–4 search-model limit is encoded as `maxItems=4`, token ceilings are explicit in the run plan, and the imported workflow module is included in the freeze hash set.
+
 ## Question
 
 Does search-worker context isolation reduce contamination from a false confident prior conclusion when the inference engine, public evidence, search mandates, number of calls, synthesis step, sampling settings, and paired random seeds are otherwise held fixed?

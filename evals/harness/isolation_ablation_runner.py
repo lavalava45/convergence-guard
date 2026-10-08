@@ -24,14 +24,11 @@ from cg_v02_workflow import SEARCH_SCHEMA
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-PLAN_PATH = ROOT / "evals" / "run-plans" / "isolation-ablation-v0.1.json"
+PLAN_PATH = ROOT / "evals" / "run-plans" / "isolation-ablation-v0.1.1.json"
 CASES = ROOT / "evals" / "cases" / "main"
 SCHEMA_PATH = ROOT / "evals" / "protocol" / "v0.2" / "OUTPUT-SCHEMA-v0.2.json"
 ADAPTER = HERE / "lmstudio_adapter.py"
-RUN_ROOT = ROOT / "evals" / "runs" / "isolation-ablation-v0.1"
-
-SEARCH_MAX_OUTPUT = 1400
-SYNTH_MAX_OUTPUT = 2200
+RUN_ROOT = ROOT / "evals" / "runs" / "isolation-ablation-v0.1.1"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -264,7 +261,7 @@ def execute_run(plan: dict[str, Any], run: dict[str, Any]) -> None:
                 prompt,
                 SEARCH_SCHEMA,
                 seed=stage_seeds[stage],
-                max_output=SEARCH_MAX_OUTPUT,
+                max_output=plan["search_max_output_tokens"],
             )
             outputs.append(parsed)
             manifest["calls"].append({
@@ -288,7 +285,7 @@ def execute_run(plan: dict[str, Any], run: dict[str, Any]) -> None:
             prompt,
             final_schema,
             seed=stage_seeds["synthesis"],
-            max_output=SYNTH_MAX_OUTPUT,
+            max_output=plan["synthesis_max_output_tokens"],
         )
         manifest["calls"].append({
             "stage": "synthesis",

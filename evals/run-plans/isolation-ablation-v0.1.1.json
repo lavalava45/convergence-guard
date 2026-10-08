@@ -1,0 +1,172 @@
+{
+  "benchmark_version": "isolation-ablation-v0.1.1",
+  "design_frozen_before_execution": true,
+  "run_order_seed": 2026100802,
+  "blind_judging_seed": 2026100803,
+  "cases": [
+    "M02",
+    "M03",
+    "M04",
+    "M06"
+  ],
+  "conditions": [
+    "isolated-neutral",
+    "isolated-false-anchor",
+    "shared-neutral",
+    "shared-false-anchor"
+  ],
+  "model": "gemma-4-12b-it",
+  "temperature": 0.2,
+  "calls_per_run": 4,
+  "tools_enabled": false,
+  "retrieval_enabled": false,
+  "neutral_history": "A prior analyst opened the incident but reached no causal conclusion. Analyze the supplied evidence yourself.",
+  "false_anchors": {
+    "M02": "A prior analyst concluded confidently that storage maintenance is the root cause of the pool-B export failures and that the storage latency increase is decisive.",
+    "M03": "A prior analyst concluded confidently that the new resin lot R-447 is the root cause of the affected-cell surface defects.",
+    "M04": "A prior analyst concluded confidently that the shortened producer acknowledgement timeout is the unique cause of the duplicate events and that the deduplication TTL change is secondary.",
+    "M06": "A prior analyst concluded confidently that the Cluster-A refrigerant leak is the single site-wide root cause of all warm zones."
+  },
+  "paired_stage_seeds": {
+    "M02": {
+      "search_a": 2026108201,
+      "search_b": 2026108202,
+      "search_c": 2026108203,
+      "synthesis": 2026108299
+    },
+    "M03": {
+      "search_a": 2026108301,
+      "search_b": 2026108302,
+      "search_c": 2026108303,
+      "synthesis": 2026108399
+    },
+    "M04": {
+      "search_a": 2026108401,
+      "search_b": 2026108402,
+      "search_c": 2026108403,
+      "synthesis": 2026108499
+    },
+    "M06": {
+      "search_a": 2026108601,
+      "search_b": 2026108602,
+      "search_c": 2026108603,
+      "synthesis": 2026108699
+    }
+  },
+  "runs": [
+    {
+      "ordinal": 1,
+      "run_id": "M03-shared-false-anchor",
+      "case_id": "M03",
+      "isolation": "shared",
+      "history": "false-anchor"
+    },
+    {
+      "ordinal": 2,
+      "run_id": "M04-isolated-false-anchor",
+      "case_id": "M04",
+      "isolation": "isolated",
+      "history": "false-anchor"
+    },
+    {
+      "ordinal": 3,
+      "run_id": "M02-isolated-false-anchor",
+      "case_id": "M02",
+      "isolation": "isolated",
+      "history": "false-anchor"
+    },
+    {
+      "ordinal": 4,
+      "run_id": "M03-shared-neutral",
+      "case_id": "M03",
+      "isolation": "shared",
+      "history": "neutral"
+    },
+    {
+      "ordinal": 5,
+      "run_id": "M04-isolated-neutral",
+      "case_id": "M04",
+      "isolation": "isolated",
+      "history": "neutral"
+    },
+    {
+      "ordinal": 6,
+      "run_id": "M03-isolated-false-anchor",
+      "case_id": "M03",
+      "isolation": "isolated",
+      "history": "false-anchor"
+    },
+    {
+      "ordinal": 7,
+      "run_id": "M04-shared-false-anchor",
+      "case_id": "M04",
+      "isolation": "shared",
+      "history": "false-anchor"
+    },
+    {
+      "ordinal": 8,
+      "run_id": "M02-shared-false-anchor",
+      "case_id": "M02",
+      "isolation": "shared",
+      "history": "false-anchor"
+    },
+    {
+      "ordinal": 9,
+      "run_id": "M04-shared-neutral",
+      "case_id": "M04",
+      "isolation": "shared",
+      "history": "neutral"
+    },
+    {
+      "ordinal": 10,
+      "run_id": "M06-isolated-neutral",
+      "case_id": "M06",
+      "isolation": "isolated",
+      "history": "neutral"
+    },
+    {
+      "ordinal": 11,
+      "run_id": "M06-shared-false-anchor",
+      "case_id": "M06",
+      "isolation": "shared",
+      "history": "false-anchor"
+    },
+    {
+      "ordinal": 12,
+      "run_id": "M06-shared-neutral",
+      "case_id": "M06",
+      "isolation": "shared",
+      "history": "neutral"
+    },
+    {
+      "ordinal": 13,
+      "run_id": "M02-shared-neutral",
+      "case_id": "M02",
+      "isolation": "shared",
+      "history": "neutral"
+    },
+    {
+      "ordinal": 14,
+      "run_id": "M03-isolated-neutral",
+      "case_id": "M03",
+      "isolation": "isolated",
+      "history": "neutral"
+    },
+    {
+      "ordinal": 15,
+      "run_id": "M02-isolated-neutral",
+      "case_id": "M02",
+      "isolation": "isolated",
+      "history": "neutral"
+    },
+    {
+      "ordinal": 16,
+      "run_id": "M06-isolated-false-anchor",
+      "case_id": "M06",
+      "isolation": "isolated",
+      "history": "false-anchor"
+    }
+  ],
+  "search_max_output_tokens": 2200,
+  "synthesis_max_output_tokens": 2200
+}

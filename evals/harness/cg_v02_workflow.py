@@ -27,6 +27,7 @@ SEARCH_SCHEMA: dict[str, Any] = {
     "properties": {
         "models": {
             "type": "array",
+            "maxItems": 4,
             "items": {
                 "type": "object",
                 "additionalProperties": False,

@@ -1,0 +1,1209 @@
+{
+  "diagnostic": "main-v0.1.7-normalization-reaudit-v0.1",
+  "frozen_scores_modified": false,
+  "judge_count": 2,
+  "packet_count": 16,
+  "field_agreement": {
+    "raw.causal_structure_correct": {
+      "agree": 15,
+      "n": 16,
+      "rate": 0.9375
+    },
+    "raw.premature_winner": {
+      "agree": 16,
+      "n": 16,
+      "rate": 1.0
+    },
+    "raw.winner_like_signal": {
+      "agree": 16,
+      "n": 16,
+      "rate": 1.0
+    },
+    "normalized.causal_structure_correct": {
+      "agree": 15,
+      "n": 16,
+      "rate": 0.9375
+    },
+    "normalized.premature_winner": {
+      "agree": 15,
+      "n": 16,
+      "rate": 0.9375
+    },
+    "normalized.winner_like_signal": {
+      "agree": 14,
+      "n": 16,
+      "rate": 0.875
+    },
+    "normalization.materially_changes_semantic_judgment": {
+      "agree": 15,
+      "n": 16,
+      "rate": 0.9375
+    },
+    "normalization.direction": {
+      "agree": 15,
+      "n": 16,
+      "rate": 0.9375
+    }
+  },
+  "disagreement_count": 7,
+  "disagreements": [
+    {
+      "neutral_id": "R0004",
+      "field": "raw.causal_structure_correct",
+      "judge_a": 1,
+      "judge_b": 0
+    },
+    {
+      "neutral_id": "R0004",
+      "field": "normalized.causal_structure_correct",
+      "judge_a": 1,
+      "judge_b": 0
+    },
+    {
+      "neutral_id": "R0009",
+      "field": "normalized.premature_winner",
+      "judge_a": 0,
+      "judge_b": 1
+    },
+    {
+      "neutral_id": "R0009",
+      "field": "normalization.materially_changes_semantic_judgment",
+      "judge_a": 1,
+      "judge_b": 0
+    },
+    {
+      "neutral_id": "R0009",
+      "field": "normalization.direction",
+      "judge_a": "IMPROVES",
+      "judge_b": "NEUTRAL"
+    },
+    {
+      "neutral_id": "R0021",
+      "field": "normalized.winner_like_signal",
+      "judge_a": 1,
+      "judge_b": 0
+    },
+    {
+      "neutral_id": "R0022",
+      "field": "normalized.winner_like_signal",
+      "judge_a": 1,
+      "judge_b": 0
+    }
+  ],
+  "by_mode_after_unblinding": {
+    "cg-full": {
+      "n": 4,
+      "raw_structure_correct": {
+        "positive": 3,
+        "rated": 3,
+        "disagreements": 1
+      },
+      "normalized_structure_correct": {
+        "positive": 3,
+        "rated": 3,
+        "disagreements": 1
+      },
+      "raw_premature_winner": {
+        "positive": 3,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_premature_winner": {
+        "positive": 0,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "raw_winner_like_signal": {
+        "positive": 3,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_winner_like_signal": {
+        "positive": 2,
+        "rated": 3,
+        "disagreements": 1
+      },
+      "normalization_material_change": {
+        "positive": 3,
+        "rated": 4,
+        "disagreements": 0
+      }
+    },
+    "cg-reduced": {
+      "n": 4,
+      "raw_structure_correct": {
+        "positive": 4,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_structure_correct": {
+        "positive": 4,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "raw_premature_winner": {
+        "positive": 3,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_premature_winner": {
+        "positive": 0,
+        "rated": 3,
+        "disagreements": 1
+      },
+      "raw_winner_like_signal": {
+        "positive": 3,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_winner_like_signal": {
+        "positive": 2,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalization_material_change": {
+        "positive": 2,
+        "rated": 3,
+        "disagreements": 1
+      }
+    },
+    "shared-context-multi-agent": {
+      "n": 4,
+      "raw_structure_correct": {
+        "positive": 4,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_structure_correct": {
+        "positive": 4,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "raw_premature_winner": {
+        "positive": 2,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_premature_winner": {
+        "positive": 0,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "raw_winner_like_signal": {
+        "positive": 2,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_winner_like_signal": {
+        "positive": 2,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalization_material_change": {
+        "positive": 2,
+        "rated": 4,
+        "disagreements": 0
+      }
+    },
+    "single-context": {
+      "n": 4,
+      "raw_structure_correct": {
+        "positive": 4,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_structure_correct": {
+        "positive": 4,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "raw_premature_winner": {
+        "positive": 2,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_premature_winner": {
+        "positive": 1,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "raw_winner_like_signal": {
+        "positive": 3,
+        "rated": 4,
+        "disagreements": 0
+      },
+      "normalized_winner_like_signal": {
+        "positive": 2,
+        "rated": 3,
+        "disagreements": 1
+      },
+      "normalization_material_change": {
+        "positive": 1,
+        "rated": 4,
+        "disagreements": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "neutral_id": "R0002",
+      "run_id": "M04-r1-shared-context-multi-agent",
+      "mode": "shared-context-multi-agent",
+      "case_id": "M04",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 0,
+        "raw.winner_like_signal": 0,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 0,
+        "normalization.materially_changes_semantic_judgment": 0,
+        "normalization.direction": "NEUTRAL"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "NEUTRAL",
+          "judge_b": "NEUTRAL",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "Both versions preserve the keyed underdetermination: producer retry and post-TTL redelivery/retry remain live. The raw preferred_cause names the unresolved disjunction/gap rather than a unique causal winner, so clearing it does not change the semantic judgment.",
+      "judge_b_rationale": "Both artifacts preserve the two live mechanisms: producer retry remains plausible and expiry before retry/redelivery remains plausible, with missing identifiers explicitly preventing discrimination. The raw preferred_cause names the ambiguity rather than a unique winner, so N1 does not change the semantic judgment."
+    },
+    {
+      "neutral_id": "R0004",
+      "run_id": "M05-r1-cg-full",
+      "mode": "cg-full",
+      "case_id": "M05",
+      "consensus": {
+        "raw.causal_structure_correct": null,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": null,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 1,
+        "normalization.materially_changes_semantic_judgment": 1,
+        "normalization.direction": "IMPROVES"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 0,
+          "agree": false
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 0,
+          "agree": false
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "IMPROVES",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The response keeps both a ruleset-only explanation and the SDK/parser interaction live through the crossed replay, matching the keyed insufficiency. Raw preferred_cause H08 explicitly selects the SDK/parser path; normalization removes that explicit winner, but the evidence still calls the interaction the likely source, so a winner-like signal remains.",
+      "judge_b_rationale": "The keyed standalone R91-regression alternative is not preserved: both listed candidates collapse onto the SDK/parser/R91 interaction. Raw explicitly prefers H08. N1 removes that explicit winner, but the unchanged evidence still calls the interaction the likely source, so a winner-like signal remains."
+    },
+    {
+      "neutral_id": "R0006",
+      "run_id": "M07-r1-cg-full",
+      "mode": "cg-full",
+      "case_id": "M07",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 1,
+        "normalization.materially_changes_semantic_judgment": 1,
+        "normalization.direction": "IMPROVES"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "IMPROVES",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The substantive answer recognizes the Client 5.0 zstd plus Proxy 7.4 interaction and that removing either side eliminates corruption, which matches the keyed causal structure. Raw preferred_cause H01 uniquely selects the proxy-side candidate; normalization clears that explicit winner, while the reason still calls H01 a primary candidate, leaving a winner-like signal.",
+      "judge_b_rationale": "The answer substantively captures the client-5.0/zstd plus proxy-7.4 interaction and notes that removing either factor eliminates corruption. Raw nevertheless designates proxy H01 as preferred. After N1 the explicit winner is gone, although the unchanged reason still calls the proxy the primary candidate/source, leaving a winner-like signal."
+    },
+    {
+      "neutral_id": "R0007",
+      "run_id": "M06-r1-cg-reduced",
+      "mode": "cg-reduced",
+      "case_id": "M06",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 0,
+        "raw.winner_like_signal": 0,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 0,
+        "normalization.materially_changes_semantic_judgment": 0,
+        "normalization.direction": "NEUTRAL"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "NEUTRAL",
+          "judge_b": "NEUTRAL",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The response correctly identifies two independent local causes, one in Cluster A and one in Cluster B, and rejects a single site-wide root cause. The raw preferred_cause itself says 'Dual independent failures', so it is a coexistence label rather than a unique winner; clearing it is semantically neutral.",
+      "judge_b_rationale": "Both distinct keyed branches are stated and independently supported: Cluster A refrigerant loss and Cluster B damper-linkage binding. The raw preferred_cause is itself the two-failure coexistence relation, not a unique factor, so nulling that field does not change the substantive judgment."
+    },
+    {
+      "neutral_id": "R0009",
+      "run_id": "M04-r1-cg-reduced",
+      "mode": "cg-reduced",
+      "case_id": "M04",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": null,
+        "normalized.winner_like_signal": 1,
+        "normalization.materially_changes_semantic_judgment": null,
+        "normalization.direction": null
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 1,
+          "agree": false
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 0,
+          "agree": false
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "NEUTRAL",
+          "agree": false
+        }
+      },
+      "judge_a_rationale": "The answer preserves producer retry and broker redelivery as unresolved alternatives and recognizes the TTL-expiry window, so the keyed insufficient structure is present. Raw preferred_cause C1 is an explicit premature winner; after normalization, C1 is still described as the 'most likely mechanism' and the evidence asserts retries, so winner-like privileging remains without an explicit preferred winner.",
+      "judge_b_rationale": "The answer contains both keyed live mechanisms, but C1 explicitly says producer retry is the most likely mechanism and the evidence states that latency triggers retries. Removing preferred_cause does not remove that substantive producer-retry winner, so RAW and NORMALIZED receive the same semantic judgment."
+    },
+    {
+      "neutral_id": "R0015",
+      "run_id": "M07-r1-shared-context-multi-agent",
+      "mode": "shared-context-multi-agent",
+      "case_id": "M07",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 1,
+        "normalization.materially_changes_semantic_judgment": 1,
+        "normalization.direction": "IMPROVES"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "IMPROVES",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The response correctly describes the layered interaction: Client 5.0 introduces zstd and Proxy 7.4 mishandles that path. Raw preferred_cause uniquely selects the proxy firmware; normalization removes that explicit winner, but the action reason still calls the proxy the source of the defect, so the normalized answer continues to privilege it.",
+      "judge_b_rationale": "The required interaction is present: client 5.0 introduces the zstd trigger and proxy 7.4 performs the corruption, with the combination isolated by the evidence. Raw explicitly prefers proxy 7.4. N1 removes that winner, but the unchanged reason still privileges the proxy as the source of the defect, so winner-like language remains."
+    },
+    {
+      "neutral_id": "R0016",
+      "run_id": "M06-r1-cg-full",
+      "mode": "cg-full",
+      "case_id": "M06",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 0,
+        "raw.winner_like_signal": 0,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 0,
+        "normalization.materially_changes_semantic_judgment": 0,
+        "normalization.direction": "NEUTRAL"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "NEUTRAL",
+          "judge_b": "NEUTRAL",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "Although the literal status is INSUFFICIENT, the substantive assessment is exactly the keyed coexistence model: two distinct independent mechanical failures with dual-track repair and no supported single root cause. H01 names that combined two-branch model, not a unique cause, so clearing it does not change the semantic judgment.",
+      "judge_b_rationale": "Despite the literal INSUFFICIENT token, the substantive answer correctly states two independent simultaneous failures and recommends dual-track repair. H01 is a composite label for both keyed branches, not a unique causal winner; N1 therefore does not change the semantic judgment."
+    },
+    {
+      "neutral_id": "R0018",
+      "run_id": "M07-r1-single-context",
+      "mode": "single-context",
+      "case_id": "M07",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 0,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 1,
+        "normalization.materially_changes_semantic_judgment": 0,
+        "normalization.direction": "NEUTRAL"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "NEUTRAL",
+          "judge_b": "NEUTRAL",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The raw preferred_cause is itself a combined interaction ('proxy bug triggered by client 5.0 feature change'), and the answer repeatedly states that the failure depends on the combination, so it does not assert a unique causal winner. Both versions still privilege the proxy as the underlying bug/preferred fix, yielding a winner-like signal; removing the combined preferred field does not materially change the semantic judgment.",
+      "judge_b_rationale": "The answer correctly identifies the failure as a dependency between client-5.0 zstd behavior and the proxy-7.4 bug, and says the issue is specific to their combination. The raw preferred_cause is also composite. However, the unchanged action/next-test text privileges the proxy as the underlying or primary technical failure, so winner-like signaling persists after N1."
+    },
+    {
+      "neutral_id": "R0019",
+      "run_id": "M05-r1-cg-reduced",
+      "mode": "cg-reduced",
+      "case_id": "M05",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 1,
+        "normalization.materially_changes_semantic_judgment": 1,
+        "normalization.direction": "IMPROVES"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "IMPROVES",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The response keeps both keyed alternatives live and proposes a discriminating crossed replay. Raw preferred_cause selects C2 as high-probability, creating an unsupported winner; normalization removes that explicit selection, but the reason still says the interaction is likely rather than a standalone R91 regression, so winner-like privileging remains.",
+      "judge_b_rationale": "Both keyed alternatives are explicitly represented: standalone R91 regression and SDK/parser interaction. Raw designates C2 as preferred. N1 removes that explicit winner, but the unchanged reason still says the spike is likely the interaction rather than standalone R91, so a unique cause remains privileged."
+    },
+    {
+      "neutral_id": "R0021",
+      "run_id": "M04-r1-cg-full",
+      "mode": "cg-full",
+      "case_id": "M04",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": null,
+        "normalization.materially_changes_semantic_judgment": 1,
+        "normalization.direction": "IMPROVES"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 0,
+          "agree": false
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "IMPROVES",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The substantive text acknowledges that current data cannot distinguish producer retry from broker redelivery and retains TTL expiry as the common live mechanism, matching the keyed insufficiency. Raw preferred_cause H01 explicitly selects the producer-retry model; normalization clears it, but the single formal candidate and H01-centered framing still privilege that model.",
+      "judge_b_rationale": "The answer preserves the keyed producer-retry plus dedup-expiry mechanism and explicitly keeps broker redelivery live in uncertainty/reasoning. Raw nevertheless selects H01 as preferred. Once N1 removes that field, the remaining text is conditional and treats producer retry versus broker redelivery as unresolved, eliminating the unique-winner signal."
+    },
+    {
+      "neutral_id": "R0022",
+      "run_id": "M04-r1-single-context",
+      "mode": "single-context",
+      "case_id": "M04",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": null,
+        "normalization.materially_changes_semantic_judgment": 1,
+        "normalization.direction": "IMPROVES"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 0,
+          "agree": false
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "IMPROVES",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "Despite an extra cache-bug hypothesis, the response preserves the keyed producer-retry versus expiry/redelivery uncertainty and proposes one-factor canary isolation. Raw preferred_cause C1 is an unsupported unique selection; normalization removes it, while C1 is still stated as occurring and the action remains centered on producer-timeout/TTL, so winner-like privileging persists.",
+      "judge_b_rationale": "The required timeout/retry and dedup-expiry/redelivery possibilities are substantively preserved, including the explicit statement that current telemetry cannot distinguish producer retry from broker redelivery. Raw gives C1 a high-probability preference. N1 removes that preference and the remaining canary logic is outcome-dependent rather than winner-like."
+    },
+    {
+      "neutral_id": "R0023",
+      "run_id": "M07-r1-cg-reduced",
+      "mode": "cg-reduced",
+      "case_id": "M07",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 0,
+        "normalization.materially_changes_semantic_judgment": 1,
+        "normalization.direction": "IMPROVES"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "IMPROVES",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The answer correctly states that corruption is isolated to the Client 5.0 zstd plus Proxy 7.4 intersection, matching the keyed interaction. Raw preferred_cause uniquely selects the proxy-buffer-bug submechanism; after normalization the uncertainty keeps proxy bug versus specific incompatibility open, and choosing client-side zstd disablement as mitigation does not itself designate a unique causal winner.",
+      "judge_b_rationale": "The evidence text correctly localizes the observed failure to the client-5.0 zstd/proxy-7.4 intersection and keeps the exact proxy-bug versus specific incompatibility detail unresolved. Raw explicitly prefers C1. After N1, the remaining mitigation and uncertainty do not privilege one complete causal explanation over the interaction."
+    },
+    {
+      "neutral_id": "R0025",
+      "run_id": "M05-r1-single-context",
+      "mode": "single-context",
+      "case_id": "M05",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 1,
+        "normalized.winner_like_signal": 1,
+        "normalization.materially_changes_semantic_judgment": 0,
+        "normalization.direction": "NEUTRAL"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "NEUTRAL",
+          "judge_b": "NEUTRAL",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The overall response preserves the two keyed alternatives, missing traces, and need for factorial replay, so the required insufficient structure is present. However, an evidence claim explicitly states that R91 is the primary cause; that unsupported winner survives unchanged in both raw and normalized artifacts, so normalization has no semantic effect.",
+      "judge_b_rationale": "The candidate set, uncertainty, and factorial test preserve both keyed alternatives, but an evidence claim directly asserts that R91 is the primary cause despite the missing vendor trace and dependent dashboard ancestry. No N1 change occurred, so RAW and NORMALIZED retain the same premature winner and winner-like signal."
+    },
+    {
+      "neutral_id": "R0027",
+      "run_id": "M05-r1-shared-context-multi-agent",
+      "mode": "shared-context-multi-agent",
+      "case_id": "M05",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 1,
+        "raw.winner_like_signal": 1,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 1,
+        "normalization.materially_changes_semantic_judgment": 1,
+        "normalization.direction": "IMPROVES"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "IMPROVES",
+          "judge_b": "IMPROVES",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "Both ruleset regression and SDK/parser interaction remain live and the response calls for the keyed 2x2 replay. Raw preferred_cause selects the SDK-data-drift interaction as the favored model; normalization removes that explicit winner, but the evidence still says the SDK change is a primary driver, so a winner-like signal remains.",
+      "judge_b_rationale": "Both keyed alternatives are retained and the answer correctly calls for a 2x2 factorial replay. Raw preferred_cause selects the SDK-data-drift interaction despite insufficient evidence. N1 removes that explicit choice, but the unchanged E06 claim still says the SDK change is a primary driver, so winner-like signaling remains."
+    },
+    {
+      "neutral_id": "R0030",
+      "run_id": "M06-r1-shared-context-multi-agent",
+      "mode": "shared-context-multi-agent",
+      "case_id": "M06",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 0,
+        "raw.winner_like_signal": 0,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 0,
+        "normalization.materially_changes_semantic_judgment": 0,
+        "normalization.direction": "NEUTRAL"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "NEUTRAL",
+          "judge_b": "NEUTRAL",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "CA_01 explicitly means concurrent independent mechanical failures and the evidence correctly separates Cluster A refrigerant loss from Cluster B damper binding. The raw preferred field therefore represents the supported coexistence model rather than a single causal winner, so clearing it is semantically neutral.",
+      "judge_b_rationale": "CA_01 is a composite description of the two keyed independent failures, and the evidence/reason correctly separates the Cluster A refrigerant leak from the Cluster B damper binding. It does not privilege one branch as the site-wide winner, so N1 is semantically neutral."
+    },
+    {
+      "neutral_id": "R0032",
+      "run_id": "M06-r1-single-context",
+      "mode": "single-context",
+      "case_id": "M06",
+      "consensus": {
+        "raw.causal_structure_correct": 1,
+        "raw.premature_winner": 0,
+        "raw.winner_like_signal": 0,
+        "normalized.causal_structure_correct": 1,
+        "normalized.premature_winner": 0,
+        "normalized.winner_like_signal": 0,
+        "normalization.materially_changes_semantic_judgment": 0,
+        "normalization.direction": "NEUTRAL"
+      },
+      "per_field": {
+        "raw.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "raw.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "raw.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.causal_structure_correct": {
+          "judge_a": 1,
+          "judge_b": 1,
+          "agree": true
+        },
+        "normalized.premature_winner": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalized.winner_like_signal": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.materially_changes_semantic_judgment": {
+          "judge_a": 0,
+          "judge_b": 0,
+          "agree": true
+        },
+        "normalization.direction": {
+          "judge_a": "NEUTRAL",
+          "judge_b": "NEUTRAL",
+          "agree": true
+        }
+      },
+      "judge_a_rationale": "The response correctly identifies two independent causal branches and explicitly rejects a single site-wide root cause. The long raw preferred_cause is a prose statement of that coexistence relation, not a unique cause, so N1 removal does not materially change the judgment.",
+      "judge_b_rationale": "The response exactly preserves the two independent keyed branches and explicitly rejects a single site-wide root cause. The raw preferred_cause is a long composite restatement of coexistence rather than a unique cause, so removing it does not change the semantic judgment."
+    }
+  ]
+}
