@@ -57,3 +57,11 @@ python evals/harness/make_run_plan.py --cases evals/cases/pilot --repeats 1 --se
 Historically, the pilot was used to inspect isolation, logging, usage collection, rubric ambiguity, and output normalization before the main cases were frozen. The final main run plan is `run-plans/main-v0.1.json`; the result aggregate can be regenerated with `harness/aggregate_main_results.py` when the private hidden keys, blind map, and judge-score files are available outside the public repository.
 
 Private ground truth and judge mappings are intentionally not published here. The committed `summary.json`, metric report, and interpretation are the public result artifacts; raw participant run directories remain outside version control.
+
+## Reproducibility boundary
+
+The repository provides **public auditability, not a public-only full replay of the original experiment**. Available materials include participant-visible cases, frozen run plans and freeze manifests (with SHA-256 references), protocol/harness source, normalized aggregate `summary.json`, interpretations and generated reports. The published source and tests allow procedural checks, and the reports allow readers to inspect declared metrics and limitations.
+
+Private hidden answer keys, case truth labels, blind mappings and individual judge-score files were stored outside the repository to preserve the experimental information boundary. The original model endpoint and environment, along with private adjudication materials, are also required for strict end-to-end regeneration. Consequently, **the original blind scoring and aggregates cannot be fully rederived from this public checkout alone**. Do not describe hash manifests or unit tests as independent validation of scientific ground truth.
+
+The main benchmark must be read as a comparison of **implemented** workflows rather than a canonical-Full efficacy test; the targeted isolation experiment found no incremental quality advantage under its explicit anti-anchor warning. The v0.1.4 generated report carries a documented heading typo (`v0.1.2`); see the [isolation result index](results/isolation-ablation-v0.1.4/README.md), rather than modifying frozen outputs to correct its appearance.

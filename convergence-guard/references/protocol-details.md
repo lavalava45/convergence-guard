@@ -1,4 +1,4 @@
-# Convergence Guard v0.2.3 — Detailed Protocol Rules
+# Convergence Guard v0.2.4 — Detailed Protocol Rules
 
 This file contains operational details that are intentionally kept out of the main `SKILL.md`. Read only the sections relevant to the current run.
 

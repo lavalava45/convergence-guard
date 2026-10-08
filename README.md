@@ -128,7 +128,7 @@ E. CONVERGE ON ACTION AND LEARNING
 
 ## What changed from v0.1.0?
 
-v0.2.3 retains the streamlined v0.2 architecture, v0.2.1 runtime-isolation rules, and v0.2.2 claim-level provenance discipline, while adding benchmark-informed activation guidance and a conformance-corrected evaluation layer:
+v0.2.4 retains the streamlined v0.2 architecture, v0.2.1 runtime-isolation rules, and v0.2.2 claim-level provenance discipline. The v0.2.3 correction layer and v0.2.4 evidence map add benchmark-informed activation guidance and clearly graded applicability claims:
 
 - search starts with 3 isolated workers and expands to 5 only when coverage is inadequate;
 - screening and blind causal mapping run in parallel fresh contexts;
@@ -184,7 +184,7 @@ Convergence Guard/
 
 `convergence-guard/` is the installable skill directory. Install the entire directory, including `references/`; `SKILL.md` alone is not a complete Full/Reduced Mode package unless an adapter explicitly bundles the required references. Its directory name matches `name: convergence-guard` in `SKILL.md`.
 
-`protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.3 specification; runtime-specific wording has been neutralized for the public repository.
+`protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.4 specification; runtime-specific wording has been neutralized for the public repository.
 
 ## Documentation
 
@@ -196,8 +196,11 @@ Convergence Guard/
 | [ATTRIBUTION.md](ATTRIBUTION.md) | [ATTRIBUTION.ru.md](ATTRIBUTION.ru.md) | provenance and influence boundary |
 | [explained-simply.md](convergence-guard/references/explained-simply.md) | [explained-simply.ru.md](convergence-guard/references/explained-simply.ru.md) | plain-language explanation |
 | [applicability.md](convergence-guard/references/applicability.md) | [applicability.ru.md](convergence-guard/references/applicability.ru.md) | when CG is likely to help, and when it may be excessive |
+| [applicability-evidence-map.md](convergence-guard/references/applicability-evidence-map.md) | [applicability-evidence-map.ru.md](convergence-guard/references/applicability-evidence-map.ru.md) | eight observed causal regimes, twelve proposed contexts, and evidence levels |
 | [protocol-details.md](convergence-guard/references/protocol-details.md) | [protocol-details.ru.md](convergence-guard/references/protocol-details.ru.md) | detailed protocol rules |
 | [reduced-mode.md](convergence-guard/references/reduced-mode.md) | [reduced-mode.ru.md](convergence-guard/references/reduced-mode.ru.md) | single-context fallback |
+
+Current bilingual release summary: [v0.2.4 Release Notes](RELEASE-NOTES-v0.2.4.md).
 
 ## Case studies
 
@@ -234,9 +237,9 @@ The exact installation mechanism depends on the client. A compatible client shou
 
 ## Status
 
-**Research pre-release. Latest tagged release: v0.2.3.**
+**Research pre-release. Latest tagged release: v0.2.4.**
 
-The current tagged research preview is [v0.2.3](https://github.com/lavalava45/convergence-guard/releases/tag/v0.2.3). It includes the frozen implemented-workflow benchmark, the post-benchmark conformance corrections, the normalization re-audit, and the targeted isolation ablation. It does **not** establish universal performance superiority or a measured canonical Full v0.2 quality gain. Later changes, when present, are tracked in [CHANGELOG.md](CHANGELOG.md).
+The current tagged research preview is [v0.2.4](https://github.com/lavalava45/convergence-guard/releases/tag/v0.2.4). It includes the earlier frozen implemented-workflow benchmark, post-benchmark conformance corrections, normalization re-audit, targeted isolation ablation, and the new bilingual evidence-graded applicability map. It does **not** establish broad cross-domain superiority or a measured canonical Full v0.2 quality gain. Private keys/judge mappings are intentionally excluded, so the public archive supports audit of inputs, code, manifests and aggregates but not complete independent rejudging from public files alone; see [evaluation reproducibility limits](evals/README.md#reproducibility-boundary). Later changes are tracked in [CHANGELOG.md](CHANGELOG.md).
 
 The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution, a current evidence-asymmetric scientific-origin question, and a contemporary AI-agent reliability problem. The two-case technical pilot has been followed by the frozen `main-v0.1.7` comparative benchmark: 8 cases × 4 modes × 1 repeat = 32 participant runs, followed by 32 calibration runs and blind semantic judging under neutral answer IDs. The result is evidence for an applicability map, not a universal superiority claim: in this 8-case set Full Mode had no observed premature winners and produced the strongest mean actions, while imposing much higher resource cost and still showing structural/status mismatches on some coexistence cases.
 

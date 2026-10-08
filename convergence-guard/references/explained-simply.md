@@ -1,7 +1,7 @@
 # Convergence Guard — Explained Simply
 
 > This document is not the canonical protocol and is not a replacement for [`SKILL.md`](../SKILL.md).
-> It explains the architecture of Convergence Guard v0.2.3 in plain language and through child-friendly analogies.
+> It explains the architecture retained in Convergence Guard v0.2.4 in plain language and through child-friendly analogies.
 
 ## 1. The shortest possible idea
 

@@ -4,7 +4,11 @@
 
 ## Unreleased
 
-- published bilingual, evidence-graded Applicability Evidence Map: eight case-level observations, twelve cross-domain application contexts (including untested transfer hypotheses), explicit unconfirmed claims, an activation ladder, and preregisterable diagnostic proposals. The map adds **no new participant results** and does not modify frozen evaluations.
+## v0.2.4 — applicability research preview (2026-10-08)
+
+- published bilingual, evidence-graded Applicability Evidence Map: eight case-level observations, twelve cross-domain application contexts (including untested transfer hypotheses), explicit unconfirmed claims, an activation ladder, and preregisterable diagnostic proposals. The map adds **no new participant results** and does not modify frozen evaluations;
+- made the reproducibility boundary explicit: public cases, run plans, hashes, frozen aggregates and code are available, while private answer keys, blind mapping and individual judges' scores are intentionally excluded; a full independent regeneration from public files alone is not claimed;
+- linked the new evidence map from the documentation index and shipped bilingual release notes, without changing the canonical algorithm, its frozen benchmarks or earlier tags.
 
 ## v0.2.3 — research pre-release (2026-10-08)
 
