@@ -128,7 +128,7 @@ E. CONVERGE ON ACTION AND LEARNING
 
 ## What changed from v0.1.0?
 
-v0.2.2 keeps the streamlined v0.2 architecture, the v0.2.1 runtime-isolation rules, and adds stronger claim-level provenance discipline:
+v0.2.3 retains the streamlined v0.2 architecture, v0.2.1 runtime-isolation rules, and v0.2.2 claim-level provenance discipline, while adding benchmark-informed activation guidance and a conformance-corrected evaluation layer:
 
 - search starts with 3 isolated workers and expands to 5 only when coverage is inadequate;
 - screening and blind causal mapping run in parallel fresh contexts;
@@ -184,7 +184,7 @@ Convergence Guard/
 
 `convergence-guard/` is the installable skill directory. Install the entire directory, including `references/`; `SKILL.md` alone is not a complete Full/Reduced Mode package unless an adapter explicitly bundles the required references. Its directory name matches `name: convergence-guard` in `SKILL.md`.
 
-`protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.2 specification; runtime-specific wording has been neutralized for the public repository.
+`protocol.ru.md` is preserved as the **historical Russian v0.1.0 protocol**. It is not the canonical v0.2.3 specification; runtime-specific wording has been neutralized for the public repository.
 
 ## Documentation
 
@@ -234,9 +234,9 @@ The exact installation mechanism depends on the client. A compatible client shou
 
 ## Status
 
-**Pre-release. Latest tagged release: v0.2.2.**
+**Research pre-release. Latest tagged release: v0.2.3.**
 
-The current tagged pre-release is v0.2.2. Later unreleased changes, when present, are tracked in [CHANGELOG.md](CHANGELOG.md).
+The current tagged research preview is [v0.2.3](https://github.com/lavalava45/convergence-guard/releases/tag/v0.2.3). It includes the frozen implemented-workflow benchmark, the post-benchmark conformance corrections, the normalization re-audit, and the targeted isolation ablation. It does **not** establish universal performance superiority or a measured canonical Full v0.2 quality gain. Later changes, when present, are tracked in [CHANGELOG.md](CHANGELOG.md).
 
 The methodology has undergone an initial architecture and failure-mode audit and now includes public Full Mode worked examples spanning historical attribution, a current evidence-asymmetric scientific-origin question, and a contemporary AI-agent reliability problem. The two-case technical pilot has been followed by the frozen `main-v0.1.7` comparative benchmark: 8 cases × 4 modes × 1 repeat = 32 participant runs, followed by 32 calibration runs and blind semantic judging under neutral answer IDs. The result is evidence for an applicability map, not a universal superiority claim: in this 8-case set Full Mode had no observed premature winners and produced the strongest mean actions, while imposing much higher resource cost and still showing structural/status mismatches on some coexistence cases.
 

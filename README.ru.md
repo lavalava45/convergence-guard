@@ -128,7 +128,7 @@ E. СОЙТИСЬ К ДЕЙСТВИЮ И ПРОВЕРКЕ
 
 ## Что изменилось относительно v0.1.0
 
-`v0.2.2` сохраняет упрощённую архитектуру v0.2 и правила runtime-изоляции v0.2.1, а также усиливает claim-level provenance discipline:
+`v0.2.3` сохраняет упрощённую архитектуру v0.2, правила runtime-изоляции v0.2.1 и claim-level provenance discipline из v0.2.2, а также добавляет рекомендации по выборочной активации по результатам benchmark и скорректированный evaluation layer:
 
 - поиск начинается с 3 изолированных workers и расширяется до 5 только при плохом покрытии;
 - скрининг и слепое картирование запускаются параллельно в свежих контекстах;
@@ -184,7 +184,7 @@ Convergence Guard/
 
 `convergence-guard/` — устанавливаемая папка skill. Устанавливать нужно всю папку вместе с `references/`; одного `SKILL.md` недостаточно для полного Full/Reduced Mode, если адаптер явно не встраивает необходимые reference-файлы. Имя папки совпадает с `name: convergence-guard` в `SKILL.md`.
 
-`protocol.ru.md` сохранён как **исторический русский протокол v0.1.0**. Это уже не каноническая спецификация текущего `v0.2.2`; runtime-specific формулировки в нём нейтрализованы для публичного репозитория.
+`protocol.ru.md` сохранён как **исторический русский протокол v0.1.0**. Это уже не каноническая спецификация текущего `v0.2.3`; runtime-specific формулировки в нём нейтрализованы для публичного репозитория.
 
 ## Документация
 
@@ -234,9 +234,9 @@ Convergence Guard/
 
 ## Статус
 
-**Pre-release. Последний tagged release: v0.2.2.**
+**Исследовательский pre-release. Последний tagged release: v0.2.3.**
 
-Текущий tagged pre-release — v0.2.2. Более поздние unreleased changes, когда они появляются, фиксируются в [CHANGELOG.ru.md](CHANGELOG.ru.md).
+Текущий исследовательский выпуск — [v0.2.3](https://github.com/lavalava45/convergence-guard/releases/tag/v0.2.3). Он включает замороженный benchmark реализованных workflows, исправления после аудита соответствия, повторный аудит normalization и targeted isolation ablation. Он **не доказывает** универсальное превосходство по качеству или измеренное преимущество canonical Full v0.2. Более поздние изменения фиксируются в [CHANGELOG.ru.md](CHANGELOG.ru.md).
 
 Метод уже прошёл первый архитектурный и методологический аудит и содержит публичные Full Mode examples: историческую attribution-задачу, актуальный научный вопрос с асимметричным evidence и современную задачу надёжности AI-агентов. За двух-case technical pilot теперь последовал замороженный comparative benchmark `main-v0.1.7`: 8 cases × 4 modes × 1 repeat = 32 participant runs, затем 32 calibration runs и blind semantic judging по нейтральным answer IDs. Это evidence для карты применимости, а не универсальный superiority claim: в этом наборе из восьми cases у Full Mode не наблюдалось premature winners и он дал самые сильные средние actions, но стоил значительно дороже и всё ещё показывал structural/status mismatches на части coexistence cases.
 

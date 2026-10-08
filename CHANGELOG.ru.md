@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## v0.2.3 — исследовательский pre-release (2026-10-08)
+
 - добавлен post-benchmark correction layer eval v0.2: canonical-rule conformance matrix, self-contained Reduced packet, раздельная schema causal/action/next-test/protocol-completion, fail-closed accounting для triggered conditional stages и отдельные v0.2 tests;
 - добавлен blind raw-vs-normalized re-audit M04–M07; N1 сработала в 15/16 runs, а два независимых judge показали, что normalization часто материально меняла winner-like semantic interpretation, поэтому raw-vs-normalized disagreement теперь отдельный diagnostic, а не косметическая compliance-note;
 - завершён targeted isolation-ablation `v0.1.4` после прозрачного versioning execution-only failures: 16/16 valid cells, 64/64 responses с frozen standalone endpoint, isolated-pair integrity PASS и 0/8 false-anchor adoptions по двум независимым anchor judges;
