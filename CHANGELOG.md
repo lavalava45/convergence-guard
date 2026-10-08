@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- documented the paused research-preview status in bilingual `ROADMAP.md` / `ROADMAP.ru.md`: conditional fair-baseline validation, raw-output-first scoring, complexity/cost ablation, and explicit stop/simplify/archive decisions; no new experiments or changes to frozen results.
+
 ## v0.2.4 — applicability research preview (2026-10-08)
 
 - published bilingual, evidence-graded Applicability Evidence Map: eight case-level observations, twelve cross-domain application contexts (including untested transfer hypotheses), explicit unconfirmed claims, an activation ladder, and preregisterable diagnostic proposals. The map adds **no new participant results** and does not modify frozen evaluations;

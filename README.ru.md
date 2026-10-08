@@ -193,6 +193,7 @@ Convergence Guard/
 | [README.md](README.md) | [README.ru.md](README.ru.md) | обзор проекта |
 | [CHANGELOG.md](CHANGELOG.md) | [CHANGELOG.ru.md](CHANGELOG.ru.md) | история релизов |
 | [DESIGN.md](DESIGN.md) | [DESIGN.ru.md](DESIGN.ru.md) | threat model и архитектурное обоснование |
+| [ROADMAP.md](ROADMAP.md) | [ROADMAP.ru.md](ROADMAP.ru.md) | приостановка разработки, условная проверка пользы, упрощение и критерии остановки |
 | [ATTRIBUTION.md](ATTRIBUTION.md) | [ATTRIBUTION.ru.md](ATTRIBUTION.ru.md) | происхождение и граница влияния |
 | [explained-simply.md](convergence-guard/references/explained-simply.md) | [explained-simply.ru.md](convergence-guard/references/explained-simply.ru.md) | простое объяснение метода |
 | [applicability.md](convergence-guard/references/applicability.md) | [applicability.ru.md](convergence-guard/references/applicability.ru.md) | когда CG, вероятно, полезен, а когда избыточен |
@@ -238,6 +239,8 @@ Convergence Guard/
 ## Статус
 
 **Исследовательский pre-release. Последний tagged release: v0.2.4.**
+
+**Активная разработка новых функций приостановлена.** См. [исследовательский план и критерии остановки](ROADMAP.ru.md). Мы сохраняем существующий research preview, не обещая новых тестов или продвижения.
 
 Текущий исследовательский выпуск — [v0.2.4](https://github.com/lavalava45/convergence-guard/releases/tag/v0.2.4). Он включает прежний замороженный benchmark реализованных workflows, исправления после аудита соответствия, аудит normalization, targeted isolation ablation и новую двуязычную доказательную карту применимости. Он **не доказывает** широкого межотраслевого превосходства или измеренного преимущества canonical Full v0.2. Приватные ключи и mapping судей намеренно не опубликованы, поэтому публичный архив позволяет проверять входные данные, код, manifests и агрегаты, но не полностью независимо повторить judging только из публичных файлов; см. [ограничения воспроизводимости](evals/README.md#reproducibility-boundary). Более поздние изменения фиксируются в [CHANGELOG.ru.md](CHANGELOG.ru.md).
 

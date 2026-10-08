@@ -193,6 +193,7 @@ Convergence Guard/
 | [README.md](README.md) | [README.ru.md](README.ru.md) | project overview |
 | [CHANGELOG.md](CHANGELOG.md) | [CHANGELOG.ru.md](CHANGELOG.ru.md) | release history |
 | [DESIGN.md](DESIGN.md) | [DESIGN.ru.md](DESIGN.ru.md) | threat model and architectural rationale |
+| [ROADMAP.md](ROADMAP.md) | [ROADMAP.ru.md](ROADMAP.ru.md) | paused research status, conditional validation and simplification gates, and stopping criteria |
 | [ATTRIBUTION.md](ATTRIBUTION.md) | [ATTRIBUTION.ru.md](ATTRIBUTION.ru.md) | provenance and influence boundary |
 | [explained-simply.md](convergence-guard/references/explained-simply.md) | [explained-simply.ru.md](convergence-guard/references/explained-simply.ru.md) | plain-language explanation |
 | [applicability.md](convergence-guard/references/applicability.md) | [applicability.ru.md](convergence-guard/references/applicability.ru.md) | when CG is likely to help, and when it may be excessive |
@@ -238,6 +239,8 @@ The exact installation mechanism depends on the client. A compatible client shou
 ## Status
 
 **Research pre-release. Latest tagged release: v0.2.4.**
+
+**Active feature development is paused.** See the [research roadmap and stopping criteria](ROADMAP.md). This is a preservation of the existing research preview, not a commitment to future tests or outreach.
 
 The current tagged research preview is [v0.2.4](https://github.com/lavalava45/convergence-guard/releases/tag/v0.2.4). It includes the earlier frozen implemented-workflow benchmark, post-benchmark conformance corrections, normalization re-audit, targeted isolation ablation, and the new bilingual evidence-graded applicability map. It does **not** establish broad cross-domain superiority or a measured canonical Full v0.2 quality gain. Private keys/judge mappings are intentionally excluded, so the public archive supports audit of inputs, code, manifests and aggregates but not complete independent rejudging from public files alone; see [evaluation reproducibility limits](evals/README.md#reproducibility-boundary). Later changes are tracked in [CHANGELOG.md](CHANGELOG.md).
 
