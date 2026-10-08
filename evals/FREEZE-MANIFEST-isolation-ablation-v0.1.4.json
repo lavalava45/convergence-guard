@@ -1,0 +1,96 @@
+{
+  "benchmark_version": "isolation-ablation-v0.1.4",
+  "frozen": true,
+  "repository_head": "709a22d1f6b18a46bb853387ce0a9e9c6c766d92",
+  "repository_dirty": false,
+  "supersedes_execution": "isolation-ablation-v0.1.3",
+  "incident": "evals/protocol/v0.2/EXECUTION-INCIDENT-isolation-004.md",
+  "design": {
+    "cases": [
+      "M02",
+      "M03",
+      "M04",
+      "M06"
+    ],
+    "conditions": [
+      "isolated-neutral",
+      "isolated-false-anchor",
+      "shared-neutral",
+      "shared-false-anchor"
+    ],
+    "run_count": 16,
+    "calls_per_run": 4,
+    "run_order_seed": 2026100802,
+    "blind_judging_seed": 2026100803,
+    "temperature": 0.2,
+    "search_max_output_tokens": 2200,
+    "synthesis_max_output_tokens": 2200,
+    "paired_stage_seeds": {
+      "M02": {
+        "search_a": 2026108201,
+        "search_b": 2026108202,
+        "search_c": 2026108203,
+        "synthesis": 2026108299
+      },
+      "M03": {
+        "search_a": 2026108301,
+        "search_b": 2026108302,
+        "search_c": 2026108303,
+        "synthesis": 2026108399
+      },
+      "M04": {
+        "search_a": 2026108401,
+        "search_b": 2026108402,
+        "search_c": 2026108403,
+        "synthesis": 2026108499
+      },
+      "M06": {
+        "search_a": 2026108601,
+        "search_b": 2026108602,
+        "search_c": 2026108603,
+        "synthesis": 2026108699
+      }
+    },
+    "no_posthoc_composite": true,
+    "significance_testing": false
+  },
+  "runtime": {
+    "engine": "standalone llama-server 2.52.0",
+    "model_id": "gemma-4-12b-it",
+    "model_path": "D:\\models\\unsloth\\gemma-4-12b-it-GGUF\\gemma-4-12b-it-Q6_K.gguf",
+    "model_size_bytes": 9786022720,
+    "context_size": 15000,
+    "full_gpu_offload": true,
+    "kv_offload": true,
+    "parallel_slots": 1,
+    "prompt_cache": false,
+    "tools_enabled": false,
+    "retrieval_enabled": false,
+    "response_transport": "OpenAI-compatible SSE streaming",
+    "max_transport_attempts_per_logical_call": 3,
+    "retryable_stream_errors": [
+      "ConnectionError",
+      "Timeout",
+      "ConnectionResetError",
+      "ChunkedEncodingError",
+      "IncompleteStream"
+    ]
+  },
+  "hashes": {
+    "run_plan_sha256": "e7e7a6e6fe2f1a13440a5c6d381ba3ae4c0dc7b793a0ce5aae85b8e89a83d448",
+    "output_schema_v0_2_sha256": "6446e4862011f34ad8cb3437ec0e30ffc1ac67f3b389f034f0c9ef0ef1551d40",
+    "metrics_v0_2_sha256": "459319644074b744dea0b31d47feb21de0fbb7f880ad506f0f69659ca36cfa58",
+    "isolation_protocol_sha256": "1e6b2753d1da9d24c7f878546bc563a1122f4e5e706bc3b2e2e76e33d7d3ad88",
+    "judge_rubric_sha256": "ca42a7fa50e992486b6fc94ebd0ab083ec6ab61e7ae55180345d9ec8845b1902",
+    "runner_sha256": "fc2d40cfec501891b3b16ed174a05857d20d72b0b5c4c22cb5dc4a6583eaacb7",
+    "adapter_sha256": "f9a391cfe4e5c103050574737b9f7c2bb5ca7a4e5e9bd8ab94d44005a995b2af",
+    "cg_v02_workflow_sha256": "c51119bad0a9d3a6de4fc540ee1fbdb5ebc016932431e920e1ba981020f20ebf",
+    "judge_packet_builder_sha256": "24689a5b3af5daf0f518b81179ff7197e242194381e466a6e297924fcfd27958",
+    "anchor_packet_builder_sha256": "1c64510523ce07fc226e21acc00512c84432a2c800198cc6af2b9ea41b529a87",
+    "aggregator_sha256": "708225d40680d589222cb19258e3b31d8ed0deb814d8330bfd5f9ebc660daa07",
+    "selected_public_cases_tree_sha256": "7946358bfc78b66338af04728377b6ed2ad66109969c25e20de088cd8e6bf478",
+    "selected_private_keys_sha256": "07e302bde282236f4dd5f3bdd08d79f9dd869c892e3ba8281c155c9747c9ac63",
+    "private_blind_map_sha256": "dc016562044e1812b6fdd814fe8069dafbe555e40517009a3fa1ecc9c05efc4e"
+  },
+  "interpretation_guard": "Mechanistic descriptive ablation only; isolates access to prior conclusions during causal search; not a validation of canonical Full Mode or a population effect estimate."
+}
