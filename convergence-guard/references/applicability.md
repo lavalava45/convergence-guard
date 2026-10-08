@@ -4,6 +4,8 @@ Convergence Guard is not intended to make every analysis longer. Its value shoul
 
 This guide distinguishes task classes where the protocol is likely to help from classes where its overhead can be counterproductive.
 
+For a broader, evidence-graded cross-domain matrix separating **checked local observations**, **promising transfer hypotheses**, and **unconfirmed claims**, see the [Applicability Evidence Map](applicability-evidence-map.md) / [Russian version](applicability-evidence-map.ru.md). Domains named there are not independent performance validations.
+
 ## Evidence status
 
 The boundaries below are architectural, but they are now also informed by two descriptive eval layers: the frozen `main-v0.1.7` implemented-workflow benchmark (8 cases × 4 modes × 1 repeat = 32 participant runs) and the later 16-cell targeted isolation ablation. This is **evidence for an applicability map, not a universal performance proof**. One model, authored cases, and one repeat per cell do not establish a population-wide ranking.

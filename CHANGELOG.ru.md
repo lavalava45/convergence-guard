@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- опубликована двуязычная доказательная карта применимости: восемь наблюдений по кейсам, двенадцать межотраслевых контекстов (включая непроверенные гипотезы переноса), явные неподтверждённые claims, лестница активации и предложения для заранее фиксируемых диагностических тестов. Карта **не добавляет новых participant results** и не меняет frozen evaluations.
+
 ## v0.2.3 — исследовательский pre-release (2026-10-08)
 
 - добавлен post-benchmark correction layer eval v0.2: canonical-rule conformance matrix, self-contained Reduced packet, раздельная schema causal/action/next-test/protocol-completion, fail-closed accounting для triggered conditional stages и отдельные v0.2 tests;

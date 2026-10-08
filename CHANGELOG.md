@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- published bilingual, evidence-graded Applicability Evidence Map: eight case-level observations, twelve cross-domain application contexts (including untested transfer hypotheses), explicit unconfirmed claims, an activation ladder, and preregisterable diagnostic proposals. The map adds **no new participant results** and does not modify frozen evaluations.
+
 ## v0.2.3 — research pre-release (2026-10-08)
 
 - added the post-benchmark v0.2 eval correction layer: canonical-rule conformance matrix, self-contained Reduced packet, split causal/action/next-test/protocol-completion schema, fail-closed conditional-stage accounting, and dedicated v0.2 tests;
