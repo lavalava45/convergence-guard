@@ -12,7 +12,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
-VERSION = "isolation-ablation-v0.1.3"
+VERSION = "isolation-ablation-v0.1.4"
 PLAN = ROOT / "evals" / "run-plans" / f"{VERSION}.json"
 RUNS = ROOT / "evals" / "runs" / VERSION
 

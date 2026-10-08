@@ -24,12 +24,13 @@ from cg_v02_workflow import SEARCH_SCHEMA
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-VERSION = "isolation-ablation-v0.1.3"
+VERSION = "isolation-ablation-v0.1.4"
 PLAN_PATH = ROOT / "evals" / "run-plans" / f"{VERSION}.json"
 CASES = ROOT / "evals" / "cases" / "main"
 SCHEMA_PATH = ROOT / "evals" / "protocol" / "v0.2" / "OUTPUT-SCHEMA-v0.2.json"
 ADAPTER = HERE / "lmstudio_adapter.py"
 RUN_ROOT = ROOT / "evals" / "runs" / VERSION
+EXPECTED_BASE_URL = "http://127.0.0.1:55991/v1"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -99,6 +100,9 @@ def call_json(
     (working / f"{stage}.request.json").write_text(
         json.dumps(request, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
+    env = dict(os.environ)
+    env["LMSTUDIO_BASE_URL"] = EXPECTED_BASE_URL
+    env.pop("LMSTUDIO_API_KEY", None)
     proc = subprocess.run(
         [sys.executable, str(ADAPTER)],
         input=json.dumps(request, ensure_ascii=False),
@@ -107,10 +111,16 @@ def call_json(
         check=False,
         timeout=300,
         encoding="utf-8",
+        env=env,
     )
     if proc.returncode != 0:
         raise RuntimeError(f"adapter failed at {stage}: {proc.stderr.strip()}")
     envelope = json.loads(proc.stdout)
+    actual_base_url = (envelope.get("metadata") or {}).get("base_url")
+    if actual_base_url != EXPECTED_BASE_URL:
+        raise RuntimeError(
+            f"wrong runtime endpoint at {stage}: {actual_base_url!r} != {EXPECTED_BASE_URL!r}"
+        )
     (working / f"{stage}.response.json").write_text(
         json.dumps(envelope, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
