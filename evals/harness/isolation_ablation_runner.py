@@ -24,11 +24,12 @@ from cg_v02_workflow import SEARCH_SCHEMA
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-PLAN_PATH = ROOT / "evals" / "run-plans" / "isolation-ablation-v0.1.1.json"
+VERSION = "isolation-ablation-v0.1.2"
+PLAN_PATH = ROOT / "evals" / "run-plans" / f"{VERSION}.json"
 CASES = ROOT / "evals" / "cases" / "main"
 SCHEMA_PATH = ROOT / "evals" / "protocol" / "v0.2" / "OUTPUT-SCHEMA-v0.2.json"
 ADAPTER = HERE / "lmstudio_adapter.py"
-RUN_ROOT = ROOT / "evals" / "runs" / "isolation-ablation-v0.1.1"
+RUN_ROOT = ROOT / "evals" / "runs" / VERSION
 
 
 def read_json(path: Path) -> dict[str, Any]:

@@ -12,8 +12,9 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PLAN = ROOT / "evals" / "run-plans" / "isolation-ablation-v0.1.json"
-RUNS = ROOT / "evals" / "runs" / "isolation-ablation-v0.1"
+VERSION = "isolation-ablation-v0.1.2"
+PLAN = ROOT / "evals" / "run-plans" / f"{VERSION}.json"
+RUNS = ROOT / "evals" / "runs" / VERSION
 
 SCORE_FIELDS = [
     "causal_structure_correctness",
@@ -129,7 +130,7 @@ def main() -> int:
 
     integrity = json.loads((RUNS / "isolated-pair-integrity.json").read_text(encoding="utf-8-sig"))
     summary = {
-        "benchmark_version": "isolation-ablation-v0.1",
+        "benchmark_version": VERSION,
         "interpretation": "descriptive mechanistic ablation; no population effect claim",
         "isolated_pair_integrity_pass": integrity["all_pass"],
         "judge_disagreements": disagreements,
@@ -141,7 +142,7 @@ def main() -> int:
     (args.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     lines = [
-        "# Isolation ablation v0.1 — result",
+        "# Isolation ablation v0.1.2 — result",
         "",
         "This is a 4-case × 2-isolation × 2-history mechanistic ablation. It is descriptive and does not establish a population effect or validate canonical Full Mode as a whole.",
         "",

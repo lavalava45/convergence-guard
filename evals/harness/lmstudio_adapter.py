@@ -145,6 +145,7 @@ def main() -> int:
             raise last_error from exc
         except (
             requests.ConnectionError,
+            requests.exceptions.ChunkedEncodingError,
             requests.Timeout,
             ConnectionResetError,
             TimeoutError,
