@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+- added the post-benchmark v0.2 eval correction layer: canonical-rule conformance matrix, self-contained Reduced packet, split causal/action/next-test/protocol-completion schema, fail-closed conditional-stage accounting, and dedicated v0.2 tests;
+- added a blind raw-vs-normalized re-audit for M04–M07; N1 applied in 15/16 runs and two independent judges found that normalization often materially changed winner-like semantic interpretation, so raw-vs-normalized disagreement is now an explicit diagnostic rather than a cosmetic compliance note;
+- completed targeted isolation-ablation `v0.1.4` after transparently versioning execution-only failures: 16/16 valid cells, 64/64 responses from the frozen standalone endpoint, isolated-pair integrity PASS, and 0/8 false-anchor adoptions across two independent anchor judges;
+- narrowed isolation claims accordingly: the information boundary is mechanically demonstrated, but this four-case ablation did not show incremental answer-quality protection from isolation over an explicitly anti-anchoring shared workflow;
+- reclassified `main-v0.1.7` in public documentation as an implemented-workflow benchmark rather than a complete validation of canonical Full/Reduced execution;
 - added a benchmark-informed selective activation triage to the canonical skill: prefer ordinary analysis for directly resolved, cheap-to-check, reversible cases; reserve Full Mode mainly for remaining causal ambiguity where evidence dependence, framing/open-world risk, hard-to-separate confounding/interaction, or costly irreversible commitment justify the overhead;
 - hardened Full Mode stage boundaries after a post-benchmark audit: explicit C3 boundary-critic allowlist, removal of the ambiguous labeled "outside alternative" from D2, explicit routing for premortem/stakeholder findings, and a complete D3 second-opinion input/disposition/reconciliation contract;
 - separated causal-structure judgment from action sufficiency explicitly, so a supported `COEXISTING`/`INTERACTING` model judgment is not overwritten by `INSUFFICIENT DATA TO CHOOSE` for the action decision;

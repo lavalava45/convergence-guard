@@ -2,6 +2,8 @@
 
 This report contains the unblinded aggregate after blind semantic judging. No post-hoc weighted composite score is used.
 
+> **Post-benchmark scope note:** these numbers describe the four executable workflows frozen in `main-v0.1.7`. A later conformance audit found that the v0.1.7 `cg-full` / `cg-reduced` treatments did not execute every current canonical rule. See `../../protocol/v0.2/CONFORMANCE-MATRIX.md`; do not reinterpret this table as a complete canonical-Full performance claim.
+
 ## Aggregate by mode
 
 | Mode | Premature winner ↓ | Correct abstention ↑ | Over-abstention ↓ | Action (0–2) ↑ | Mechanism recall ↑ | Unsupported mech. ↓ | Dependence errors ↓ | Next test (0–2) ↑ | Brier ↓ | Calls | Input tok | Output tok |
@@ -50,4 +52,4 @@ This report contains the unblinded aggregate after blind semantic judging. No po
 
 Primary semantic metrics are blind-judge outputs; declared-status matching is diagnostic only.
 
-Blind judging used the frozen normalized `final.json` artifact. Rule N1 could clear a non-null `preferred_cause` under `COEXIST` or `INSUFFICIENT`; raw-output repair counts therefore remain a material compliance/interpretation diagnostic. In particular, Full Mode M04 and M05 had non-null raw `preferred_cause` values that were cleared before judging.
+Blind judging used the frozen normalized `final.json` artifact. A post-benchmark blind raw-vs-normalized re-audit across all 16 M04–M07 runs found N1 applied in **15/16** runs and found material winner-like semantic changes in many repaired outputs. The frozen scores remain unchanged, but this diagnostic means N1 should not be interpreted as merely cosmetic output cleanup. See `diagnostics/REJUDGE-REPORT.md`.

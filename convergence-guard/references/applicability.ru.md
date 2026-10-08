@@ -6,7 +6,7 @@ Convergence Guard не предназначен для того, чтобы де
 
 ## Статус доказательств
 
-Границы ниже следуют из архитектуры метода, но теперь дополнительно опираются на замороженный benchmark `main-v0.1.7`: 8 cases × 4 modes × 1 repeat = 32 participant runs на одной фиксированной локальной модели, затем calibration и blind semantic judging. Это **evidence для карты применимости, а не универсальное доказательство превосходства**. Одна модель, восемь authored cases и один repeat на ячейку не дают общего рейтинга для всех задач.
+Границы ниже следуют из архитектуры метода, но теперь дополнительно опираются на два descriptive eval layer: замороженный implemented-workflow benchmark `main-v0.1.7` (8 cases × 4 modes × 1 repeat = 32 participant runs) и последующий targeted isolation-ablation на 16 cells. Это **evidence для карты применимости, а не универсальное доказательство превосходства**. Одна модель, authored cases и один repeat на ячейку не дают общего рейтинга для всех задач.
 
 Основной benchmark дал четыре полезных сигнала:
 
@@ -14,12 +14,14 @@ Convergence Guard не предназначен для того, чтобы де
 - **Самое сильное различие появилось на deceptive underdetermination:** на M05, где кажущееся изобилие evidence в основном происходило из одной evidence-ветки, Full Mode и shared-context сохранили живые альтернативы, тогда как single-context и Reduced получили от blind judge `premature_winner=1` и `correct_abstention=0`.
 - **Простые/разрешимые cases не оправдали цену Full Mode:** на прямых и хорошо разрешимых задачах Full Mode не дал преимущества в качестве решения, соразмерного примерно 9.1 model calls на case против 1 у single-context.
 - **Full Mode не является универсальным победителем:** shared-context multi-agent тоже получил 0/8 premature winners при меньшей цене, а Full Mode иногда выдавал чрезмерно осторожный literal status на keyed `COEXIST` cases.
+- **Main benchmark не валидировал canonical Full/Reduced execution:** post-benchmark conformance audit нашёл missing/partial conditional branches в executable treatments v0.1.7. Поэтому эти результаты нужно читать как comparison реализованных workflows, а не causal effect полного canonical skill.
+- **Incremental quality benefit isolation не был продемонстрирован:** в последующем 4-case × 2-isolation × 2-history ablation isolation boundary прошла mechanical integrity checks, но оба независимых anchor judge дали 0/8 false-anchor adoption по false-anchor cells. Shared treatment тоже устоял против anchors.
 
-Все blind semantic scores выше рассчитаны по frozen normalized participant artifact. В raw Full Mode outputs для двух keyed-insufficient cases M04 и M05 поле `preferred_cause` всё ещё было заполнено при `status=INSUFFICIENT`; заранее зафиксированная treatment-independent normalization rule очистила его до judging. Поэтому опубликованные abstention scores корректны в рамках frozen protocol, но это существенная оговорка по output/interpretation, а не доказательство идеально чистого raw abstention behavior.
+Все blind semantic scores выше рассчитаны по frozen normalized participant artifact. Последующий blind raw-vs-normalized re-audit всех 16 runs M04–M07 показал, что N1 сработала в **15/16** runs, а blind judging во многих случаях считал raw-vs-normalized изменение материально значимым для winner-like interpretation. Frozen scores задним числом не меняются, потому что normalization была predeclared и treatment-independent, но diagnostic показывает, что N1 не была просто косметической formatting cleanup. См. [`evals/results/main-v0.1.7/diagnostics/REJUDGE-REPORT.md`](../../evals/results/main-v0.1.7/diagnostics/REJUDGE-REPORT.md).
 
 Поэтому текущая интерпретация такова:
 
-> Convergence Guard наиболее оправдан, когда высоки причинная неоднозначность, framing risk, evidence dependence или цена преждевременного решения. Наличие interaction/`COEXIST` требует явной проверки структуры, но **само по себе** не является причиной переходить к Full Mode; escalation оправдан, когда interaction трудно разделить и дополнительные evidence-dependence, framing/open-world или commitment-risk факторы делают isolation overhead оправданным. Для напрямую разрешённых задач он обычно избыточен, а Full Mode не должен быть default, если более дешёвый workflow уже достаточно хорошо разделяет живые причины.
+> Convergence Guard наиболее оправдан, когда высоки причинная неоднозначность, framing risk, evidence dependence или цена преждевременного решения. Наличие interaction/`COEXIST` требует явной проверки структуры, но **само по себе** не является причиной переходить к Full Mode. Isolation остаётся разумным information-boundary control, когда contamination risk существенен, но его incremental answer-quality benefit пока не установлен текущим ablation. Для напрямую разрешённых задач Full Mode обычно избыточен, если более дешёвый workflow уже достаточно хорошо разделяет живые причины.
 
 ## Классы задач
 
@@ -46,7 +48,7 @@ Convergence Guard не предназначен для того, чтобы де
 - одно дополнительное наблюдение или canary может существенно изменить решение;
 - преждевременный выбор победителя реально опасен.
 
-**Рекомендуемый режим:** Reduced Mode может быть достаточен, если изоляция недоступна; Full Mode становится привлекательнее с ростом риска anchoring и цены ошибки.
+**Рекомендуемый режим:** используйте ordinary или более дешёвый structured multi-pass workflow, если он уже достаточно хорошо разделяет живые модели. Full Mode может быть оправдан, когда contamination risk, stakes или auditability requirements делают более сильные information boundaries стоящими overhead, но текущий evidence не показывает, что isolation сама по себе улучшает answer quality в этом классе. Reduced Mode остаётся явным fallback, когда настоящая isolation недоступна и пользователь принимает это ограничение.
 
 ### 3. Разрешимые задачи с сильными distractors
 
@@ -57,9 +59,9 @@ Convergence Guard не предназначен для того, чтобы де
 - несколько наблюдений совместимы с обеими версиями;
 - решающее свидетельство легко пропустить.
 
-Это один из основных классов задач для Convergence Guard. Benchmark поддерживает ценность структурированного многостадийного анализа здесь, но не показывает, что Full Mode всегда лучше более дешёвого multi-pass comparator.
+Это один из основных классов задач для Convergence Guard. Benchmark поддерживает ценность structured multi-stage analysis здесь, но не показывает, что canonical Full Mode — или isolation отдельно — всегда лучше более дешёвого multi-pass comparator.
 
-**Рекомендуемый режим:** Full Mode оправдан, когда ошибочное решение заметно дорого **и** дополнительные isolation/anti-anchoring гарантии стоят своей цены. Если Full Mode доступен, но избыточен, лучше использовать обычный или более дешёвый multi-pass анализ, а не переименовывать его в Reduced Mode. Reduced Mode остаётся явным fallback, когда настоящая изоляция недоступна и пользователь принимает это ограничение.
+**Рекомендуемый режим:** Full Mode оправдан, когда ошибочное решение заметно дорого **и** более сильные information-boundary/audit controls стоят своей цены. Не заявляйте уже доказанный anti-anchoring performance gain от isolation на основании текущего evidence. Если Full Mode доступен, но избыточен, лучше использовать обычный или более дешёвый multi-pass анализ, а не переименовывать его в Reduced Mode. Reduced Mode остаётся явным fallback, когда настоящая изоляция недоступна и пользователь принимает это ограничение.
 
 ### 4. Взаимодействующие или многоуровневые причины
 
@@ -87,7 +89,7 @@ Convergence Guard не предназначен для того, чтобы де
 
 К этому классу могут относиться историческая атрибуция, спорные вопросы научного происхождения, стратегические расследования и сложные socio-technical failures.
 
-**Рекомендуемый режим:** Full Mode, если доступна настоящая изоляция контекстов и цена задачи оправдывает дополнительные расходы.
+**Рекомендуемый режим:** Full Mode может быть оправдан, если доступна настоящая isolation и stakes/audit requirements оправдывают расходы, особенно когда contamination является material threat. Рассматривайте isolation как threat-model control, а не как уже доказанный performance boost.
 
 ## Быстрый тест применимости
 
@@ -108,17 +110,18 @@ Convergence Guard становится более оправданным по м
 
 ## Что поддерживает текущий benchmark
 
-Завершённый `main-v0.1.7` поддерживает четыре умеренных вывода:
+Вместе `main-v0.1.7`, conformance audit, normalization re-audit и targeted isolation-ablation поддерживают пять умеренных выводов:
 
-1. Full Mode можно выполнить end-to-end в аудируемом изолированном локальном runtime; в этом 8-case наборе у него наблюдалось меньше unsupported winner selections на ambiguity-heavy cases, чем у single-context и Reduced Mode.
-2. Самая сильная наблюдаемая польза появилась там, где evidence dependence и framing создавали ложную уверенность, а не на прямо разрешимых задачах.
-3. Улучшения Full Mode сопровождаются существенным resource overhead, поэтому selective activation действительно важен.
-4. Часть пользы, вероятно, относится к multi-pass analysis вообще: shared-context multi-agent хорошо выступил по нескольким primary metrics, поэтому текущий study не изолирует чистый эффект именно CG-specific information boundaries.
+1. Реализованный Full workflow можно выполнить end-to-end в аудируемом изолированном локальном runtime; в 8-case main set у него наблюдалось меньше unsupported winner selections на ambiguity-heavy cases, чем у single-context и реализованного Reduced treatment.
+2. Самая сильная наблюдаемая workflow-level separation появилась там, где evidence dependence и framing создавали ложную уверенность, а не на прямо разрешимых задачах.
+3. Более тяжёлый implemented workflow имеет существенный resource overhead, поэтому selective activation действительно важен.
+4. Часть наблюдаемой пользы относится к structured multi-pass analysis вообще: shared-context multi-agent хорошо выступил по нескольким primary metrics.
+5. Targeted isolation-ablation не показал incremental answer-quality защиты от isolation при протестированном explicit false-anchor manipulation, хотя сама information boundary прошла mechanical integrity checks.
 
-Benchmark всё ещё **не** устанавливает общего превосходства CG над обычным анализом и не задаёт универсальный числовой activation threshold. Он также выявил metric gap для полной semantic causal-structure correctness между исходами `CHOOSE / COEXIST / INSUFFICIENT`.
+Evidence всё ещё **не** устанавливает общего превосходства canonical CG над обычным анализом, независимого answer-quality выигрыша от isolation или универсального числового activation threshold. Исходный benchmark также выявил metric gap вокруг полной semantic causal-structure correctness и material raw-vs-normalized interpretation issue.
 
 Полезный эмпирический вопрос остаётся прежним:
 
 > В каких причинных режимах Convergence Guard улучшает качество решения настолько, что оправдывает дополнительную стоимость, а в каких добавляет только лишнюю осторожность или overhead?
 
-Текущего результата уже достаточно для практической карты применимости. Следующий полезный evidence-building шаг — replication на другой модели/runtime и/или targeted retest именно тех cases, где режимы сильнее всего разошлись, а не механическое увеличение каждого запуска.
+Текущего результата уже достаточно для практической карты применимости с явной неопределённостью. Следующий полезный evidence-building шаг — replication на другой модели/runtime и, если isolation остаётся центральным empirical claim, более сильный pre-frozen contamination test, который сам не предупреждает shared workers, что inherited conclusion является “NOT EVIDENCE”.

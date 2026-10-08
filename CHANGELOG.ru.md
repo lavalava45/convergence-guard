@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+- добавлен post-benchmark correction layer eval v0.2: canonical-rule conformance matrix, self-contained Reduced packet, раздельная schema causal/action/next-test/protocol-completion, fail-closed accounting для triggered conditional stages и отдельные v0.2 tests;
+- добавлен blind raw-vs-normalized re-audit M04–M07; N1 сработала в 15/16 runs, а два независимых judge показали, что normalization часто материально меняла winner-like semantic interpretation, поэтому raw-vs-normalized disagreement теперь отдельный diagnostic, а не косметическая compliance-note;
+- завершён targeted isolation-ablation `v0.1.4` после прозрачного versioning execution-only failures: 16/16 valid cells, 64/64 responses с frozen standalone endpoint, isolated-pair integrity PASS и 0/8 false-anchor adoptions по двум независимым anchor judges;
+- isolation claims соответственно сужены: information boundary механически подтверждена, но этот четырёх-case ablation не показал incremental answer-quality защиты isolation сверх shared workflow с явной anti-anchoring инструкцией;
+- `main-v0.1.7` в публичной документации переклассифицирован как implemented-workflow benchmark, а не полная валидация canonical Full/Reduced execution;
 - в canonical skill добавлен benchmark-informed selective activation triage: для напрямую разрешённых, дешёвых в проверке и обратимых cases предпочтителен обычный анализ; Full Mode следует включать главным образом при сохраняющейся causal ambiguity, когда evidence dependence, framing/open-world risk, трудно разделимые confounding/interaction или дорогой необратимый commitment оправдывают overhead;
 - после post-benchmark аудита усилены stage boundaries Full Mode: явный allowlist для C3 boundary critic, удалён неоднозначный помеченный "outside alternative" из D2, задан явный routing для premortem/stakeholder findings и полный D3 second-opinion contract для inputs/disposition/reconciliation;
 - causal-structure judgment и action sufficiency явно разведены: поддержанный `COEXISTING`/`INTERACTING` model judgment больше не должен затираться `INSUFFICIENT DATA TO CHOOSE` для решения о действии;

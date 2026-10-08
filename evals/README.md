@@ -2,7 +2,7 @@
 
 This directory contains the public, reproducible part of the comparative evaluation harness for Convergence Guard.
 
-The eval compares four complete workflows:
+The original v0.1 eval compares four implemented workflows:
 
 1. `single-context`
 2. `shared-context-multi-agent`
@@ -37,8 +37,15 @@ The validator rejects common hidden-key filenames if they appear inside a public
 - Frozen main-study manifest: `FREEZE-MANIFEST-main-v0.1.7.json`
 - Main-study metric report: `results/main-v0.1.7/REPORT.md`
 - Main-study interpretation: `results/main-v0.1.7/INTERPRETATION.md` / `INTERPRETATION.ru.md`
+- Post-benchmark conformance matrix: `protocol/v0.2/CONFORMANCE-MATRIX.md`
+- Main normalization diagnostics: `results/main-v0.1.7/diagnostics/`
+- Targeted isolation-ablation: `results/isolation-ablation-v0.1.4/REPORT.md` / `INTERPRETATION.md` / `INTERPRETATION.ru.md`
 
-The final `main-v0.1.7` result set contains 32/32 completed primary runs, 32/32 completed calibration runs, and 32 blind semantic judgments. The study is descriptive: one model, eight cases, and one repeat per cell do not support broad population claims or a universal mode ranking.
+The final `main-v0.1.7` result set contains 32/32 completed primary runs, 32/32 completed calibration runs, and 32 blind semantic judgments. A later conformance audit found that the executable `cg-full` and `cg-reduced` treatments were simplified implementations rather than complete executions of every current canonical rule. The study is therefore a descriptive **implemented-workflow benchmark**, not a validation of canonical Full Mode or a population effect estimate.
+
+Post-benchmark correction artifacts live under `protocol/v0.2/`. They include a canonical-rule conformance matrix, a self-contained Reduced participant packet, a split causal/action/next-test/protocol-completion output schema, and fail-closed execution semantics for triggered but unsupported stages.
+
+The targeted `isolation-ablation-v0.1.4` tested one mechanism only: exposure to prior conclusions during causal search. It completed 16/16 cells on the frozen standalone endpoint, passed isolated-pair integrity, and produced 0/8 false-anchor adoptions under two independent anchor judges. The result did **not** demonstrate an incremental answer-quality benefit from isolation under that manipulation.
 
 ## Reproducing the public eval structure
 

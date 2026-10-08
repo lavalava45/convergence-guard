@@ -37,15 +37,17 @@ Full Mode is runtime-agnostic, but it is not isolation-agnostic: a client must b
 
 Imagine a cup is broken on the floor. The cat is beside it, and a camera clearly shows the cat pushing it off the table. You do **not** need a panel of investigators, competing causal models, and a long evidence audit. A good ordinary analysis is faster and cheaper. Using Full Convergence Guard here would be like using a forensic laboratory to answer a question already settled by the video.
 
-Now imagine a harder investigation. There are several plausible causes. Five reports appear to support one explanation — but after tracing their provenance, all five turn out to repeat the same original source. The most obvious story is persuasive, yet the evidence still does not justify choosing it over a live alternative. This is the kind of problem Convergence Guard is designed for: it makes it harder for the analysis to fall in love with the first convincing story.
+Now imagine a harder investigation. There are several plausible causes. Five reports appear to support one explanation — but after tracing their provenance, all five turn out to repeat the same original source. The most obvious story is persuasive, yet the evidence still does not justify choosing it over a live alternative. This is the kind of problem Convergence Guard is designed for: it aims to make it harder for the analysis to fall in love with the first convincing story.
 
-That pattern appeared in the frozen `main-v0.1.7` benchmark. On M05, a deliberately deceptive underdetermination case, single-context and Reduced Mode each received a blind-judge `premature_winner=1`; Full Mode and shared-context multi-agent preserved the live alternatives. Across all eight cases, Full Mode had **0/8 premature winners** and the highest mean action quality, but it cost about **9.1 model calls per case instead of 1** for single-context.
+That pattern appeared in the frozen `main-v0.1.7` **implemented-workflow benchmark**. On M05, a deliberately deceptive underdetermination case, single-context and the implemented Reduced treatment each received a blind-judge `premature_winner=1`; the implemented Full treatment and shared-context multi-agent preserved the live alternatives. Across all eight cases, the implemented Full treatment had **0/8 premature winners** and the highest mean action quality, but it cost about **9.1 model calls per case instead of 1** for single-context.
 
 So the practical rule is simple:
 
 > **For an easy question, Convergence Guard can be a cannon aimed at a sparrow. For a difficult investigation, it is a useful way to stop the analyst from committing too early to a beautiful but insufficiently supported explanation.**
 
-The benchmark does not show that Full Mode is always best. Shared-context multi-agent also had 0/8 premature winners at substantially lower cost, and Full Mode was sometimes overly cautious about `COEXIST` cases. The evidence supports **selective use on difficult, ambiguity-heavy decisions**, not automatic use everywhere.
+The benchmark does not show that canonical Full Mode is always best. A post-benchmark conformance audit found that `main-v0.1.7` exercised **simplified Full/Reduced implementations**, not every conditional rule in the current specification. Shared-context multi-agent also had 0/8 premature winners at substantially lower cost, and the implemented Full workflow was sometimes overly cautious about `COEXIST` cases. The evidence supports **selective structured analysis on difficult, ambiguity-heavy decisions**, not automatic use everywhere.
+
+A follow-up 16-cell targeted isolation ablation then held the model, evidence, search mandates, call count, seeds, and synthesis structure fixed while varying only whether search workers could see prior conclusions. The isolation boundary passed its mechanical integrity check, but **no false-anchor adoption occurred even in the shared treatment (0/8 across two independent anchor judges)**. So the current evidence does **not** demonstrate an incremental answer-quality benefit from isolation itself under that tested manipulation. See the [isolation result](evals/results/isolation-ablation-v0.1.4/INTERPRETATION.md).
 
 ## Why not just ask 5 agents?
 
@@ -79,18 +81,20 @@ For evidence-heavy research, Convergence Guard also evaluates **claims rather th
 
 ## When is Convergence Guard worth using?
 
-Convergence Guard is not meant to make every problem harder. The frozen `main-v0.1.7` benchmark now provides a broader applicability signal across eight causal regimes and four modes (32 participant runs total, one repeat per `case × mode` cell).
+Convergence Guard is not meant to make every problem harder. The frozen `main-v0.1.7` workflow benchmark provides a broader applicability signal across eight causal regimes and four implemented modes (32 participant runs total, one repeat per `case × mode` cell), but it should not be read as a complete validation of the canonical Full/Reduced specification.
 
 - `cg-full` produced **0/8 premature winners**, **2/2 correct abstentions** on the keyed-insufficient cases, and the highest mean action quality (**1.875/2**), but at high cost: about **9.1 model calls, 12.5k input tokens, and 5.6k output tokens per case** on average;
 - shared-context multi-agent also produced **0/8 premature winners** and **2/2 correct abstentions**, with lower cost but weaker mean action and next-test scores;
 - single-context and `cg-reduced` each produced one premature winner on the deliberately deceptive underdetermination case M05;
 - Full Mode did **not** dominate every diagnostic: its literal declared status matched the hidden key in 5/8 cases, versus 6/8 for single-context, and the current metric set does not fully collapse every `CHOOSE / COEXIST / INSUFFICIENT` structural error into one scalar correctness score.
 
-One important scoring caveat: blind semantic judging used the **predeclared normalized** `final.json` artifacts. In the raw Full Mode outputs for M04 and M05, the model declared `INSUFFICIENT` but still populated `preferred_cause`; frozen normalization rule N1 cleared that mechanically inconsistent field before judging. The `2/2 correct abstentions` figure is therefore valid under the frozen scoring protocol, but should not be read as “the raw Full Mode answers contained no winner-like signal.”
+One important scoring caveat: blind semantic judging used the **predeclared normalized** `final.json` artifacts. A later blind raw-vs-normalized re-audit of all 16 M04–M07 runs found N1 applied in **15/16** runs, with the two judges often agreeing that the repair materially changed winner-like semantic interpretation. The frozen scores remain unchanged, because the normalizer was predeclared and treatment-independent, but normalization should no longer be treated as merely cosmetic output cleanup. See the [normalization re-audit](evals/results/main-v0.1.7/diagnostics/REJUDGE-REPORT.md).
 
-The result therefore supports a **selective-use** interpretation: heavier structure appears most useful when framing risk, evidence dependence, causal ambiguity, or premature-commitment cost are high, but it is expensive and should not be treated as the default for every resolvable task.
+The result therefore supports a **selective-use** interpretation: heavier structured analysis appears most useful when framing risk, evidence dependence, causal ambiguity, or premature-commitment cost are high, but it is expensive and should not be treated as the default for every resolvable task. A subsequent conformance audit found missing/partial canonical branches in the v0.1.7 executable Full/Reduced treatments; the v0.2 correction layer now records those gaps explicitly and fails closed instead of silently calling an incomplete path “Full Mode complete.”
 
-See the bilingual [Applicability Guide](convergence-guard/references/applicability.md) / [Руководство по применимости](convergence-guard/references/applicability.ru.md), the raw [main benchmark metric report](evals/results/main-v0.1.7/REPORT.md), and the paired [English](evals/results/main-v0.1.7/INTERPRETATION.md) / [Russian](evals/results/main-v0.1.7/INTERPRETATION.ru.md) interpretation. The earlier two-case technical pilot remains documented in [evals/PILOT-REPORT-v0.1.md](evals/PILOT-REPORT-v0.1.md).
+The targeted isolation ablation adds another important limit: the implemented isolation boundary worked mechanically, but the shared treatment also resisted the injected false anchors, so **the incremental quality benefit of isolation remains unproven** in the current evidence base.
+
+See the bilingual [Applicability Guide](convergence-guard/references/applicability.md) / [Руководство по применимости](convergence-guard/references/applicability.ru.md), the raw [main benchmark metric report](evals/results/main-v0.1.7/REPORT.md), the paired [main interpretation](evals/results/main-v0.1.7/INTERPRETATION.md) / [Russian](evals/results/main-v0.1.7/INTERPRETATION.ru.md), the [v0.2 conformance matrix](evals/protocol/v0.2/CONFORMANCE-MATRIX.md), and the paired [isolation-ablation interpretation](evals/results/isolation-ablation-v0.1.4/INTERPRETATION.md) / [русская версия](evals/results/isolation-ablation-v0.1.4/INTERPRETATION.ru.md). The earlier two-case technical pilot remains documented in [evals/PILOT-REPORT-v0.1.md](evals/PILOT-REPORT-v0.1.md).
 
 ## Current workflow
 
@@ -214,7 +218,7 @@ The examples record the decision contract, provenance-aware evidence brief, caus
 
 **Full Mode** requires genuine isolated worker/agent contexts for operations that depend on independence or blindness.
 
-**Reduced Mode** is a disclosed single-context fallback. It preserves the reasoning shape but cannot reproduce the anti-anchoring guarantees created by isolated workers. It must not be presented as equivalent to Full Mode.
+**Reduced Mode** is a disclosed single-context fallback. It preserves the reasoning shape but cannot reproduce the information-boundary and blindness guarantees created by isolated workers. It must not be presented as equivalent to Full Mode.
 
 ## Language and localization
 

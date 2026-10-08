@@ -2,6 +2,8 @@
 
 This is the interpretation layer for the frozen `main-v0.1.7` result set. The machine-readable aggregate is in `summary.json`; the metric table is in `REPORT.md`.
 
+> **Post-benchmark correction note:** a later conformance audit found that the executable `cg-full` and `cg-reduced` treatments in this study were simplified implementations rather than exact executions of every conditional rule in the current canonical specification. The frozen scores below remain historical results for those implemented workflows; they should not be read as a complete validation of canonical Full/Reduced Mode. See `../../protocol/v0.2/CONFORMANCE-MATRIX.md` and the later `../isolation-ablation-v0.1.4/INTERPRETATION.md`.
+
 ## What was run
 
 The final main study used 8 frozen cases × 4 modes × 1 repeat = **32 participant runs**. The reduction from the earlier 64-run design to one repeat was declared before the final study version began; it trades variance estimation for completing one full `case × mode` matrix. The final participant runtime was a dedicated local `llama-server 2.52.0` process using `gemma-4-12b-it-Q6_K.gguf`, context 15,000, full GPU offload, KV offload, one parallel slot, SSE streaming, and cross-request prompt caching disabled.
@@ -10,7 +12,7 @@ All **32/32 primary runs** completed and were frozen before calibration. All **3
 
 ## Main result
 
-`cg-full` had the strongest aggregate action score and the most conservative premature-convergence profile:
+The implemented `cg-full` treatment had the strongest aggregate action score and the most conservative premature-convergence profile:
 
 - premature winner: **0/8** for `cg-full`, **0/8** for shared-context multi-agent, **1/8** for single-context, **1/8** for `cg-reduced`;
 - correct abstention on the two keyed-insufficient cases: **2/2** for `cg-full`, **2/2** for shared-context multi-agent, **1/2** for single-context, **1/2** for `cg-reduced`;
@@ -18,7 +20,7 @@ All **32/32 primary runs** completed and were frozen before calibration. All **3
 - mean decision-relevant mechanism recall: **1.000** for `cg-full`, shared-context, and single-context; 0.958 for `cg-reduced`;
 - mean next-test quality was **not** best for Full Mode: 1.500 for `cg-full` versus 1.625 for both single-context and `cg-reduced`.
 
-These semantic scores are scores of the frozen normalized `final.json` artifacts. For both keyed-insufficient Full Mode runs (M04 and M05), the raw participant answer declared `INSUFFICIENT` while still populating a non-null `preferred_cause`; predeclared normalization rule N1 cleared that field before blind judging. Thus the `2/2 correct abstentions` result is valid under the frozen scoring protocol, but raw-output behavior was less clean than that aggregate alone suggests.
+These semantic scores are scores of the frozen normalized `final.json` artifacts. A later blind raw-vs-normalized re-audit of all 16 M04–M07 runs found N1 applied in **15/16** runs; two independent judges often found that deleting the raw `preferred_cause` materially changed winner-like semantic interpretation. The frozen benchmark scores remain unchanged because N1 was predeclared and treatment-independent, but raw-output behavior was less clean than the aggregate alone suggests. See `diagnostics/REJUDGE-REPORT.md`.
 
 The clearest applicability signal appeared on **M05, deceptive underdetermination**. Both `cg-full` and shared-context preserved the live alternatives under blind semantic judging; single-context and `cg-reduced` each received `premature_winner=1` and `correct_abstention=0`. This is consistent with the hypothesis that additional structure becomes useful when apparently abundant evidence is dependent on one evidence branch and framing pressure is high.
 
@@ -54,7 +56,7 @@ The correct conclusion is therefore narrower: **in this 8-case set, Full Mode ha
 
 Mean Brier scores were very low for all modes: 0.004 single-context, 0.007 `cg-full`, 0.015 `cg-reduced`, and 0.027 shared-context. The protocol already warns that this is a small set of correlated binary claims, so these values should not support a standalone calibration claim.
 
-Normalization was invoked frequently: 5/8 Full, 5/8 single-context, 7/8 Reduced, and 7/8 shared-context runs required the frozen mechanical repair that clears a non-null `preferred_cause` under `COEXIST` or `INSUFFICIENT`. This is certainly an output-contract/compliance problem, but it cannot be treated as purely cosmetic: a non-null preferred cause can also carry a winner-like semantic signal. Because N1 was frozen before the main study and applied treatment-independently, using the normalized artifact is procedurally valid; nevertheless raw-versus-normalized disagreement is a material interpretive limitation and should be measured explicitly in the next eval.
+Normalization was invoked frequently: 5/8 Full, 5/8 single-context, 7/8 Reduced, and 7/8 shared-context runs required the frozen mechanical repair that clears a non-null `preferred_cause` under `COEXIST` or `INSUFFICIENT`. The later M04–M07 blind re-audit confirmed that this can be semantically material rather than purely cosmetic: N1 was applied in 15/16 inspected runs, and the judges often treated the raw-vs-normalized difference as changing winner-like interpretation. Because N1 was frozen before the main study and applied treatment-independently, using the normalized artifact is procedurally valid; nevertheless raw-versus-normalized disagreement is now an explicit interpretive limitation rather than a future-only concern.
 
 The more complex workflows also incurred transport retries during primary execution: 6 total for `cg-full`, 3 for shared-context, and none for single-context or Reduced. The final standalone no-prompt-cache runtime completed every frozen run, but runtime complexity is part of the practical cost of the multi-call workflows.
 
