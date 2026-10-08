@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Convergence Guard eval output v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "causal_structure",
+    "action_decision",
+    "next_test",
+    "protocol_completion"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "causal_structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "supported_models",
+        "preferred_cause",
+        "relation",
+        "residual_uncertainty"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "CHOOSE",
+            "COEXIST",
+            "INSUFFICIENT",
+            "NO_SUPPORTED_MODEL"
+          ]
+        },
+        "supported_models": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "claim", "mechanism"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "claim": {"type": "string", "minLength": 1},
+              "mechanism": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "preferred_cause": {
+          "type": ["string", "null"]
+        },
+        "relation": {
+          "type": "string",
+          "enum": [
+            "EXCLUSIVE",
+            "COEXISTING",
+            "NESTED",
+            "INTERACTING",
+            "UNRESOLVED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "residual_uncertainty": {
+          "type": "string"
+        }
+      }
+    },
+    "action_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "chosen_action",
+        "rationale",
+        "conditions",
+        "cost_of_delay_considered",
+        "default_if_no_new_information"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "CHOOSE_ACTION",
+            "CONDITIONAL_ACTION",
+            "DEFER_ACTION",
+            "NO_ACTION_NEEDED"
+          ]
+        },
+        "chosen_action": {
+          "type": ["string", "null"]
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "cost_of_delay_considered": {
+          "type": "string"
+        },
+        "default_if_no_new_information": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "next_test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "description",
+        "decision_rule",
+        "why_decision_changing"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "PROPOSED",
+            "NO_FEASIBLE_DISCRIMINATOR",
+            "DEFERRED_FOR_BUDGET",
+            "NOT_NEEDED"
+          ]
+        },
+        "description": {
+          "type": ["string", "null"]
+        },
+        "decision_rule": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "why_decision_changing": {
+          "type": "string"
+        }
+      }
+    },
+    "protocol_completion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "completed_stages",
+        "skipped_stages",
+        "triggered_but_unexecuted",
+        "pending_hypotheses",
+        "material_omissions"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "COMPLETE",
+            "PARTIAL_PROTOCOL",
+            "BUDGET_STOP"
+          ]
+        },
+        "completed_stages": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "skipped_stages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["stage", "reason"],
+            "properties": {
+              "stage": {"type": "string"},
+              "reason": {"type": "string"}
+            }
+          }
+        },
+        "triggered_but_unexecuted": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "pending_hypotheses": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "material_omissions": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    }
+  }
+}

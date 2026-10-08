@@ -1,0 +1,204 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0030",
+  "case": {
+    "case_id": "M06",
+    "case_metadata": {
+      "case_id": "M06",
+      "case_type": "cold_storage_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M06.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M06 — Temperature excursions across cold-storage zones\n\nA distribution center reports a single site-level 'temperature excursion' incident. Two clusters of zones are warm, and operations wants one root cause for the incident report.\n\nDetermine the justified causal assessment and immediate action from the supplied evidence.\n\nConstraints:\n\n- protect stored inventory while diagnosis proceeds;\n- zone-level interventions are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-zone-summary.csv",
+        "content": "zone,temp_c,alarm\nA1,9.1,YES\nA2,8.7,YES\nB1,8.9,YES\nB2,9.3,YES\nC1,3.8,NO\nC2,4.0,NO\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-cluster-a-service.txt",
+        "content": "Cluster A refrigeration loop: compressor suction pressure abnormally low. Technician leak check found refrigerant loss at a service valve. Air dampers respond normally.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-cluster-b-service.txt",
+        "content": "Cluster B refrigeration loop pressures and compressor current are normal. Both supply-air dampers remain commanded open but physically stuck near closed. Actuator linkage is binding.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-a-repair-observation.txt",
+        "content": "After sealing the service valve and restoring refrigerant in Cluster A, A1/A2 return below 4.5°C within 35 minutes. B1/B2 remain above 8.5°C.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-b-manual-open.txt",
+        "content": "Before Cluster A repair, technicians manually opened the Cluster B dampers. B1/B2 began cooling immediately while A1/A2 remained warm until their refrigeration-loop repair.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-common-conditions.txt",
+        "content": "Facility power, outdoor temperature, central supervisory controller, and site network remained within normal ranges. No single site-wide failure is recorded.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "COEXIST",
+      "preferred_cause": "CA_01",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "id": "CA_01",
+          "claim": "Concurrent Independent Mechanical Failures (Refrigerant Leak in Cluster A and Binding Actuator Linkage in Cluster B)."
+        }
+      ],
+      "preferred_matches_candidate_id": true
+    },
+    "normalized": {
+      "status": "COEXIST",
+      "preferred_cause": null,
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "id": "CA_01",
+          "claim": "Concurrent Independent Mechanical Failures (Refrigerant Leak in Cluster A and Binding Actuator Linkage in Cluster B)."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "CA_01",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "CA_01",
+        "after": null,
+        "reason": "COEXIST cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M06",
+      "causal_assessment": {
+        "status": "COEXIST",
+        "candidate_causes": [
+          {
+            "id": "CA_01",
+            "claim": "Concurrent Independent Mechanical Failures (Refrigerant Leak in Cluster A and Binding Actuator Linkage in Cluster B)."
+          }
+        ],
+        "preferred_cause": "CA_01"
+      },
+      "action": {
+        "recommended_action": "Repair/replace the binding actuator linkage in Cluster B and continue monitoring both clusters to ensure temperatures remain below 4.5Â°C.",
+        "reason": "Evidence E02 and E04 confirm a refrigerant leak in Cluster A (repaired). Evidence E03 and E05 confirm a mechanical binding in Cluster B's dampers, which was successfully mitigated by manual intervention. E06 rules out systemic infrastructure failures, confirming the issues are independent mechanical failures."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E02",
+            "E03",
+            "E04",
+            "E05",
+            "E06"
+          ],
+          "claim": "The failures are physically distinct and independent: Cluster A suffered a refrigerant leak (E02, E04), while Cluster B suffered a mechanical damper linkage failure (E03, E05). Systemic failures (power, network, controller) were ruled out (E06)."
+        }
+      ],
+      "uncertainty": [],
+      "next_test": {
+        "test": "Perform a comprehensive inspection of all service valves and damper linkages across the facility.",
+        "outcome_a_implication": "Identifies systemic maintenance oversight.",
+        "outcome_b_implication": "Confirms failures were isolated incidents."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M06",
+      "causal_assessment": {
+        "status": "COEXIST",
+        "candidate_causes": [
+          {
+            "id": "CA_01",
+            "claim": "Concurrent Independent Mechanical Failures (Refrigerant Leak in Cluster A and Binding Actuator Linkage in Cluster B)."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Repair/replace the binding actuator linkage in Cluster B and continue monitoring both clusters to ensure temperatures remain below 4.5Â°C.",
+        "reason": "Evidence E02 and E04 confirm a refrigerant leak in Cluster A (repaired). Evidence E03 and E05 confirm a mechanical binding in Cluster B's dampers, which was successfully mitigated by manual intervention. E06 rules out systemic infrastructure failures, confirming the issues are independent mechanical failures."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E02",
+            "E03",
+            "E04",
+            "E05",
+            "E06"
+          ],
+          "claim": "The failures are physically distinct and independent: Cluster A suffered a refrigerant leak (E02, E04), while Cluster B suffered a mechanical damper linkage failure (E03, E05). Systemic failures (power, network, controller) were ruled out (E06)."
+        }
+      ],
+      "uncertainty": [],
+      "next_test": {
+        "test": "Perform a comprehensive inspection of all service valves and damper linkages across the facility.",
+        "outcome_a_implication": "Identifies systemic maintenance oversight.",
+        "outcome_b_implication": "Confirms failures were isolated incidents."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "925012e95cf52f53c9c780e0cb612014f1dd1bbf10fd016cc7768838c054ecdb",
+    "final.json": "ba8a9eaa25114d9615fa15f62366412fbf207396b2b97935c83fa0258756c701",
+    "normalization.json": "f175a75f8c661dd536bc595b66474f28442d021f6d0da685952d9cf5c3ad38a4"
+  }
+}

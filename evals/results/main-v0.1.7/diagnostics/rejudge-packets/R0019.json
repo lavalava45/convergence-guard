@@ -1,0 +1,238 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0019",
+  "case": {
+    "case_id": "M05",
+    "case_metadata": {
+      "case_id": "M05",
+      "case_type": "fraud_screening_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06",
+        "E07"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M05.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M05 — Fraud-alert spike after ruleset update\n\nA fraud-screening service began flagging many legitimate sessions. An incident narrative quickly formed around a vendor ruleset update, while a client SDK rollout was occurring in the same period. Several internal reports appear to support the ruleset explanation.\n\nDetermine what causal conclusion is justified by the supplied evidence and what should be done next.\n\nConstraints:\n\n- avoid disabling fraud screening globally;\n- offline replay and targeted shadow tests are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-executive-summary.txt",
+        "content": "Executive incident summary, 16:30\nFalse-positive spike began shortly after ruleset R91 activation. 92% of reviewed false positives are marked 'R91-match'. Working hypothesis: R91 is too aggressive.\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-support-ticket.txt",
+        "content": "Support escalation INC-8821\nCustomer reports align with the R91 rollout. Analyst note: 'Most bad flags are R91 matches; likely ruleset regression.'\nThe ticket links dashboard FP-R91-INCIDENT as its quantitative source.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-dashboard-definition.txt",
+        "content": "Dashboard FP-R91-INCIDENT\nMetric 'R91-match' is not a raw vendor decision code. It is computed by internal parser v5 from normalized client payload fields.\nThe same dashboard export was used to produce the 92% number quoted in the executive summary and support ticket.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-sdk-rollout.txt",
+        "content": "Client SDK 12.4 rollout began 14:00 and reached 78% of traffic by 15:10.\nSDK 12.4 changed serialization of an optional country field from omitted to an explicit empty string when unknown.\nRuleset R91 activated at 14:20.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-parser-note.txt",
+        "content": "Parser v5 maps an explicit empty country string to token UNKNOWN_COUNTRY, which contributes to the internally computed 'R91-match' label.\nThe actual vendor decision trace for the first 35 minutes was not retained.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-later-sample.txt",
+        "content": "Later raw sample, collected after trace retention was enabled:\nFor 40 false positives from SDK 12.4 clients, replaying either (a) old payload normalization with R91 or (b) current payload normalization with the prior ruleset substantially reduces alerts.\nThe two replay variants were not crossed against each other in this sample.\n"
+      },
+      {
+        "evidence_id": "E07",
+        "filename": "E07-retention-gap.txt",
+        "content": "14:20-14:55: raw vendor rule trace and pre-parser request body are unavailable.\nAvailable incident summaries and the R91 dashboard all descend from the parser-v5 derived field.\nThe incident archive contains no old/new SDK × old/new ruleset factorial replay from that interval.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": "C2 (High Probability / Structural Interaction)",
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "C1",
+          "claim": "Ruleset R91 is inherently too aggressive for standard traffic patterns (Ruleset Regression)."
+        },
+        {
+          "id": "C2",
+          "claim": "SDK 12.4's change in serialization (omitted to empty string) triggered a parser-v5 mapping to UNKNOWN_COUNTRY, which the R91 ruleset interprets as a fraud signal."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    },
+    "normalized": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": null,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "C1",
+          "claim": "Ruleset R91 is inherently too aggressive for standard traffic patterns (Ruleset Regression)."
+        },
+        {
+          "id": "C2",
+          "claim": "SDK 12.4's change in serialization (omitted to empty string) triggered a parser-v5 mapping to UNKNOWN_COUNTRY, which the R91 ruleset interprets as a fraud signal."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "C2 (High Probability / Structural Interaction)",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "C2 (High Probability / Structural Interaction)",
+        "after": null,
+        "reason": "INSUFFICIENT cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M05",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "C1",
+            "claim": "Ruleset R91 is inherently too aggressive for standard traffic patterns (Ruleset Regression)."
+          },
+          {
+            "id": "C2",
+            "claim": "SDK 12.4's change in serialization (omitted to empty string) triggered a parser-v5 mapping to UNKNOWN_COUNTRY, which the R91 ruleset interprets as a fraud signal."
+          }
+        ],
+        "preferred_cause": "C2 (High Probability / Structural Interaction)"
+      },
+      "action": {
+        "recommended_action": "Perform a targeted shadow test using the current R91 ruleset against a payload where the country field is omitted (simulating the old SDK behavior) and a payload where the country field is an explicit empty string (simulating the new SDK behavior).",
+        "reason": "The evidence shows that the 'R91-match' label is a computed field from parser v5 (E03, E05). Because the SDK rollout (E04) and R91 activation (E04) overlapped, and the parser maps empty strings to UNKNOWN_COUNTRY (E05), the spike is likely a result of the interaction between the new SDK serialization and the parser's interpretation, rather than a standalone regression in the R91 logic itself."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E03",
+            "E04",
+            "E05"
+          ],
+          "claim": "The 'R91-match' metric is a derived field from parser v5, which maps the new SDK's empty string serialization to UNKNOWN_COUNTRY."
+        },
+        {
+          "evidence_ids": [
+            "E06"
+          ],
+          "claim": "Replaying old payload normalization with R91 or current normalization with the prior ruleset reduces alerts, suggesting the issue lies in the intersection of the normalization/serialization and the ruleset."
+        }
+      ],
+      "uncertainty": [
+        "The actual vendor decision trace for the first 35 minutes (the peak of the spike) is missing (E05, E07), preventing a definitive confirmation of the vendor's internal logic vs. the parser's mapping."
+      ],
+      "next_test": {
+        "test": "Cross-variant factorial replay: Replay (a) old payload normalization with R91 AND (b) current payload normalization with the prior ruleset, and compare results against (c) current payload normalization with R91.",
+        "outcome_a_implication": "If (a) shows high alerts, R91 is fundamentally too aggressive.",
+        "outcome_b_implication": "If (b) shows high alerts, the prior ruleset was also sensitive to the new SDK serialization."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M05",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "C1",
+            "claim": "Ruleset R91 is inherently too aggressive for standard traffic patterns (Ruleset Regression)."
+          },
+          {
+            "id": "C2",
+            "claim": "SDK 12.4's change in serialization (omitted to empty string) triggered a parser-v5 mapping to UNKNOWN_COUNTRY, which the R91 ruleset interprets as a fraud signal."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Perform a targeted shadow test using the current R91 ruleset against a payload where the country field is omitted (simulating the old SDK behavior) and a payload where the country field is an explicit empty string (simulating the new SDK behavior).",
+        "reason": "The evidence shows that the 'R91-match' label is a computed field from parser v5 (E03, E05). Because the SDK rollout (E04) and R91 activation (E04) overlapped, and the parser maps empty strings to UNKNOWN_COUNTRY (E05), the spike is likely a result of the interaction between the new SDK serialization and the parser's interpretation, rather than a standalone regression in the R91 logic itself."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E03",
+            "E04",
+            "E05"
+          ],
+          "claim": "The 'R91-match' metric is a derived field from parser v5, which maps the new SDK's empty string serialization to UNKNOWN_COUNTRY."
+        },
+        {
+          "evidence_ids": [
+            "E06"
+          ],
+          "claim": "Replaying old payload normalization with R91 or current normalization with the prior ruleset reduces alerts, suggesting the issue lies in the intersection of the normalization/serialization and the ruleset."
+        }
+      ],
+      "uncertainty": [
+        "The actual vendor decision trace for the first 35 minutes (the peak of the spike) is missing (E05, E07), preventing a definitive confirmation of the vendor's internal logic vs. the parser's mapping."
+      ],
+      "next_test": {
+        "test": "Cross-variant factorial replay: Replay (a) old payload normalization with R91 AND (b) current payload normalization with the prior ruleset, and compare results against (c) current payload normalization with R91.",
+        "outcome_a_implication": "If (a) shows high alerts, R91 is fundamentally too aggressive.",
+        "outcome_b_implication": "If (b) shows high alerts, the prior ruleset was also sensitive to the new SDK serialization."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "ff173661911936bc316475629d86eff19f4a8b6888b7e4fe95ed58e9a3d71b53",
+    "final.json": "cee88dd3c9269184033334cf63963246958cd00f51acc9569883bc81a3d7f0b2",
+    "normalization.json": "4364bf96d044bd356d7c3274a3c0e4a6cd1816cdbb2d44614ace00a1fcf2b3dd"
+  }
+}

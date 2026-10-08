@@ -1,0 +1,1032 @@
+{
+  "diagnostic_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "scope": [
+    "M04",
+    "M05",
+    "M06",
+    "M07"
+  ],
+  "frozen_scores_modified": false,
+  "definition": {
+    "n1_semantic_change_flag": "true when the observed N1 delta removes a non-null, non-empty preferred_cause from final.raw.json; the flag identifies a semantic re-judge candidate and does not assign or revise a benchmark score"
+  },
+  "totals": {
+    "runs": 16,
+    "json_changed": 15,
+    "n1_applied": 15,
+    "n1_semantic_change_flags": 15,
+    "normalization_record_mismatches": 0
+  },
+  "runs": [
+    {
+      "neutral_id": "R0002",
+      "run_id": "M04-r1-shared-context-multi-agent",
+      "case_id": "M04",
+      "mode": "shared-context-multi-agent",
+      "artifact_hashes": {
+        "final.raw.json": "a9ad18c86a7904b6131125613655af0b5dda40bf7ff73ee11edfc291bcc1ddfb",
+        "final.json": "9bd361b8e0c7c41e40d3f3a3b53537cfc61a59fc4c2daddf4dc417be26c6c369",
+        "normalization.json": "88f6c50da35874d5b884c3bc3b4723b02e155af790f96cbbc2689112c8f1b6a0"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "producer_retry_or_broker_redelivery_gap",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "producer_retry_or_broker_redelivery_gap",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "producer_retry_or_broker_redelivery_gap",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "producer_retry",
+              "claim": "The producer is retrying messages because broker acknowledgment latency (18-26s) exceeds the new producer timeout (15s). These retries arrive after the deduplication cache TTL (20s) has expired, causing duplicates to pass through the consumer deduplication logic."
+            },
+            {
+              "id": "broker_redelivery",
+              "claim": "The broker is redelivering messages due to acknowledgment failures or internal processing delays. These redeliveries occur after the deduplication cache TTL (20s) has expired."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "producer_retry",
+              "claim": "The producer is retrying messages because broker acknowledgment latency (18-26s) exceeds the new producer timeout (15s). These retries arrive after the deduplication cache TTL (20s) has expired, causing duplicates to pass through the consumer deduplication logic."
+            },
+            {
+              "id": "broker_redelivery",
+              "claim": "The broker is redelivering messages due to acknowledgment failures or internal processing delays. These redeliveries occur after the deduplication cache TTL (20s) has expired."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0004",
+      "run_id": "M05-r1-cg-full",
+      "case_id": "M05",
+      "mode": "cg-full",
+      "artifact_hashes": {
+        "final.raw.json": "eb0e223a816f12fcfad4d306c9a9b9b0da551e2da9e4fbe2d02980312898141f",
+        "final.json": "7f095fe2884d7cce8632b4f2592d6587bd4ebc4c9c1e943ea16c8aa03151f0dc",
+        "normalization.json": "7bb505ad4ebcae79e576f35ff167fac7b969ec0e8f3c9aa7894b39b6023d15f3"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "H08 (with caveats on label reliability)",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "H08 (with caveats on label reliability)",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "H08 (with caveats on label reliability)",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "H03",
+              "claim": "The ruleset R91 reacts poorly to the explicit empty string serialization introduced by SDK 12.4 and processed by Parser v5 (mapping to UNKNOWN_COUNTRY)."
+            },
+            {
+              "id": "H08",
+              "claim": "SDK 12.4 changed an omitted field to an empty string, which Parser v5 maps to UNKNOWN_COUNTRY, triggering R91 as a high-risk signal."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "H03",
+              "claim": "The ruleset R91 reacts poorly to the explicit empty string serialization introduced by SDK 12.4 and processed by Parser v5 (mapping to UNKNOWN_COUNTRY)."
+            },
+            {
+              "id": "H08",
+              "claim": "SDK 12.4 changed an omitted field to an empty string, which Parser v5 maps to UNKNOWN_COUNTRY, triggering R91 as a high-risk signal."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0006",
+      "run_id": "M07-r1-cg-full",
+      "case_id": "M07",
+      "mode": "cg-full",
+      "artifact_hashes": {
+        "final.raw.json": "607d25681a671d7270031da6b881fb72f2157685176516ce008e4216c6c7431b",
+        "final.json": "55dd3245aa8c87f3ea45ee9c9ef3bd70840771fe5e5391217273807131d89340",
+        "normalization.json": "53074273a71d2a43e56441373883fcbb4fa8c7ce1329c5695a51dbfa97f5ba50"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "H01",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "H01",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "H01",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "H01",
+              "claim": "Proxy firmware 7.4 fails to correctly manage stream state or buffer boundaries when processing zstd-encoded data larger than 8 MiB, resulting in a malformed final chunk."
+            },
+            {
+              "id": "H06",
+              "claim": "Interaction effect between Client Library 5.0's zstd implementation and Proxy Firmware 7.4's stream processing."
+            }
+          ],
+          "preferred_matches_candidate_id": true
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "H01",
+              "claim": "Proxy firmware 7.4 fails to correctly manage stream state or buffer boundaries when processing zstd-encoded data larger than 8 MiB, resulting in a malformed final chunk."
+            },
+            {
+              "id": "H06",
+              "claim": "Interaction effect between Client Library 5.0's zstd implementation and Proxy Firmware 7.4's stream processing."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0007",
+      "run_id": "M06-r1-cg-reduced",
+      "case_id": "M06",
+      "mode": "cg-reduced",
+      "artifact_hashes": {
+        "final.raw.json": "92ed55872d67245e6c5ddbc97dc874764fbc27fb22aae952cf08685903eec44c",
+        "final.json": "c58e766b108b883641dc16ab30c6d2b9a8519d21f9632e04305743213d4ca511",
+        "normalization.json": "dc01bafb8a1341506d66045215947d91deb95ba48880c4b1f2231a552d438cbf"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "Dual independent failures: A refrigerant leak in Cluster A and a mechanical damper binding in Cluster B.",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "Dual independent failures: A refrigerant leak in Cluster A and a mechanical damper binding in Cluster B.",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "COEXIST",
+          "preferred_cause": "Dual independent failures: A refrigerant leak in Cluster A and a mechanical damper binding in Cluster B.",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "CA-01",
+              "claim": "Refrigerant leak in Cluster A loop causing localized cooling failure in zones A1 and A2."
+            },
+            {
+              "id": "CA-02",
+              "claim": "Mechanical failure of supply-air dampers in Cluster B loop causing restricted airflow and cooling failure in zones B1 and B2."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "COEXIST",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "CA-01",
+              "claim": "Refrigerant leak in Cluster A loop causing localized cooling failure in zones A1 and A2."
+            },
+            {
+              "id": "CA-02",
+              "claim": "Mechanical failure of supply-air dampers in Cluster B loop causing restricted airflow and cooling failure in zones B1 and B2."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0009",
+      "run_id": "M04-r1-cg-reduced",
+      "case_id": "M04",
+      "mode": "cg-reduced",
+      "artifact_hashes": {
+        "final.raw.json": "8ff110600077ac3b3a12943cae54b63860a0b3071e925fd8a095b5843d1b5bfa",
+        "final.json": "7fe15f045bccdecd9d0c54de5d19f0656e49e103f5777e90c61be58dd2599b6f",
+        "normalization.json": "e9beb12f79592b11da1f2c4721ca8821175e08ff7cf758a42472cbea342441f4"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "C1 (Producer-initiated retries exceeding deduplication TTL)",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "C1 (Producer-initiated retries exceeding deduplication TTL)",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "C1 (Producer-initiated retries exceeding deduplication TTL)",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "C1",
+              "claim": "Producer-initiated retries due to reduced timeout (15s) and high broker latency (18-26s)._The consumer deduplication TTL (20s) is insufficient to catch these retries because the duplicates appear 22-35s after the first seen timestamp, exceeding the 20s cache window._This is the most likely mechanism given the observed delta_s and the known latency spikes."
+            },
+            {
+              "id": "C2",
+              "claim": "Broker-level redelivery of messages._While the producer timeout is a factor, the evidence does not distinguish between a producer-generated retry (new UUID) and a broker-level redelivery of the original message. The lack of broker delivery IDs makes this indistinguishable from C1."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "C1",
+              "claim": "Producer-initiated retries due to reduced timeout (15s) and high broker latency (18-26s)._The consumer deduplication TTL (20s) is insufficient to catch these retries because the duplicates appear 22-35s after the first seen timestamp, exceeding the 20s cache window._This is the most likely mechanism given the observed delta_s and the known latency spikes."
+            },
+            {
+              "id": "C2",
+              "claim": "Broker-level redelivery of messages._While the producer timeout is a factor, the evidence does not distinguish between a producer-generated retry (new UUID) and a broker-level redelivery of the original message. The lack of broker delivery IDs makes this indistinguishable from C1."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0015",
+      "run_id": "M07-r1-shared-context-multi-agent",
+      "case_id": "M07",
+      "mode": "shared-context-multi-agent",
+      "artifact_hashes": {
+        "final.raw.json": "3078d108e9f3ed7eb3f354e0f48404eea0151b894623d0dfd75890d9f94821b4",
+        "final.json": "7e9e99e4d7089360add7bf1ca18db0eba918f5a98ab89250ce8ba603c5c5eaa0",
+        "normalization.json": "f5f236a48c28f0a5132ff0baa00e15f58a86d16fc9e063e20044d5d16b99ca43"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "proxy_firmware_7_4",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "proxy_firmware_7_4",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "COEXIST",
+          "preferred_cause": "proxy_firmware_7_4",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "proxy_firmware_7_4",
+              "claim": "Proxy Firmware 7.4 contains a regression in buffer management that corrupts zstd-encoded streams when they exceed the 8 MiB internal buffer boundary."
+            },
+            {
+              "id": "client_library_5_0",
+              "claim": "Client Library 5.0 introduced zstd-by-default for payloads >8 MiB, which triggered the existing buffer handling flaw in the proxy."
+            }
+          ],
+          "preferred_matches_candidate_id": true
+        },
+        "normalized": {
+          "status": "COEXIST",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "proxy_firmware_7_4",
+              "claim": "Proxy Firmware 7.4 contains a regression in buffer management that corrupts zstd-encoded streams when they exceed the 8 MiB internal buffer boundary."
+            },
+            {
+              "id": "client_library_5_0",
+              "claim": "Client Library 5.0 introduced zstd-by-default for payloads >8 MiB, which triggered the existing buffer handling flaw in the proxy."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0016",
+      "run_id": "M06-r1-cg-full",
+      "case_id": "M06",
+      "mode": "cg-full",
+      "artifact_hashes": {
+        "final.raw.json": "ecd37a21d040b4c73887fd01dcb980d26ba0f42a3f92376a4e925191a6422917",
+        "final.json": "d75f7d343e7e7c3f5dee3831569d6dee26688aab83f4bb5123d9fd68098835a5",
+        "normalization.json": "53074273a71d2a43e56441373883fcbb4fa8c7ce1329c5695a51dbfa97f5ba50"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "H01",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "H01",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "H01",
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "id": "H01",
+              "claim": "The temperature excursions in Cluster A and Cluster B are caused by two distinct, unrelated mechanical failures occurring simultaneously (refrigerant leak in Cluster A and actuator linkage binding in Cluster B)."
+            }
+          ],
+          "preferred_matches_candidate_id": true
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "id": "H01",
+              "claim": "The temperature excursions in Cluster A and Cluster B are caused by two distinct, unrelated mechanical failures occurring simultaneously (refrigerant leak in Cluster A and actuator linkage binding in Cluster B)."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0018",
+      "run_id": "M07-r1-single-context",
+      "case_id": "M07",
+      "mode": "single-context",
+      "artifact_hashes": {
+        "final.raw.json": "228734e0fe12aa04fcf70994acad78a653bd92f1e1fb265d57a1d2b79dfcae1f",
+        "final.json": "225577fb87ef33d3c0ea6d8ffb433b5246847692cc1877827f7c5918edf93b42",
+        "normalization.json": "b21ba3826febda8759dbd00cebcc44f6ca828ff951bfc82a9ed3948314da67c1"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "proxy_firmware_7.4_bug_triggered_by_client_5.0_feature_change",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "proxy_firmware_7.4_bug_triggered_by_client_5.0_feature_change",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "COEXIST",
+          "preferred_cause": "proxy_firmware_7.4_bug_triggered_by_client_5.0_feature_change",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "client_library_5.0",
+              "claim": "The client library is the root cause because it introduced the zstd encoding that triggers the failure condition (payloads > 8 MiB). Without this change, the corruption does not occur regardless of the proxy version (as seen in E02 and E03). It is the 'enabling' change that introduced the new behavior into the ecosystem."
+            },
+            {
+              "id": "proxy_firmware_7.4",
+              "claim": "The proxy firmware is the root cause because it contains the specific bug that corrupts zstd-encoded streams exceeding 8 MiB (as seen in E04). The proxy is the 'executing' change that performs the actual corruption; proxy 7.3 handles the same client-5.0 zstd streams successfully (as seen in E03)."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "COEXIST",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "client_library_5.0",
+              "claim": "The client library is the root cause because it introduced the zstd encoding that triggers the failure condition (payloads > 8 MiB). Without this change, the corruption does not occur regardless of the proxy version (as seen in E02 and E03). It is the 'enabling' change that introduced the new behavior into the ecosystem."
+            },
+            {
+              "id": "proxy_firmware_7.4",
+              "claim": "The proxy firmware is the root cause because it contains the specific bug that corrupts zstd-encoded streams exceeding 8 MiB (as seen in E04). The proxy is the 'executing' change that performs the actual corruption; proxy 7.3 handles the same client-5.0 zstd streams successfully (as seen in E03)."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0019",
+      "run_id": "M05-r1-cg-reduced",
+      "case_id": "M05",
+      "mode": "cg-reduced",
+      "artifact_hashes": {
+        "final.raw.json": "ff173661911936bc316475629d86eff19f4a8b6888b7e4fe95ed58e9a3d71b53",
+        "final.json": "cee88dd3c9269184033334cf63963246958cd00f51acc9569883bc81a3d7f0b2",
+        "normalization.json": "4364bf96d044bd356d7c3274a3c0e4a6cd1816cdbb2d44614ace00a1fcf2b3dd"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "C2 (High Probability / Structural Interaction)",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "C2 (High Probability / Structural Interaction)",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "C2 (High Probability / Structural Interaction)",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "C1",
+              "claim": "Ruleset R91 is inherently too aggressive for standard traffic patterns (Ruleset Regression)."
+            },
+            {
+              "id": "C2",
+              "claim": "SDK 12.4's change in serialization (omitted to empty string) triggered a parser-v5 mapping to UNKNOWN_COUNTRY, which the R91 ruleset interprets as a fraud signal."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "C1",
+              "claim": "Ruleset R91 is inherently too aggressive for standard traffic patterns (Ruleset Regression)."
+            },
+            {
+              "id": "C2",
+              "claim": "SDK 12.4's change in serialization (omitted to empty string) triggered a parser-v5 mapping to UNKNOWN_COUNTRY, which the R91 ruleset interprets as a fraud signal."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0021",
+      "run_id": "M04-r1-cg-full",
+      "case_id": "M04",
+      "mode": "cg-full",
+      "artifact_hashes": {
+        "final.raw.json": "299eb7483d84d3e679ffc87c5fc83d907e5d071b301a886c40aee487f25bee3a",
+        "final.json": "8a1a780f311323b12a85bd9c968a58b1eb4e52ae47541b2e7351c81c6e9748b2",
+        "normalization.json": "53074273a71d2a43e56441373883fcbb4fa8c7ce1329c5695a51dbfa97f5ba50"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "H01",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "H01",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "H01",
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "id": "H01",
+              "claim": "Producer retry due to timeout (15s) combined with reduced deduplication TTL (20s). Broker latency (18-26s) triggers the producer retry, and the 22-35s delta exceeds the 20s TTL, allowing the retry to bypass deduplication."
+            }
+          ],
+          "preferred_matches_candidate_id": true
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "id": "H01",
+              "claim": "Producer retry due to timeout (15s) combined with reduced deduplication TTL (20s). Broker latency (18-26s) triggers the producer retry, and the 22-35s delta exceeds the 20s TTL, allowing the retry to bypass deduplication."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0022",
+      "run_id": "M04-r1-single-context",
+      "case_id": "M04",
+      "mode": "single-context",
+      "artifact_hashes": {
+        "final.raw.json": "6aa6160d6f231783744b33c37f22f82f583ce7e025755dbfa987631d327d33a6",
+        "final.json": "73148c62f426cc253eff2723c58e897e18f3f56b997c78f8327a8fa0544be8bf",
+        "normalization.json": "13d1e8f9b4a0cc65b6cdde5cbd222fd37071b0c8ad072ffea15c4a2e6621a0ee"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "C1 (High Probability, Low Certainty of Mechanism)",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "C1 (High Probability, Low Certainty of Mechanism)",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "C1 (High Probability, Low Certainty of Mechanism)",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "C1",
+              "claim": "Producer retries are occurring because broker latency (18-26s) exceeds the new 15s timeout, and the 20s deduplication TTL is too short to catch them if they arrive after the expiry window (22-35s delta)."
+            },
+            {
+              "id": "C2",
+              "claim": "The issue is caused by a race condition or logic error in the new cache cluster migration, where keys are being evicted or not stored correctly despite the 20s TTL."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "C1",
+              "claim": "Producer retries are occurring because broker latency (18-26s) exceeds the new 15s timeout, and the 20s deduplication TTL is too short to catch them if they arrive after the expiry window (22-35s delta)."
+            },
+            {
+              "id": "C2",
+              "claim": "The issue is caused by a race condition or logic error in the new cache cluster migration, where keys are being evicted or not stored correctly despite the 20s TTL."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0023",
+      "run_id": "M07-r1-cg-reduced",
+      "case_id": "M07",
+      "mode": "cg-reduced",
+      "artifact_hashes": {
+        "final.raw.json": "aedeb4266c6657e52d65bbf549d94ffc850ec6f84e64d8baaf83eeb12c3bddd3",
+        "final.json": "1e2a73d0006a55dfea1998c345dc48dc2bd5d7b19c7c6683593417c2cb23cb6c",
+        "normalization.json": "0cb3ff3f68440eb70209ece8309f21dbe5a9d315c85d6603232b8d53f9301c89"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "C1 (Proxy firmware 7.4 buffer handling error for zstd streams > 8 MiB)",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "C1 (Proxy firmware 7.4 buffer handling error for zstd streams > 8 MiB)",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "C1 (Proxy firmware 7.4 buffer handling error for zstd streams > 8 MiB)",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "C1",
+              "claim": "Proxy firmware 7.4 has a buffer overflow/handling bug specifically for zstd-encoded streams exceeding 8 MiB."
+            },
+            {
+              "id": "C2",
+              "claim": "Client library 5.0's zstd implementation produces a stream that is technically valid but incompatible with Proxy 7.4's specific buffer handling logic."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "C1",
+              "claim": "Proxy firmware 7.4 has a buffer overflow/handling bug specifically for zstd-encoded streams exceeding 8 MiB."
+            },
+            {
+              "id": "C2",
+              "claim": "Client library 5.0's zstd implementation produces a stream that is technically valid but incompatible with Proxy 7.4's specific buffer handling logic."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0025",
+      "run_id": "M05-r1-single-context",
+      "case_id": "M05",
+      "mode": "single-context",
+      "artifact_hashes": {
+        "final.raw.json": "e12d12183474bed258b7d5f553937b7a9348aa6cf480d00d879aa6554b308aca",
+        "final.json": "e12d12183474bed258b7d5f553937b7a9348aa6cf480d00d879aa6554b308aca",
+        "normalization.json": "fffc99cea501744417457a1039172d9c9b11088d69ecb0f96f516e5cb30f69b4"
+      },
+      "json_changed": false,
+      "changes": [],
+      "n1": {
+        "n1_applied": false,
+        "n1_repair_count": 0,
+        "n1_changed_preferred_cause": false,
+        "n1_semantic_change_flag": false,
+        "n1_semantic_change_basis": null,
+        "only_n1_path_changed": false,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": null,
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "ruleset_regression",
+              "claim": "The R91 ruleset update is too aggressive and is the primary cause of the false-positive spike."
+            },
+            {
+              "id": "sdk_serialization_conflict",
+              "claim": "The SDK 12.4 rollout changed field serialization (omitted to empty string), which the parser v5 maps to a token that triggers R91."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "ruleset_regression",
+              "claim": "The R91 ruleset update is too aggressive and is the primary cause of the false-positive spike."
+            },
+            {
+              "id": "sdk_serialization_conflict",
+              "claim": "The SDK 12.4 rollout changed field serialization (omitted to empty string), which the parser v5 maps to a token that triggers R91."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0027",
+      "run_id": "M05-r1-shared-context-multi-agent",
+      "case_id": "M05",
+      "mode": "shared-context-multi-agent",
+      "artifact_hashes": {
+        "final.raw.json": "582ce58deabc79b1d1bda56f491ffecc9a673d5b5923c7327076c6cbf74696f0",
+        "final.json": "1e5e170def069a6ee0f5419a51c1ef0d7da9aec747ca5ad5b8704253d71800ad",
+        "normalization.json": "c4abc42dadc196778a55ebb6cf0e63b8b800516c16175e3fd6dc8ef5a19aeda3"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "SDK_DATA_DRIFT_INTERACTION_WITH_R91_LABELING_LOGIC_UNCERTAIN_DUE_TO_MISSING_TRACES_AND_NON_FACTORIAL_REPLAYS",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "SDK_DATA_DRIFT_INTERACTION_WITH_R91_LABELING_LOGIC_UNCERTAIN_DUE_TO_MISSING_TRACES_AND_NON_FACTORIAL_REPLAYS",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": "SDK_DATA_DRIFT_INTERACTION_WITH_R91_LABELING_LOGIC_UNCERTAIN_DUE_TO_MISSING_TRACES_AND_NON_FACTORIAL_REPLAYS",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "R91_REGRESSION",
+              "claim": "The R91 ruleset is too aggressive and is the primary cause of the false-positive spike."
+            },
+            {
+              "id": "SDK_DATA_DRIFT",
+              "claim": "The SDK 12.4 rollout changed the country field from 'omitted' to 'empty string', which Parser v5 maps to 'UNKNOWN_COUNTRY', triggering the R91-match label."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "INSUFFICIENT",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "R91_REGRESSION",
+              "claim": "The R91 ruleset is too aggressive and is the primary cause of the false-positive spike."
+            },
+            {
+              "id": "SDK_DATA_DRIFT",
+              "claim": "The SDK 12.4 rollout changed the country field from 'omitted' to 'empty string', which Parser v5 maps to 'UNKNOWN_COUNTRY', triggering the R91-match label."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0030",
+      "run_id": "M06-r1-shared-context-multi-agent",
+      "case_id": "M06",
+      "mode": "shared-context-multi-agent",
+      "artifact_hashes": {
+        "final.raw.json": "925012e95cf52f53c9c780e0cb612014f1dd1bbf10fd016cc7768838c054ecdb",
+        "final.json": "ba8a9eaa25114d9615fa15f62366412fbf207396b2b97935c83fa0258756c701",
+        "normalization.json": "f175a75f8c661dd536bc595b66474f28442d021f6d0da685952d9cf5c3ad38a4"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "CA_01",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "CA_01",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "COEXIST",
+          "preferred_cause": "CA_01",
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "id": "CA_01",
+              "claim": "Concurrent Independent Mechanical Failures (Refrigerant Leak in Cluster A and Binding Actuator Linkage in Cluster B)."
+            }
+          ],
+          "preferred_matches_candidate_id": true
+        },
+        "normalized": {
+          "status": "COEXIST",
+          "preferred_cause": null,
+          "candidate_count": 1,
+          "candidates": [
+            {
+              "id": "CA_01",
+              "claim": "Concurrent Independent Mechanical Failures (Refrigerant Leak in Cluster A and Binding Actuator Linkage in Cluster B)."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    },
+    {
+      "neutral_id": "R0032",
+      "run_id": "M06-r1-single-context",
+      "case_id": "M06",
+      "mode": "single-context",
+      "artifact_hashes": {
+        "final.raw.json": "06aeb8085f2c75019f2e613a158223d4250666c22e94adc8926f20878efc636e",
+        "final.json": "b52f3e1df4aaab702bb7742da9de662e0dd12ddb77131aa3f1408da633e97428",
+        "normalization.json": "c7a9f6a617d182f0624112244e226cdee68394812d502abde2ba43f9c169d9cb"
+      },
+      "json_changed": true,
+      "changes": [
+        {
+          "path": "causal_assessment.preferred_cause",
+          "before": "COEXISTENT_FAILURES_IN_DISTINCT_SYSTEMS_OR_COMPONENTS_AFFECTING_TWO_CLUSTERS_SEPARATELY_AS_THE_INCIDENT_IS_A_MULTIPLE_FAILURE_EVENT_NOT_A_SINGLE_ROOT_CAUSE_EVENT_FOR_BOTH_CLUSTERS_SIMULTANEOUSLY_AS_ONE_UNIT_OF_FAILURE_OR_SYSTEM_FAILURE_THE_EVIDENCE_SHOWS_TWO_DISTINCT_MECHANICAL_ISSUES_IN_TWO_SEPARATE_REFRIGERATION_LOOPS_A_REFRIGERANT_LEAK_AND_B_DAMPER_LINKAGE_BINDING_WHICH_ARE_INDEPENDENT_OF_EACH_OTHER_AS_EVIDENCED_BY_THE_SUCCESSFUL_REPAIR_OF_A_WITHOUT_AFFECTING_B_AND_THE_MANUAL_OVERRIDE_OF_B_WITHOUT_AFFECTING_A",
+          "after": null,
+          "kind": "changed"
+        }
+      ],
+      "n1": {
+        "n1_applied": true,
+        "n1_repair_count": 1,
+        "n1_changed_preferred_cause": true,
+        "n1_semantic_change_flag": true,
+        "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+        "only_n1_path_changed": true,
+        "normalization_record_matches_changed_path": true,
+        "before_preferred_cause": "COEXISTENT_FAILURES_IN_DISTINCT_SYSTEMS_OR_COMPONENTS_AFFECTING_TWO_CLUSTERS_SEPARATELY_AS_THE_INCIDENT_IS_A_MULTIPLE_FAILURE_EVENT_NOT_A_SINGLE_ROOT_CAUSE_EVENT_FOR_BOTH_CLUSTERS_SIMULTANEOUSLY_AS_ONE_UNIT_OF_FAILURE_OR_SYSTEM_FAILURE_THE_EVIDENCE_SHOWS_TWO_DISTINCT_MECHANICAL_ISSUES_IN_TWO_SEPARATE_REFRIGERATION_LOOPS_A_REFRIGERANT_LEAK_AND_B_DAMPER_LINKAGE_BINDING_WHICH_ARE_INDEPENDENT_OF_EACH_OTHER_AS_EVIDENCED_BY_THE_SUCCESSFUL_REPAIR_OF_A_WITHOUT_AFFECTING_B_AND_THE_MANUAL_OVERRIDE_OF_B_WITHOUT_AFFECTING_A",
+        "after_preferred_cause": null
+      },
+      "causal_structure": {
+        "raw": {
+          "status": "COEXIST",
+          "preferred_cause": "COEXISTENT_FAILURES_IN_DISTINCT_SYSTEMS_OR_COMPONENTS_AFFECTING_TWO_CLUSTERS_SEPARATELY_AS_THE_INCIDENT_IS_A_MULTIPLE_FAILURE_EVENT_NOT_A_SINGLE_ROOT_CAUSE_EVENT_FOR_BOTH_CLUSTERS_SIMULTANEOUSLY_AS_ONE_UNIT_OF_FAILURE_OR_SYSTEM_FAILURE_THE_EVIDENCE_SHOWS_TWO_DISTINCT_MECHANICAL_ISSUES_IN_TWO_SEPARATE_REFRIGERATION_LOOPS_A_REFRIGERANT_LEAK_AND_B_DAMPER_LINKAGE_BINDING_WHICH_ARE_INDEPENDENT_OF_EACH_OTHER_AS_EVIDENCED_BY_THE_SUCCESSFUL_REPAIR_OF_A_WITHOUT_AFFECTING_B_AND_THE_MANUAL_OVERRIDE_OF_B_WITHOUT_AFFECTING_A",
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "CA1",
+              "claim": "Refrigerant leak in Cluster A refrigeration loop service valve causing low suction pressure and temperature rise in zones A1 and A2."
+            },
+            {
+              "id": "CA2",
+              "claim": "Mechanical failure of actuator linkages in Cluster B causing supply-air dampers to remain stuck near closed, preventing cooling in zones B1 and B2."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        },
+        "normalized": {
+          "status": "COEXIST",
+          "preferred_cause": null,
+          "candidate_count": 2,
+          "candidates": [
+            {
+              "id": "CA1",
+              "claim": "Refrigerant leak in Cluster A refrigeration loop service valve causing low suction pressure and temperature rise in zones A1 and A2."
+            },
+            {
+              "id": "CA2",
+              "claim": "Mechanical failure of actuator linkages in Cluster B causing supply-air dampers to remain stuck near closed, preventing cooling in zones B1 and B2."
+            }
+          ],
+          "preferred_matches_candidate_id": false
+        }
+      }
+    }
+  ]
+}

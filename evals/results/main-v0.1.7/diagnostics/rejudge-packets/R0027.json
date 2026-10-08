@@ -1,0 +1,268 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0027",
+  "case": {
+    "case_id": "M05",
+    "case_metadata": {
+      "case_id": "M05",
+      "case_type": "fraud_screening_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06",
+        "E07"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M05.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M05 — Fraud-alert spike after ruleset update\n\nA fraud-screening service began flagging many legitimate sessions. An incident narrative quickly formed around a vendor ruleset update, while a client SDK rollout was occurring in the same period. Several internal reports appear to support the ruleset explanation.\n\nDetermine what causal conclusion is justified by the supplied evidence and what should be done next.\n\nConstraints:\n\n- avoid disabling fraud screening globally;\n- offline replay and targeted shadow tests are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-executive-summary.txt",
+        "content": "Executive incident summary, 16:30\nFalse-positive spike began shortly after ruleset R91 activation. 92% of reviewed false positives are marked 'R91-match'. Working hypothesis: R91 is too aggressive.\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-support-ticket.txt",
+        "content": "Support escalation INC-8821\nCustomer reports align with the R91 rollout. Analyst note: 'Most bad flags are R91 matches; likely ruleset regression.'\nThe ticket links dashboard FP-R91-INCIDENT as its quantitative source.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-dashboard-definition.txt",
+        "content": "Dashboard FP-R91-INCIDENT\nMetric 'R91-match' is not a raw vendor decision code. It is computed by internal parser v5 from normalized client payload fields.\nThe same dashboard export was used to produce the 92% number quoted in the executive summary and support ticket.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-sdk-rollout.txt",
+        "content": "Client SDK 12.4 rollout began 14:00 and reached 78% of traffic by 15:10.\nSDK 12.4 changed serialization of an optional country field from omitted to an explicit empty string when unknown.\nRuleset R91 activated at 14:20.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-parser-note.txt",
+        "content": "Parser v5 maps an explicit empty country string to token UNKNOWN_COUNTRY, which contributes to the internally computed 'R91-match' label.\nThe actual vendor decision trace for the first 35 minutes was not retained.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-later-sample.txt",
+        "content": "Later raw sample, collected after trace retention was enabled:\nFor 40 false positives from SDK 12.4 clients, replaying either (a) old payload normalization with R91 or (b) current payload normalization with the prior ruleset substantially reduces alerts.\nThe two replay variants were not crossed against each other in this sample.\n"
+      },
+      {
+        "evidence_id": "E07",
+        "filename": "E07-retention-gap.txt",
+        "content": "14:20-14:55: raw vendor rule trace and pre-parser request body are unavailable.\nAvailable incident summaries and the R91 dashboard all descend from the parser-v5 derived field.\nThe incident archive contains no old/new SDK × old/new ruleset factorial replay from that interval.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": "SDK_DATA_DRIFT_INTERACTION_WITH_R91_LABELING_LOGIC_UNCERTAIN_DUE_TO_MISSING_TRACES_AND_NON_FACTORIAL_REPLAYS",
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "R91_REGRESSION",
+          "claim": "The R91 ruleset is too aggressive and is the primary cause of the false-positive spike."
+        },
+        {
+          "id": "SDK_DATA_DRIFT",
+          "claim": "The SDK 12.4 rollout changed the country field from 'omitted' to 'empty string', which Parser v5 maps to 'UNKNOWN_COUNTRY', triggering the R91-match label."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    },
+    "normalized": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": null,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "R91_REGRESSION",
+          "claim": "The R91 ruleset is too aggressive and is the primary cause of the false-positive spike."
+        },
+        {
+          "id": "SDK_DATA_DRIFT",
+          "claim": "The SDK 12.4 rollout changed the country field from 'omitted' to 'empty string', which Parser v5 maps to 'UNKNOWN_COUNTRY', triggering the R91-match label."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "SDK_DATA_DRIFT_INTERACTION_WITH_R91_LABELING_LOGIC_UNCERTAIN_DUE_TO_MISSING_TRACES_AND_NON_FACTORIAL_REPLAYS",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "SDK_DATA_DRIFT_INTERACTION_WITH_R91_LABELING_LOGIC_UNCERTAIN_DUE_TO_MISSING_TRACES_AND_NON_FACTORIAL_REPLAYS",
+        "after": null,
+        "reason": "INSUFFICIENT cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M05",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "R91_REGRESSION",
+            "claim": "The R91 ruleset is too aggressive and is the primary cause of the false-positive spike."
+          },
+          {
+            "id": "SDK_DATA_DRIFT",
+            "claim": "The SDK 12.4 rollout changed the country field from 'omitted' to 'empty string', which Parser v5 maps to 'UNKNOWN_COUNTRY', triggering the R91-match label."
+          }
+        ],
+        "preferred_cause": "SDK_DATA_DRIFT_INTERACTION_WITH_R91_LABELING_LOGIC_UNCERTAIN_DUE_TO_MISSING_TRACES_AND_NON_FACTORIAL_REPLAYS"
+      },
+      "action": {
+        "recommended_action": "Perform a factorial replay using the 'Later raw sample' to isolate the impact of the SDK 12.4 change versus the R91 ruleset activation.",
+        "reason": "The current evidence (E01-E07) shows a correlation between R91 and the spike, but E03 and E05 reveal that the 'R91-match' label is a synthetic metric derived from Parser v5's handling of the new SDK 12.4 serialization. Because the raw vendor traces for the initial spike window are missing (E05, E07), and the existing replay (E06) was not a factorial cross, a 2x2 matrix (Old/New SDK x Old/New Ruleset) is required to determine if the vendor's engine is actually flagging the data or if the internal parser is over-reporting the match. Following this, if the SDK change is the driver, the parser should be adjusted to treat the 'empty string' as 'omitted'."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03"
+          ],
+          "claim": "92% of false positives are labeled 'R91-match', but this is a parser-derived label, not a raw vendor decision."
+        },
+        {
+          "evidence_ids": [
+            "E04",
+            "E05"
+          ],
+          "claim": "SDK 12.4 changed country serialization to an empty string, which Parser v5 maps to UNKNOWN_COUNTRY, contributing to the R91-match label."
+        },
+        {
+          "evidence_ids": [
+            "E05",
+            "E07"
+          ],
+          "claim": "Raw vendor rule traces for the critical 14:20-14:55 window are unavailable, preventing direct confirmation of vendor engine behavior."
+        },
+        {
+          "evidence_ids": [
+            "E06"
+          ],
+          "claim": "Replays show that using current normalization with the prior ruleset reduces alerts, suggesting the SDK's change to an explicit empty string is a primary driver of the change in behavior."
+        }
+      ],
+      "uncertainty": [
+        "The vendor's actual decision logic for 'UNKNOWN_COUNTRY' is unknown due to missing traces.",
+        "It is unclear if the vendor's engine treats 'omitted' and 'empty string' differently or if the parser is simply over-reporting the match."
+      ],
+      "next_test": {
+        "test": "Factorial Replay",
+        "outcome_a_implication": "If Old SDK + New Ruleset shows high alerts, R91 is genuinely too aggressive.",
+        "outcome_b_implication": "If New SDK + Old Ruleset shows high alerts, the SDK's serialization change is the primary driver of the alert volume."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M05",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "R91_REGRESSION",
+            "claim": "The R91 ruleset is too aggressive and is the primary cause of the false-positive spike."
+          },
+          {
+            "id": "SDK_DATA_DRIFT",
+            "claim": "The SDK 12.4 rollout changed the country field from 'omitted' to 'empty string', which Parser v5 maps to 'UNKNOWN_COUNTRY', triggering the R91-match label."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Perform a factorial replay using the 'Later raw sample' to isolate the impact of the SDK 12.4 change versus the R91 ruleset activation.",
+        "reason": "The current evidence (E01-E07) shows a correlation between R91 and the spike, but E03 and E05 reveal that the 'R91-match' label is a synthetic metric derived from Parser v5's handling of the new SDK 12.4 serialization. Because the raw vendor traces for the initial spike window are missing (E05, E07), and the existing replay (E06) was not a factorial cross, a 2x2 matrix (Old/New SDK x Old/New Ruleset) is required to determine if the vendor's engine is actually flagging the data or if the internal parser is over-reporting the match. Following this, if the SDK change is the driver, the parser should be adjusted to treat the 'empty string' as 'omitted'."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03"
+          ],
+          "claim": "92% of false positives are labeled 'R91-match', but this is a parser-derived label, not a raw vendor decision."
+        },
+        {
+          "evidence_ids": [
+            "E04",
+            "E05"
+          ],
+          "claim": "SDK 12.4 changed country serialization to an empty string, which Parser v5 maps to UNKNOWN_COUNTRY, contributing to the R91-match label."
+        },
+        {
+          "evidence_ids": [
+            "E05",
+            "E07"
+          ],
+          "claim": "Raw vendor rule traces for the critical 14:20-14:55 window are unavailable, preventing direct confirmation of vendor engine behavior."
+        },
+        {
+          "evidence_ids": [
+            "E06"
+          ],
+          "claim": "Replays show that using current normalization with the prior ruleset reduces alerts, suggesting the SDK's change to an explicit empty string is a primary driver of the change in behavior."
+        }
+      ],
+      "uncertainty": [
+        "The vendor's actual decision logic for 'UNKNOWN_COUNTRY' is unknown due to missing traces.",
+        "It is unclear if the vendor's engine treats 'omitted' and 'empty string' differently or if the parser is simply over-reporting the match."
+      ],
+      "next_test": {
+        "test": "Factorial Replay",
+        "outcome_a_implication": "If Old SDK + New Ruleset shows high alerts, R91 is genuinely too aggressive.",
+        "outcome_b_implication": "If New SDK + Old Ruleset shows high alerts, the SDK's serialization change is the primary driver of the alert volume."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "582ce58deabc79b1d1bda56f491ffecc9a673d5b5923c7327076c6cbf74696f0",
+    "final.json": "1e5e170def069a6ee0f5419a51c1ef0d7da9aec747ca5ad5b8704253d71800ad",
+    "normalization.json": "c4abc42dadc196778a55ebb6cf0e63b8b800516c16175e3fd6dc8ef5a19aeda3"
+  }
+}

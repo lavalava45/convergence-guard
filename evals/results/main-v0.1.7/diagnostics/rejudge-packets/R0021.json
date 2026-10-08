@@ -1,0 +1,210 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0021",
+  "case": {
+    "case_id": "M04",
+    "case_metadata": {
+      "case_id": "M04",
+      "case_type": "event_pipeline_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M04.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M04 — Duplicate order events\n\nA stream-processing pipeline began emitting duplicate order events after two reliability changes were deployed together. Duplicates are causing downstream reconciliation work, but production traffic remains available.\n\nDetermine what causal conclusion is justified now and the minimum decision-changing next test.\n\nConstraints:\n\n- do not perform an indiscriminate production rollback while orders are flowing;\n- isolated canaries and extra diagnostic logging are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-duplicate-sample.csv",
+        "content": "payload_hash,first_seen_s,duplicate_seen_s,delta_s\n91af,0,24,24\n3bc2,0,31,31\n7d11,0,22,22\n11e8,0,35,35\n44a0,0,27,27\nThe retained audit table stores payload hash but not the original producer message UUID or broker delivery ID.\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-change-record.txt",
+        "content": "11:00 combined reliability release:\nA) producer acknowledgement timeout reduced from 45s to 15s, causing a producer retry when acknowledgements are slow.\nB) consumer deduplication TTL reduced from 60s to 20s during migration to a new cache cluster.\nBoth changes went live in the same release.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-broker-latency.txt",
+        "content": "During the incident, broker acknowledgement latency intermittently reaches 18-26 seconds.\nThis is long enough for the new 15-second producer timeout to trigger retries.\nThe telemetry does not record whether a retry created a new message UUID.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-cache-observation.txt",
+        "content": "The new dedup cache expires keys at approximately 20 seconds as configured.\nObserved duplicate separations of 22-35 seconds occur after that expiry boundary.\nThe current logs do not distinguish broker redelivery of the same message from a producer-created retry.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-path-health.txt",
+        "content": "No data corruption, consumer crashes, or broker partition is observed.\nThe retained operational metrics do not contain a producer message identifier or broker delivery identifier for the duplicate pairs.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-observability-gap.txt",
+        "content": "Incident-window observability inventory:\n- producer message UUID was not copied into the analytics table;\n- broker delivery ID retention was disabled;\n- no one-factor canary was run before deployment;\n- only payload hash and timestamps remain in the retained aggregate table.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": "H01",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "id": "H01",
+          "claim": "Producer retry due to timeout (15s) combined with reduced deduplication TTL (20s). Broker latency (18-26s) triggers the producer retry, and the 22-35s delta exceeds the 20s TTL, allowing the retry to bypass deduplication."
+        }
+      ],
+      "preferred_matches_candidate_id": true
+    },
+    "normalized": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": null,
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "id": "H01",
+          "claim": "Producer retry due to timeout (15s) combined with reduced deduplication TTL (20s). Broker latency (18-26s) triggers the producer retry, and the 22-35s delta exceeds the 20s TTL, allowing the retry to bypass deduplication."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "H01",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "H01",
+        "after": null,
+        "reason": "INSUFFICIENT cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M04",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "H01",
+            "claim": "Producer retry due to timeout (15s) combined with reduced deduplication TTL (20s). Broker latency (18-26s) triggers the producer retry, and the 22-35s delta exceeds the 20s TTL, allowing the retry to bypass deduplication."
+          }
+        ],
+        "preferred_cause": "H01"
+      },
+      "action": {
+        "recommended_action": "Deploy a canary to increase the consumer deduplication TTL back to 60s while maintaining the current producer timeout, and simultaneously deploy extra diagnostic logging to capture producer message UUIDs or broker delivery IDs.",
+        "reason": "Increasing the TTL to 60s is a low-risk configuration change that addresses the observed 22-35s duplicate delta. If H01 is correct, this captures the producer retry. If the cause is broker redelivery, it also extends the protection window. Adding diagnostic logging addresses the current lack of visibility into message identifiers."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03",
+            "E04"
+          ],
+          "claim": "The observed duplicate deltas (22-35s) are consistently higher than the new TTL (20s) and coincide with the window where broker latency (18-26s) exceeds the new producer timeout (15s)."
+        }
+      ],
+      "uncertainty": [
+        "The evidence does not distinguish between a producer-initiated retry (new message) and a broker-initiated redelivery (same message) due to missing UUIDs/Delivery IDs (E03, E06).",
+        "It is unknown if the producer retry logic generates a new message UUID or preserves the original.",
+        "The exact internal retry logic of the producer and the precise timing of the retry interval are not provided."
+      ],
+      "next_test": {
+        "test": "Monitor duplicate occurrences after increasing the consumer deduplication TTL to 60s while capturing producer message UUIDs or broker delivery IDs via extra diagnostic logging.",
+        "outcome_a_implication": "If duplicates cease and logs show the same UUID/Delivery ID for the pair, the cause is confirmed as a retry/redelivery occurring within the 60s window.",
+        "outcome_b_implication": "If duplicates persist despite a 60s TTL, the cause is likely a broker redelivery or a producer retry occurring at a much larger interval than currently observed."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M04",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "H01",
+            "claim": "Producer retry due to timeout (15s) combined with reduced deduplication TTL (20s). Broker latency (18-26s) triggers the producer retry, and the 22-35s delta exceeds the 20s TTL, allowing the retry to bypass deduplication."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Deploy a canary to increase the consumer deduplication TTL back to 60s while maintaining the current producer timeout, and simultaneously deploy extra diagnostic logging to capture producer message UUIDs or broker delivery IDs.",
+        "reason": "Increasing the TTL to 60s is a low-risk configuration change that addresses the observed 22-35s duplicate delta. If H01 is correct, this captures the producer retry. If the cause is broker redelivery, it also extends the protection window. Adding diagnostic logging addresses the current lack of visibility into message identifiers."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03",
+            "E04"
+          ],
+          "claim": "The observed duplicate deltas (22-35s) are consistently higher than the new TTL (20s) and coincide with the window where broker latency (18-26s) exceeds the new producer timeout (15s)."
+        }
+      ],
+      "uncertainty": [
+        "The evidence does not distinguish between a producer-initiated retry (new message) and a broker-initiated redelivery (same message) due to missing UUIDs/Delivery IDs (E03, E06).",
+        "It is unknown if the producer retry logic generates a new message UUID or preserves the original.",
+        "The exact internal retry logic of the producer and the precise timing of the retry interval are not provided."
+      ],
+      "next_test": {
+        "test": "Monitor duplicate occurrences after increasing the consumer deduplication TTL to 60s while capturing producer message UUIDs or broker delivery IDs via extra diagnostic logging.",
+        "outcome_a_implication": "If duplicates cease and logs show the same UUID/Delivery ID for the pair, the cause is confirmed as a retry/redelivery occurring within the 60s window.",
+        "outcome_b_implication": "If duplicates persist despite a 60s TTL, the cause is likely a broker redelivery or a producer retry occurring at a much larger interval than currently observed."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "299eb7483d84d3e679ffc87c5fc83d907e5d071b301a886c40aee487f25bee3a",
+    "final.json": "8a1a780f311323b12a85bd9c968a58b1eb4e52ae47541b2e7351c81c6e9748b2",
+    "normalization.json": "53074273a71d2a43e56441373883fcbb4fa8c7ce1329c5695a51dbfa97f5ba50"
+  }
+}

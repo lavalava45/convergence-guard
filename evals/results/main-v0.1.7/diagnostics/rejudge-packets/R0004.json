@@ -1,0 +1,248 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0004",
+  "case": {
+    "case_id": "M05",
+    "case_metadata": {
+      "case_id": "M05",
+      "case_type": "fraud_screening_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06",
+        "E07"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M05.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M05 — Fraud-alert spike after ruleset update\n\nA fraud-screening service began flagging many legitimate sessions. An incident narrative quickly formed around a vendor ruleset update, while a client SDK rollout was occurring in the same period. Several internal reports appear to support the ruleset explanation.\n\nDetermine what causal conclusion is justified by the supplied evidence and what should be done next.\n\nConstraints:\n\n- avoid disabling fraud screening globally;\n- offline replay and targeted shadow tests are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-executive-summary.txt",
+        "content": "Executive incident summary, 16:30\nFalse-positive spike began shortly after ruleset R91 activation. 92% of reviewed false positives are marked 'R91-match'. Working hypothesis: R91 is too aggressive.\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-support-ticket.txt",
+        "content": "Support escalation INC-8821\nCustomer reports align with the R91 rollout. Analyst note: 'Most bad flags are R91 matches; likely ruleset regression.'\nThe ticket links dashboard FP-R91-INCIDENT as its quantitative source.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-dashboard-definition.txt",
+        "content": "Dashboard FP-R91-INCIDENT\nMetric 'R91-match' is not a raw vendor decision code. It is computed by internal parser v5 from normalized client payload fields.\nThe same dashboard export was used to produce the 92% number quoted in the executive summary and support ticket.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-sdk-rollout.txt",
+        "content": "Client SDK 12.4 rollout began 14:00 and reached 78% of traffic by 15:10.\nSDK 12.4 changed serialization of an optional country field from omitted to an explicit empty string when unknown.\nRuleset R91 activated at 14:20.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-parser-note.txt",
+        "content": "Parser v5 maps an explicit empty country string to token UNKNOWN_COUNTRY, which contributes to the internally computed 'R91-match' label.\nThe actual vendor decision trace for the first 35 minutes was not retained.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-later-sample.txt",
+        "content": "Later raw sample, collected after trace retention was enabled:\nFor 40 false positives from SDK 12.4 clients, replaying either (a) old payload normalization with R91 or (b) current payload normalization with the prior ruleset substantially reduces alerts.\nThe two replay variants were not crossed against each other in this sample.\n"
+      },
+      {
+        "evidence_id": "E07",
+        "filename": "E07-retention-gap.txt",
+        "content": "14:20-14:55: raw vendor rule trace and pre-parser request body are unavailable.\nAvailable incident summaries and the R91 dashboard all descend from the parser-v5 derived field.\nThe incident archive contains no old/new SDK × old/new ruleset factorial replay from that interval.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": "H08 (with caveats on label reliability)",
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "H03",
+          "claim": "The ruleset R91 reacts poorly to the explicit empty string serialization introduced by SDK 12.4 and processed by Parser v5 (mapping to UNKNOWN_COUNTRY)."
+        },
+        {
+          "id": "H08",
+          "claim": "SDK 12.4 changed an omitted field to an empty string, which Parser v5 maps to UNKNOWN_COUNTRY, triggering R91 as a high-risk signal."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    },
+    "normalized": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": null,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "H03",
+          "claim": "The ruleset R91 reacts poorly to the explicit empty string serialization introduced by SDK 12.4 and processed by Parser v5 (mapping to UNKNOWN_COUNTRY)."
+        },
+        {
+          "id": "H08",
+          "claim": "SDK 12.4 changed an omitted field to an empty string, which Parser v5 maps to UNKNOWN_COUNTRY, triggering R91 as a high-risk signal."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "H08 (with caveats on label reliability)",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "H08 (with caveats on label reliability)",
+        "after": null,
+        "reason": "INSUFFICIENT cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M05",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "H03",
+            "claim": "The ruleset R91 reacts poorly to the explicit empty string serialization introduced by SDK 12.4 and processed by Parser v5 (mapping to UNKNOWN_COUNTRY)."
+          },
+          {
+            "id": "H08",
+            "claim": "SDK 12.4 changed an omitted field to an empty string, which Parser v5 maps to UNKNOWN_COUNTRY, triggering R91 as a high-risk signal."
+          }
+        ],
+        "preferred_cause": "H08 (with caveats on label reliability)"
+      },
+      "action": {
+        "recommended_action": "Perform a targeted shadow test comparing current SDK 12.4 payloads against the prior ruleset, and old SDK payloads against the current R91 ruleset, specifically monitoring the 'UNKNOWN_COUNTRY' token mapping.",
+        "reason": "Evidence E06 shows that replaying either (a) old payload normalization with R91 or (b) current payload normalization with the prior ruleset reduces alerts. However, E06 lacks a cross-test of both variables. Because the 'R91-match' is a computed internal label (E03) and raw vendor traces are missing for the critical window (E05, E07), we must verify if the 'UNKNOWN_COUNTRY' token is the actual driver of the vendor's decision or merely a parser artifact before modifying the parser or ruleset."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E03",
+            "E04",
+            "E05",
+            "E07"
+          ],
+          "claim": "The 'R91-match' label is an internal parser calculation (v5) and not a raw vendor decision code, and raw vendor traces are missing for the primary incident window (14:20-14:55)."
+        },
+        {
+          "evidence_ids": [
+            "E04",
+            "E05",
+            "E06"
+          ],
+          "claim": "SDK 12.4 introduced explicit empty strings for country fields, which Parser v5 maps to UNKNOWN_COUNTRY. Replays suggest the interaction between this serialization and R91 is the likely source of the spike."
+        }
+      ],
+      "uncertainty": [
+        "The 'R91-match' label may not accurately reflect the vendor's internal logic due to it being a parser-derived field (E03).",
+        "The lack of raw vendor traces for the first 35 minutes (E05, E07) prevents definitive confirmation of the vendor's actual decision-making process during the peak of the incident.",
+        "E06 did not cross-test the two replay variants against each other, leaving the independent impact of the SDK change vs. the Ruleset change partially unverified."
+      ],
+      "next_test": {
+        "test": "Factorial replay of (Old SDK / New Ruleset) vs (New SDK / Old Ruleset) vs (Old SDK / Old Ruleset) vs (New SDK / New Ruleset) for the 14:20-14:55 window.",
+        "outcome_a_implication": "If (New SDK / Old Ruleset) shows low alerts, the issue is confirmed as R91's reaction to the new serialization.",
+        "outcome_b_implication": "If (Old SDK / New Ruleset) shows high alerts, the issue is a general regression in R91 independent of the SDK change."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M05",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "H03",
+            "claim": "The ruleset R91 reacts poorly to the explicit empty string serialization introduced by SDK 12.4 and processed by Parser v5 (mapping to UNKNOWN_COUNTRY)."
+          },
+          {
+            "id": "H08",
+            "claim": "SDK 12.4 changed an omitted field to an empty string, which Parser v5 maps to UNKNOWN_COUNTRY, triggering R91 as a high-risk signal."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Perform a targeted shadow test comparing current SDK 12.4 payloads against the prior ruleset, and old SDK payloads against the current R91 ruleset, specifically monitoring the 'UNKNOWN_COUNTRY' token mapping.",
+        "reason": "Evidence E06 shows that replaying either (a) old payload normalization with R91 or (b) current payload normalization with the prior ruleset reduces alerts. However, E06 lacks a cross-test of both variables. Because the 'R91-match' is a computed internal label (E03) and raw vendor traces are missing for the critical window (E05, E07), we must verify if the 'UNKNOWN_COUNTRY' token is the actual driver of the vendor's decision or merely a parser artifact before modifying the parser or ruleset."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E03",
+            "E04",
+            "E05",
+            "E07"
+          ],
+          "claim": "The 'R91-match' label is an internal parser calculation (v5) and not a raw vendor decision code, and raw vendor traces are missing for the primary incident window (14:20-14:55)."
+        },
+        {
+          "evidence_ids": [
+            "E04",
+            "E05",
+            "E06"
+          ],
+          "claim": "SDK 12.4 introduced explicit empty strings for country fields, which Parser v5 maps to UNKNOWN_COUNTRY. Replays suggest the interaction between this serialization and R91 is the likely source of the spike."
+        }
+      ],
+      "uncertainty": [
+        "The 'R91-match' label may not accurately reflect the vendor's internal logic due to it being a parser-derived field (E03).",
+        "The lack of raw vendor traces for the first 35 minutes (E05, E07) prevents definitive confirmation of the vendor's actual decision-making process during the peak of the incident.",
+        "E06 did not cross-test the two replay variants against each other, leaving the independent impact of the SDK change vs. the Ruleset change partially unverified."
+      ],
+      "next_test": {
+        "test": "Factorial replay of (Old SDK / New Ruleset) vs (New SDK / Old Ruleset) vs (Old SDK / Old Ruleset) vs (New SDK / New Ruleset) for the 14:20-14:55 window.",
+        "outcome_a_implication": "If (New SDK / Old Ruleset) shows low alerts, the issue is confirmed as R91's reaction to the new serialization.",
+        "outcome_b_implication": "If (Old SDK / New Ruleset) shows high alerts, the issue is a general regression in R91 independent of the SDK change."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "eb0e223a816f12fcfad4d306c9a9b9b0da551e2da9e4fbe2d02980312898141f",
+    "final.json": "7f095fe2884d7cce8632b4f2592d6587bd4ebc4c9c1e943ea16c8aa03151f0dc",
+    "normalization.json": "7bb505ad4ebcae79e576f35ff167fac7b969ec0e8f3c9aa7894b39b6023d15f3"
+  }
+}

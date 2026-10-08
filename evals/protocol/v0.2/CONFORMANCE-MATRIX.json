@@ -1,0 +1,38 @@
+{
+  "version": "v0.2",
+  "purpose": "Map canonical Convergence Guard rules to the frozen v0.1.7 harness and the post-benchmark v0.2 implementation target.",
+  "status_values": {
+    "FULL": "Executable behavior and auditable artifact exist for the rule.",
+    "PARTIAL": "Some behavior exists, but the canonical rule is incomplete or depends on caller-supplied guarantees.",
+    "MISSING": "Canonical behavior was absent and could be silently skipped.",
+    "FAIL_CLOSED": "The v0.2 harness does not fully implement the branch but must mark protocol completion partial/budget-stopped instead of claiming completion.",
+    "NOT_APPLICABLE": "Rule does not apply to that mode."
+  },
+  "rules": [
+    {"rule":"A1 factual grounding/provenance","v0.1.7":"PARTIAL","v0.2":"PARTIAL","v0.2_artifact":"caller evidence brief + stage prompts","note":"v0.2 requires self-contained provenance rules, but a dedicated machine-verifiable A1 claim table is not yet mandatory in execute_full_v02."},
+    {"rule":"A2 decision contract","v0.1.7":"PARTIAL","v0.2":"PARTIAL","v0.2_artifact":"caller-supplied decision contract","note":"v0.2 preserves the contract but completeness of deadline/default/cost-of-delay remains a caller obligation."},
+    {"rule":"A3 framing/outside view","v0.1.7":"PARTIAL","v0.2":"PARTIAL","v0.2_artifact":"framing text in search packet","note":"Independent reframe/retrospective optional branches are not yet fully executable in cg_v02_workflow."},
+    {"rule":"B1 three distinct search mandates","v0.1.7":"FULL","v0.2":"FULL","v0.2_artifact":"B1-search-1..3 request/response artifacts","note":"Fresh stateless calls; isolated inputs contain evidence/contract/framing/own mandate only."},
+    {"rule":"B2 coverage gate + adaptive expansion","v0.1.7":"MISSING","v0.2":"FULL","v0.2_artifact":"B2-coverage.json plus B2-search-4/5 when triggered","note":"Expansion workers do not receive prior branch outputs."},
+    {"rule":"neutralization + private trace map","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"neutral-candidates.json + private-trace-map.json","note":"Neutral IDs are model-visible; source-stage map is coordinator/audit only."},
+    {"rule":"C1 independent screening","v0.1.7":"FULL","v0.2":"FULL","v0.2_artifact":"C1-screen request/response","note":"No mapper output or branch identity in prompt."},
+    {"rule":"C2 blind causal map","v0.1.7":"FULL","v0.2":"FULL","v0.2_artifact":"C2-map request/response","note":"No C1 output/ranking/danger flags in prompt."},
+    {"rule":"C3 conditional boundary critic","v0.1.7":"MISSING","v0.2":"FULL","v0.2_artifact":"C3-boundary.json when C2 triggers; explicit skip otherwise","note":"A triggered C3 cannot disappear silently."},
+    {"rule":"C4 decision-relevant slate; zero/one finalist allowed; no padding","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"C4-slate request/response","note":"v0.1.7 used a hidden fixed ranking and fail-soft non-FAIL fallback; v0.2 uses explicit slate adjudication and permits zero finalists."},
+    {"rule":"C4 targeted checkpoint for missing family/evidence","v0.1.7":"MISSING","v0.2":"FULL","v0.2_artifact":"C4-checkpoint-search-N and rerun C artifacts","note":"Shares finite corrective-cycle budget."},
+    {"rule":"D1 isolated finalist dossiers","v0.1.7":"FULL","v0.2":"FULL","v0.2_artifact":"D1-dossier-N artifacts","note":"One finalist per isolated dossier worker."},
+    {"rule":"D1 material revision => new ID/PENDING/reroute","v0.1.7":"MISSING","v0.2":"FULL","v0.2_artifact":"D1-revision-cycle-N.json + rerun C/D artifacts","note":"Revisions do not inherit the old candidate's validation."},
+    {"rule":"optional information-probe mini-dossier","v0.1.7":"MISSING","v0.2":"FAIL_CLOSED","v0.2_artifact":"information_probe_id in C4 + E next-test path","note":"Dedicated probe mini-dossier is not separately implemented; if elaboration is required beyond E, the run must not claim that optional stage occurred."},
+    {"rule":"optional premortem/stakeholder lenses and upstream routing","v0.1.7":"MISSING","v0.2":"FAIL_CLOSED","v0.2_artifact":"none yet","note":"Not silently counted as complete. A future v0.2.x implementation may add triggered artifacts."},
+    {"rule":"D2 assumption sensitivity","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"D2-adjudication structured sensitivity_summary","note":"v0.2 prompt carries the operation explicitly."},
+    {"rule":"D2 shared-bias audit + missing-family reroute","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"reroute_needed/reason/mandate + D2-reroute-search + rerun C/D2","note":"No specially labeled outside alternative is injected."},
+    {"rule":"D2 pairwise collision only on decision conflict","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"D2 collision_summary","note":"Explicitly preserves COEXIST/INTERACTING without forced winner duel."},
+    {"rule":"D3 trigger + blind second opinion","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"D3-second-opinion with CONFIRM/QUALIFY/CHALLENGE","note":"v0.2 hides D2 pairwise preferences and coordinator favorite."},
+    {"rule":"D3 challenge upstream reroute/reconciliation","v0.1.7":"PARTIAL","v0.2":"FAIL_CLOSED","v0.2_artifact":"protocol ledger material omission + action conflict","note":"v0.2 currently fail-closes unresolved decision-changing challenge instead of pretending reconciliation; full upstream reroute remains an implementation target."},
+    {"rule":"E1 separate model judgment from action judgment","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"OUTPUT-SCHEMA-v0.2 causal_structure + action_decision","note":"COEXIST may remain resolved while action is deferred."},
+    {"rule":"E2 evidence-sufficiency gate","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"D2 action_judgment + E final action_decision","note":"Unresolved decision-changing D2/D3 conflict is carried as material omission rather than winner selection."},
+    {"rule":"E3 feasible discriminator / no-feasible / deferred-for-budget","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"OUTPUT-SCHEMA-v0.2 next_test.status","note":"Schema no longer forces an invented test."},
+    {"rule":"protocol completion must reflect actually executed stages","v0.1.7":"MISSING","v0.2":"FULL","v0.2_artifact":"protocol-ledger.json + protocol_completion","note":"Harness, not model prose, determines COMPLETE/PARTIAL_PROTOCOL/BUDGET_STOP."},
+    {"rule":"Reduced self-contained instructions","v0.1.7":"PARTIAL","v0.2":"FULL","v0.2_artifact":"REDUCED-SELF-CONTAINED-PACKET.md + build_reduced_prompt","note":"No inaccessible 'see protocol §...' dependency is required for participant compliance."}
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0018",
+  "case": {
+    "case_id": "M07",
+    "case_metadata": {
+      "case_id": "M07",
+      "case_type": "document_gateway_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M07.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M07 — Large upload corruption at a document gateway\n\nA document gateway corrupts some large uploads. A client-library rollout and a proxy-firmware rollout occurred in the same week, and teams disagree over which change should be called the root cause.\n\nDetermine the justified causal assessment and a reversible mitigation.\n\nConstraints:\n\n- small uploads are unaffected;\n- production data must not be intentionally corrupted for testing;\n- isolated canaries using synthetic files are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-symptom-pattern.txt",
+        "content": "Corruption occurs only for uploads larger than 8 MiB using content-encoding zstd.\nSmall uploads and large uncompressed uploads are unaffected.\nAffected requests all traversed proxy firmware 7.4.\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-change-record.txt",
+        "content": "Client library 5.0 introduced zstd-by-default for payloads >8 MiB.\nProxy firmware 7.4 was rolled to half the gateway fleet.\nOlder client 4.8 does not send zstd. Proxy 7.3 and 7.4 both pass ordinary chunked uploads.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-factorial-canary.csv",
+        "content": "client,proxy,payload,encoding,result\n4.8,7.3,12MiB,none,PASS\n5.0,7.3,12MiB,zstd,PASS\n4.8,7.4,12MiB,none,PASS\n5.0,7.4,12MiB,zstd,FAIL\n5.0,7.4,4MiB,zstd,PASS\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-byte-trace.txt",
+        "content": "On the failing 5.0 + 7.4 path, the proxy emits a malformed final chunk after zstd streaming crosses the 8 MiB internal buffer boundary.\nThe same client stream captured before proxy ingress has a valid checksum.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-route-mitigation.txt",
+        "content": "Routing client-5.0 traffic through proxy-7.3 eliminates corruption.\nKeeping proxy-7.4 but disabling zstd on client-5.0 also eliminates corruption.\nNeither mitigation changes document content before gateway processing.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "COEXIST",
+      "preferred_cause": "proxy_firmware_7.4_bug_triggered_by_client_5.0_feature_change",
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "client_library_5.0",
+          "claim": "The client library is the root cause because it introduced the zstd encoding that triggers the failure condition (payloads > 8 MiB). Without this change, the corruption does not occur regardless of the proxy version (as seen in E02 and E03). It is the 'enabling' change that introduced the new behavior into the ecosystem."
+        },
+        {
+          "id": "proxy_firmware_7.4",
+          "claim": "The proxy firmware is the root cause because it contains the specific bug that corrupts zstd-encoded streams exceeding 8 MiB (as seen in E04). The proxy is the 'executing' change that performs the actual corruption; proxy 7.3 handles the same client-5.0 zstd streams successfully (as seen in E03)."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    },
+    "normalized": {
+      "status": "COEXIST",
+      "preferred_cause": null,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "client_library_5.0",
+          "claim": "The client library is the root cause because it introduced the zstd encoding that triggers the failure condition (payloads > 8 MiB). Without this change, the corruption does not occur regardless of the proxy version (as seen in E02 and E03). It is the 'enabling' change that introduced the new behavior into the ecosystem."
+        },
+        {
+          "id": "proxy_firmware_7.4",
+          "claim": "The proxy firmware is the root cause because it contains the specific bug that corrupts zstd-encoded streams exceeding 8 MiB (as seen in E04). The proxy is the 'executing' change that performs the actual corruption; proxy 7.3 handles the same client-5.0 zstd streams successfully (as seen in E03)."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "proxy_firmware_7.4_bug_triggered_by_client_5.0_feature_change",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "proxy_firmware_7.4_bug_triggered_by_client_5.0_feature_change",
+        "after": null,
+        "reason": "COEXIST cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M07",
+      "causal_assessment": {
+        "status": "COEXIST",
+        "candidate_causes": [
+          {
+            "id": "client_library_5.0",
+            "claim": "The client library is the root cause because it introduced the zstd encoding that triggers the failure condition (payloads > 8 MiB). Without this change, the corruption does not occur regardless of the proxy version (as seen in E02 and E03). It is the 'enabling' change that introduced the new behavior into the ecosystem."
+          },
+          {
+            "id": "proxy_firmware_7.4",
+            "claim": "The proxy firmware is the root cause because it contains the specific bug that corrupts zstd-encoded streams exceeding 8 MiB (as seen in E04). The proxy is the 'executing' change that performs the actual corruption; proxy 7.3 handles the same client-5.0 zstd streams successfully (as seen in E03)."
+          }
+        ],
+        "preferred_cause": "proxy_firmware_7.4_bug_triggered_by_client_5.0_feature_change"
+      },
+      "action": {
+        "recommended_action": "Roll back proxy firmware to 7.3 or disable zstd encoding on client library 5.0.",
+        "reason": "Both actions are verified in E05 to eliminate corruption without altering document content. Rolling back the proxy is the preferred fix for the underlying bug, while disabling zstd is a viable immediate mitigation to restore service for large uploads while the proxy bug is patched."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03"
+          ],
+          "claim": "The issue is specific to the combination of client 5.0 (zstd) and proxy 7.4. Client 4.8 (no zstd) works on both proxies, and client 5.0 (zstd) works on proxy 7.3."
+        },
+        {
+          "evidence_ids": [
+            "E04"
+          ],
+          "claim": "The proxy firmware 7.4 is the point of failure, as it emits a malformed final chunk after the 8 MiB buffer boundary is crossed."
+        },
+        {
+          "evidence_ids": [
+            "E05"
+          ],
+          "claim": "Both isolating the traffic to proxy 7.3 and disabling zstd on the client successfully eliminate the corruption."
+        }
+      ],
+      "uncertainty": [
+        "While the proxy is the site of corruption, the client library is the reason the corruption is now visible in production. The 'root cause' is a dependency between a new client feature and a proxy bug."
+      ],
+      "next_test": {
+        "test": "Deploy a hotfix to proxy firmware 7.4 that correctly handles zstd streaming beyond the 8 MiB buffer boundary and verify with a synthetic 12 MiB zstd upload.",
+        "outcome_a_implication": "If the hotfix passes, the proxy firmware bug is confirmed as the primary technical failure.",
+        "outcome_b_implication": "If the hotfix fails, the buffer handling logic may have deeper architectural issues."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M07",
+      "causal_assessment": {
+        "status": "COEXIST",
+        "candidate_causes": [
+          {
+            "id": "client_library_5.0",
+            "claim": "The client library is the root cause because it introduced the zstd encoding that triggers the failure condition (payloads > 8 MiB). Without this change, the corruption does not occur regardless of the proxy version (as seen in E02 and E03). It is the 'enabling' change that introduced the new behavior into the ecosystem."
+          },
+          {
+            "id": "proxy_firmware_7.4",
+            "claim": "The proxy firmware is the root cause because it contains the specific bug that corrupts zstd-encoded streams exceeding 8 MiB (as seen in E04). The proxy is the 'executing' change that performs the actual corruption; proxy 7.3 handles the same client-5.0 zstd streams successfully (as seen in E03)."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Roll back proxy firmware to 7.3 or disable zstd encoding on client library 5.0.",
+        "reason": "Both actions are verified in E05 to eliminate corruption without altering document content. Rolling back the proxy is the preferred fix for the underlying bug, while disabling zstd is a viable immediate mitigation to restore service for large uploads while the proxy bug is patched."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03"
+          ],
+          "claim": "The issue is specific to the combination of client 5.0 (zstd) and proxy 7.4. Client 4.8 (no zstd) works on both proxies, and client 5.0 (zstd) works on proxy 7.3."
+        },
+        {
+          "evidence_ids": [
+            "E04"
+          ],
+          "claim": "The proxy firmware 7.4 is the point of failure, as it emits a malformed final chunk after the 8 MiB buffer boundary is crossed."
+        },
+        {
+          "evidence_ids": [
+            "E05"
+          ],
+          "claim": "Both isolating the traffic to proxy 7.3 and disabling zstd on the client successfully eliminate the corruption."
+        }
+      ],
+      "uncertainty": [
+        "While the proxy is the site of corruption, the client library is the reason the corruption is now visible in production. The 'root cause' is a dependency between a new client feature and a proxy bug."
+      ],
+      "next_test": {
+        "test": "Deploy a hotfix to proxy firmware 7.4 that correctly handles zstd streaming beyond the 8 MiB buffer boundary and verify with a synthetic 12 MiB zstd upload.",
+        "outcome_a_implication": "If the hotfix passes, the proxy firmware bug is confirmed as the primary technical failure.",
+        "outcome_b_implication": "If the hotfix fails, the buffer handling logic may have deeper architectural issues."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "228734e0fe12aa04fcf70994acad78a653bd92f1e1fb265d57a1d2b79dfcae1f",
+    "final.json": "225577fb87ef33d3c0ea6d8ffb433b5246847692cc1877827f7c5918edf93b42",
+    "normalization.json": "b21ba3826febda8759dbd00cebcc44f6ca828ff951bfc82a9ed3948314da67c1"
+  }
+}

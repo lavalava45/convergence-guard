@@ -1,0 +1,224 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0032",
+  "case": {
+    "case_id": "M06",
+    "case_metadata": {
+      "case_id": "M06",
+      "case_type": "cold_storage_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M06.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M06 — Temperature excursions across cold-storage zones\n\nA distribution center reports a single site-level 'temperature excursion' incident. Two clusters of zones are warm, and operations wants one root cause for the incident report.\n\nDetermine the justified causal assessment and immediate action from the supplied evidence.\n\nConstraints:\n\n- protect stored inventory while diagnosis proceeds;\n- zone-level interventions are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-zone-summary.csv",
+        "content": "zone,temp_c,alarm\nA1,9.1,YES\nA2,8.7,YES\nB1,8.9,YES\nB2,9.3,YES\nC1,3.8,NO\nC2,4.0,NO\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-cluster-a-service.txt",
+        "content": "Cluster A refrigeration loop: compressor suction pressure abnormally low. Technician leak check found refrigerant loss at a service valve. Air dampers respond normally.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-cluster-b-service.txt",
+        "content": "Cluster B refrigeration loop pressures and compressor current are normal. Both supply-air dampers remain commanded open but physically stuck near closed. Actuator linkage is binding.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-a-repair-observation.txt",
+        "content": "After sealing the service valve and restoring refrigerant in Cluster A, A1/A2 return below 4.5°C within 35 minutes. B1/B2 remain above 8.5°C.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-b-manual-open.txt",
+        "content": "Before Cluster A repair, technicians manually opened the Cluster B dampers. B1/B2 began cooling immediately while A1/A2 remained warm until their refrigeration-loop repair.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-common-conditions.txt",
+        "content": "Facility power, outdoor temperature, central supervisory controller, and site network remained within normal ranges. No single site-wide failure is recorded.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "COEXIST",
+      "preferred_cause": "COEXISTENT_FAILURES_IN_DISTINCT_SYSTEMS_OR_COMPONENTS_AFFECTING_TWO_CLUSTERS_SEPARATELY_AS_THE_INCIDENT_IS_A_MULTIPLE_FAILURE_EVENT_NOT_A_SINGLE_ROOT_CAUSE_EVENT_FOR_BOTH_CLUSTERS_SIMULTANEOUSLY_AS_ONE_UNIT_OF_FAILURE_OR_SYSTEM_FAILURE_THE_EVIDENCE_SHOWS_TWO_DISTINCT_MECHANICAL_ISSUES_IN_TWO_SEPARATE_REFRIGERATION_LOOPS_A_REFRIGERANT_LEAK_AND_B_DAMPER_LINKAGE_BINDING_WHICH_ARE_INDEPENDENT_OF_EACH_OTHER_AS_EVIDENCED_BY_THE_SUCCESSFUL_REPAIR_OF_A_WITHOUT_AFFECTING_B_AND_THE_MANUAL_OVERRIDE_OF_B_WITHOUT_AFFECTING_A",
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "CA1",
+          "claim": "Refrigerant leak in Cluster A refrigeration loop service valve causing low suction pressure and temperature rise in zones A1 and A2."
+        },
+        {
+          "id": "CA2",
+          "claim": "Mechanical failure of actuator linkages in Cluster B causing supply-air dampers to remain stuck near closed, preventing cooling in zones B1 and B2."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    },
+    "normalized": {
+      "status": "COEXIST",
+      "preferred_cause": null,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "CA1",
+          "claim": "Refrigerant leak in Cluster A refrigeration loop service valve causing low suction pressure and temperature rise in zones A1 and A2."
+        },
+        {
+          "id": "CA2",
+          "claim": "Mechanical failure of actuator linkages in Cluster B causing supply-air dampers to remain stuck near closed, preventing cooling in zones B1 and B2."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "COEXISTENT_FAILURES_IN_DISTINCT_SYSTEMS_OR_COMPONENTS_AFFECTING_TWO_CLUSTERS_SEPARATELY_AS_THE_INCIDENT_IS_A_MULTIPLE_FAILURE_EVENT_NOT_A_SINGLE_ROOT_CAUSE_EVENT_FOR_BOTH_CLUSTERS_SIMULTANEOUSLY_AS_ONE_UNIT_OF_FAILURE_OR_SYSTEM_FAILURE_THE_EVIDENCE_SHOWS_TWO_DISTINCT_MECHANICAL_ISSUES_IN_TWO_SEPARATE_REFRIGERATION_LOOPS_A_REFRIGERANT_LEAK_AND_B_DAMPER_LINKAGE_BINDING_WHICH_ARE_INDEPENDENT_OF_EACH_OTHER_AS_EVIDENCED_BY_THE_SUCCESSFUL_REPAIR_OF_A_WITHOUT_AFFECTING_B_AND_THE_MANUAL_OVERRIDE_OF_B_WITHOUT_AFFECTING_A",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "COEXISTENT_FAILURES_IN_DISTINCT_SYSTEMS_OR_COMPONENTS_AFFECTING_TWO_CLUSTERS_SEPARATELY_AS_THE_INCIDENT_IS_A_MULTIPLE_FAILURE_EVENT_NOT_A_SINGLE_ROOT_CAUSE_EVENT_FOR_BOTH_CLUSTERS_SIMULTANEOUSLY_AS_ONE_UNIT_OF_FAILURE_OR_SYSTEM_FAILURE_THE_EVIDENCE_SHOWS_TWO_DISTINCT_MECHANICAL_ISSUES_IN_TWO_SEPARATE_REFRIGERATION_LOOPS_A_REFRIGERANT_LEAK_AND_B_DAMPER_LINKAGE_BINDING_WHICH_ARE_INDEPENDENT_OF_EACH_OTHER_AS_EVIDENCED_BY_THE_SUCCESSFUL_REPAIR_OF_A_WITHOUT_AFFECTING_B_AND_THE_MANUAL_OVERRIDE_OF_B_WITHOUT_AFFECTING_A",
+        "after": null,
+        "reason": "COEXIST cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M06",
+      "causal_assessment": {
+        "status": "COEXIST",
+        "candidate_causes": [
+          {
+            "id": "CA1",
+            "claim": "Refrigerant leak in Cluster A refrigeration loop service valve causing low suction pressure and temperature rise in zones A1 and A2."
+          },
+          {
+            "id": "CA2",
+            "claim": "Mechanical failure of actuator linkages in Cluster B causing supply-air dampers to remain stuck near closed, preventing cooling in zones B1 and B2."
+          }
+        ],
+        "preferred_cause": "COEXISTENT_FAILURES_IN_DISTINCT_SYSTEMS_OR_COMPONENTS_AFFECTING_TWO_CLUSTERS_SEPARATELY_AS_THE_INCIDENT_IS_A_MULTIPLE_FAILURE_EVENT_NOT_A_SINGLE_ROOT_CAUSE_EVENT_FOR_BOTH_CLUSTERS_SIMULTANEOUSLY_AS_ONE_UNIT_OF_FAILURE_OR_SYSTEM_FAILURE_THE_EVIDENCE_SHOWS_TWO_DISTINCT_MECHANICAL_ISSUES_IN_TWO_SEPARATE_REFRIGERATION_LOOPS_A_REFRIGERANT_LEAK_AND_B_DAMPER_LINKAGE_BINDING_WHICH_ARE_INDEPENDENT_OF_EACH_OTHER_AS_EVIDENCED_BY_THE_SUCCESSFUL_REPAIR_OF_A_WITHOUT_AFFECTING_B_AND_THE_MANUAL_OVERRIDE_OF_B_WITHOUT_AFFECTING_A"
+      },
+      "action": {
+        "recommended_action": "Seal the service valve and recharge refrigerant in Cluster A; repair the actuator linkages for the Cluster B supply-air dampers.",
+        "reason": "Evidence E02 and E04 confirm a refrigerant leak in Cluster A, while E03 and E05 confirm mechanical binding of dampers in Cluster B. Since the issues are independent, both specific repairs are required to restore temperature to normal levels across all zones."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03",
+            "E04",
+            "E05"
+          ],
+          "claim": "The temperature excursions in Cluster A were caused by a refrigerant leak at a service valve (E02, E04), while the excursions in Cluster B were caused by stuck supply-air dampers due to binding actuator linkages (E03, E05). The independence of these failures is confirmed by the fact that repairing Cluster A did not fix Cluster B (E04), and manually opening Cluster B dampers did not fix Cluster A (E05)."
+        }
+      ],
+      "uncertainty": [
+        "The prompt asks for 'one root cause' for the incident report, but the evidence clearly demonstrates two distinct mechanical failures in two separate refrigeration loops. There is no evidence of a single common-mode failure (e.g., power, central controller, or network) as E06 rules out site-wide issues."
+      ],
+      "next_test": {
+        "test": "Inspect the actuator linkage on Cluster B dampers to confirm the specific point of binding and replace the faulty linkage.",
+        "outcome_a_implication": "If the linkage is replaced and B1/B2 return to normal temperature, it confirms the mechanical binding as the sole cause for Cluster B.",
+        "outcome_b_implication": "If B1/B2 remain warm despite linkage replacement, a secondary issue (e.g., refrigerant levels or compressor health in Loop B) must be investigated."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M06",
+      "causal_assessment": {
+        "status": "COEXIST",
+        "candidate_causes": [
+          {
+            "id": "CA1",
+            "claim": "Refrigerant leak in Cluster A refrigeration loop service valve causing low suction pressure and temperature rise in zones A1 and A2."
+          },
+          {
+            "id": "CA2",
+            "claim": "Mechanical failure of actuator linkages in Cluster B causing supply-air dampers to remain stuck near closed, preventing cooling in zones B1 and B2."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Seal the service valve and recharge refrigerant in Cluster A; repair the actuator linkages for the Cluster B supply-air dampers.",
+        "reason": "Evidence E02 and E04 confirm a refrigerant leak in Cluster A, while E03 and E05 confirm mechanical binding of dampers in Cluster B. Since the issues are independent, both specific repairs are required to restore temperature to normal levels across all zones."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03",
+            "E04",
+            "E05"
+          ],
+          "claim": "The temperature excursions in Cluster A were caused by a refrigerant leak at a service valve (E02, E04), while the excursions in Cluster B were caused by stuck supply-air dampers due to binding actuator linkages (E03, E05). The independence of these failures is confirmed by the fact that repairing Cluster A did not fix Cluster B (E04), and manually opening Cluster B dampers did not fix Cluster A (E05)."
+        }
+      ],
+      "uncertainty": [
+        "The prompt asks for 'one root cause' for the incident report, but the evidence clearly demonstrates two distinct mechanical failures in two separate refrigeration loops. There is no evidence of a single common-mode failure (e.g., power, central controller, or network) as E06 rules out site-wide issues."
+      ],
+      "next_test": {
+        "test": "Inspect the actuator linkage on Cluster B dampers to confirm the specific point of binding and replace the faulty linkage.",
+        "outcome_a_implication": "If the linkage is replaced and B1/B2 return to normal temperature, it confirms the mechanical binding as the sole cause for Cluster B.",
+        "outcome_b_implication": "If B1/B2 remain warm despite linkage replacement, a secondary issue (e.g., refrigerant levels or compressor health in Loop B) must be investigated."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "06aeb8085f2c75019f2e613a158223d4250666c22e94adc8926f20878efc636e",
+    "final.json": "b52f3e1df4aaab702bb7742da9de662e0dd12ddb77131aa3f1408da633e97428",
+    "normalization.json": "c7a9f6a617d182f0624112244e226cdee68394812d502abde2ba43f9c169d9cb"
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0025",
+  "case": {
+    "case_id": "M05",
+    "case_metadata": {
+      "case_id": "M05",
+      "case_type": "fraud_screening_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06",
+        "E07"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M05.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M05 — Fraud-alert spike after ruleset update\n\nA fraud-screening service began flagging many legitimate sessions. An incident narrative quickly formed around a vendor ruleset update, while a client SDK rollout was occurring in the same period. Several internal reports appear to support the ruleset explanation.\n\nDetermine what causal conclusion is justified by the supplied evidence and what should be done next.\n\nConstraints:\n\n- avoid disabling fraud screening globally;\n- offline replay and targeted shadow tests are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-executive-summary.txt",
+        "content": "Executive incident summary, 16:30\nFalse-positive spike began shortly after ruleset R91 activation. 92% of reviewed false positives are marked 'R91-match'. Working hypothesis: R91 is too aggressive.\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-support-ticket.txt",
+        "content": "Support escalation INC-8821\nCustomer reports align with the R91 rollout. Analyst note: 'Most bad flags are R91 matches; likely ruleset regression.'\nThe ticket links dashboard FP-R91-INCIDENT as its quantitative source.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-dashboard-definition.txt",
+        "content": "Dashboard FP-R91-INCIDENT\nMetric 'R91-match' is not a raw vendor decision code. It is computed by internal parser v5 from normalized client payload fields.\nThe same dashboard export was used to produce the 92% number quoted in the executive summary and support ticket.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-sdk-rollout.txt",
+        "content": "Client SDK 12.4 rollout began 14:00 and reached 78% of traffic by 15:10.\nSDK 12.4 changed serialization of an optional country field from omitted to an explicit empty string when unknown.\nRuleset R91 activated at 14:20.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-parser-note.txt",
+        "content": "Parser v5 maps an explicit empty country string to token UNKNOWN_COUNTRY, which contributes to the internally computed 'R91-match' label.\nThe actual vendor decision trace for the first 35 minutes was not retained.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-later-sample.txt",
+        "content": "Later raw sample, collected after trace retention was enabled:\nFor 40 false positives from SDK 12.4 clients, replaying either (a) old payload normalization with R91 or (b) current payload normalization with the prior ruleset substantially reduces alerts.\nThe two replay variants were not crossed against each other in this sample.\n"
+      },
+      {
+        "evidence_id": "E07",
+        "filename": "E07-retention-gap.txt",
+        "content": "14:20-14:55: raw vendor rule trace and pre-parser request body are unavailable.\nAvailable incident summaries and the R91 dashboard all descend from the parser-v5 derived field.\nThe incident archive contains no old/new SDK × old/new ruleset factorial replay from that interval.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": null,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "ruleset_regression",
+          "claim": "The R91 ruleset update is too aggressive and is the primary cause of the false-positive spike."
+        },
+        {
+          "id": "sdk_serialization_conflict",
+          "claim": "The SDK 12.4 rollout changed field serialization (omitted to empty string), which the parser v5 maps to a token that triggers R91."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    },
+    "normalized": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": null,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "ruleset_regression",
+          "claim": "The R91 ruleset update is too aggressive and is the primary cause of the false-positive spike."
+        },
+        {
+          "id": "sdk_serialization_conflict",
+          "claim": "The SDK 12.4 rollout changed field serialization (omitted to empty string), which the parser v5 maps to a token that triggers R91."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": false,
+    "n1_repair_count": 0,
+    "n1_changed_preferred_cause": false,
+    "n1_semantic_change_flag": false,
+    "n1_semantic_change_basis": null,
+    "only_n1_path_changed": false,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": null,
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 0,
+    "repairs": []
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M05",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "ruleset_regression",
+            "claim": "The R91 ruleset update is too aggressive and is the primary cause of the false-positive spike."
+          },
+          {
+            "id": "sdk_serialization_conflict",
+            "claim": "The SDK 12.4 rollout changed field serialization (omitted to empty string), which the parser v5 maps to a token that triggers R91."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Perform a factorial replay test (cross-testing) comparing the new SDK payload against the old ruleset and the old SDK payload against the new ruleset for the 14:20-14:55 window.",
+        "reason": "The current evidence is confounded by a simultaneous SDK rollout and a ruleset update. The 92% 'R91-match' figure is derived from an internal parser (v5) that specifically maps the new SDK's empty string behavior to a token that triggers R91. Because the initial vendor traces were not retained, it is impossible to determine if R91 is inherently aggressive or if it is reacting to a change in the data format provided by SDK 12.4. Evidence E06 is incomplete because it did not cross-test the variables."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03"
+          ],
+          "claim": "The R91 ruleset is the primary cause of the false positives."
+        },
+        {
+          "evidence_ids": [
+            "E04",
+            "E05"
+          ],
+          "claim": "The SDK 12.4 rollout changed serialization to an empty string, which Parser v5 maps to a token that triggers the R91-match label."
+        },
+        {
+          "evidence_ids": [
+            "E05",
+            "E07"
+          ],
+          "claim": "The initial vendor traces are missing, and the current 'R91-match' metric is an internal parser calculation, not a raw vendor decision."
+        },
+        {
+          "evidence_ids": [
+            "E06"
+          ],
+          "claim": "Partial replay tests suggest both the ruleset and the SDK changes contribute to the alerts, but the tests were not crossed."
+        }
+      ],
+      "uncertainty": [
+        "It is unclear whether the R91 ruleset would have flagged the old SDK payloads, or if the new SDK payloads would have been flagged by the old ruleset.",
+        "The 92% 'R91-match' figure is based on a parser-derived label rather than a raw vendor decision code, potentially masking the underlying data change."
+      ],
+      "next_test": {
+        "test": "Factorial replay of the 14:20-14:55 window.",
+        "outcome_a_implication": "If (Old SDK + New Ruleset) = High Alerts AND (New SDK + Old Ruleset) = Low Alerts, then the R91 ruleset is the cause.",
+        "outcome_b_implication": "If (Old SDK + New Ruleset) = Low Alerts AND (New SDK + Old Ruleset) = High Alerts, then the SDK 12.4 serialization change is the cause."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M05",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "ruleset_regression",
+            "claim": "The R91 ruleset update is too aggressive and is the primary cause of the false-positive spike."
+          },
+          {
+            "id": "sdk_serialization_conflict",
+            "claim": "The SDK 12.4 rollout changed field serialization (omitted to empty string), which the parser v5 maps to a token that triggers R91."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Perform a factorial replay test (cross-testing) comparing the new SDK payload against the old ruleset and the old SDK payload against the new ruleset for the 14:20-14:55 window.",
+        "reason": "The current evidence is confounded by a simultaneous SDK rollout and a ruleset update. The 92% 'R91-match' figure is derived from an internal parser (v5) that specifically maps the new SDK's empty string behavior to a token that triggers R91. Because the initial vendor traces were not retained, it is impossible to determine if R91 is inherently aggressive or if it is reacting to a change in the data format provided by SDK 12.4. Evidence E06 is incomplete because it did not cross-test the variables."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03"
+          ],
+          "claim": "The R91 ruleset is the primary cause of the false positives."
+        },
+        {
+          "evidence_ids": [
+            "E04",
+            "E05"
+          ],
+          "claim": "The SDK 12.4 rollout changed serialization to an empty string, which Parser v5 maps to a token that triggers the R91-match label."
+        },
+        {
+          "evidence_ids": [
+            "E05",
+            "E07"
+          ],
+          "claim": "The initial vendor traces are missing, and the current 'R91-match' metric is an internal parser calculation, not a raw vendor decision."
+        },
+        {
+          "evidence_ids": [
+            "E06"
+          ],
+          "claim": "Partial replay tests suggest both the ruleset and the SDK changes contribute to the alerts, but the tests were not crossed."
+        }
+      ],
+      "uncertainty": [
+        "It is unclear whether the R91 ruleset would have flagged the old SDK payloads, or if the new SDK payloads would have been flagged by the old ruleset.",
+        "The 92% 'R91-match' figure is based on a parser-derived label rather than a raw vendor decision code, potentially masking the underlying data change."
+      ],
+      "next_test": {
+        "test": "Factorial replay of the 14:20-14:55 window.",
+        "outcome_a_implication": "If (Old SDK + New Ruleset) = High Alerts AND (New SDK + Old Ruleset) = Low Alerts, then the R91 ruleset is the cause.",
+        "outcome_b_implication": "If (Old SDK + New Ruleset) = Low Alerts AND (New SDK + Old Ruleset) = High Alerts, then the SDK 12.4 serialization change is the cause."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "e12d12183474bed258b7d5f553937b7a9348aa6cf480d00d879aa6554b308aca",
+    "final.json": "e12d12183474bed258b7d5f553937b7a9348aa6cf480d00d879aa6554b308aca",
+    "normalization.json": "fffc99cea501744417457a1039172d9c9b11088d69ecb0f96f516e5cb30f69b4"
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0016",
+  "case": {
+    "case_id": "M06",
+    "case_metadata": {
+      "case_id": "M06",
+      "case_type": "cold_storage_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M06.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M06 — Temperature excursions across cold-storage zones\n\nA distribution center reports a single site-level 'temperature excursion' incident. Two clusters of zones are warm, and operations wants one root cause for the incident report.\n\nDetermine the justified causal assessment and immediate action from the supplied evidence.\n\nConstraints:\n\n- protect stored inventory while diagnosis proceeds;\n- zone-level interventions are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-zone-summary.csv",
+        "content": "zone,temp_c,alarm\nA1,9.1,YES\nA2,8.7,YES\nB1,8.9,YES\nB2,9.3,YES\nC1,3.8,NO\nC2,4.0,NO\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-cluster-a-service.txt",
+        "content": "Cluster A refrigeration loop: compressor suction pressure abnormally low. Technician leak check found refrigerant loss at a service valve. Air dampers respond normally.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-cluster-b-service.txt",
+        "content": "Cluster B refrigeration loop pressures and compressor current are normal. Both supply-air dampers remain commanded open but physically stuck near closed. Actuator linkage is binding.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-a-repair-observation.txt",
+        "content": "After sealing the service valve and restoring refrigerant in Cluster A, A1/A2 return below 4.5°C within 35 minutes. B1/B2 remain above 8.5°C.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-b-manual-open.txt",
+        "content": "Before Cluster A repair, technicians manually opened the Cluster B dampers. B1/B2 began cooling immediately while A1/A2 remained warm until their refrigeration-loop repair.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-common-conditions.txt",
+        "content": "Facility power, outdoor temperature, central supervisory controller, and site network remained within normal ranges. No single site-wide failure is recorded.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": "H01",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "id": "H01",
+          "claim": "The temperature excursions in Cluster A and Cluster B are caused by two distinct, unrelated mechanical failures occurring simultaneously (refrigerant leak in Cluster A and actuator linkage binding in Cluster B)."
+        }
+      ],
+      "preferred_matches_candidate_id": true
+    },
+    "normalized": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": null,
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "id": "H01",
+          "claim": "The temperature excursions in Cluster A and Cluster B are caused by two distinct, unrelated mechanical failures occurring simultaneously (refrigerant leak in Cluster A and actuator linkage binding in Cluster B)."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "H01",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "H01",
+        "after": null,
+        "reason": "INSUFFICIENT cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M06",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "H01",
+            "claim": "The temperature excursions in Cluster A and Cluster B are caused by two distinct, unrelated mechanical failures occurring simultaneously (refrigerant leak in Cluster A and actuator linkage binding in Cluster B)."
+          }
+        ],
+        "preferred_cause": "H01"
+      },
+      "action": {
+        "recommended_action": "Perform dual-track maintenance: (1) Complete the refrigerant recharge and service valve repair for Cluster A, and (2) Repair or replace the binding actuator linkage for Cluster B. Maintain manual damper overrides for Cluster B to protect inventory during the repair.",
+        "reason": "Evidence E02 and E03 identify distinct mechanical failures (refrigerant loss vs. physical linkage binding) in separate refrigeration loops. Evidence E04 and E05 confirm that interventions in one cluster do not affect the other, supporting independent failure modes. Evidence E06 rules out site-wide systemic failures. A single root cause is not supported by the evidence."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E02",
+            "E03",
+            "E04",
+            "E05"
+          ],
+          "claim": "Cluster A and Cluster B have independent failure modes and distinct mechanical issues."
+        },
+        {
+          "evidence_ids": [
+            "E06"
+          ],
+          "claim": "No site-wide failure is recorded, supporting localized independent issues."
+        }
+      ],
+      "uncertainty": [
+        "While the evidence strongly supports independent failures, the data does not explicitly rule out a shared upstream component (e.g., a common pressure regulator or shared coolant source) that could fail in two different ways simultaneously."
+      ],
+      "next_test": {
+        "test": "Inspect the upstream supply lines and pressure regulators shared by both Cluster A and Cluster B to ensure no common-mode failure point exists.",
+        "outcome_a_implication": "If a shared component is found to be malfunctioning, the causal structure shifts from 'Independent' to 'Common-Mode Failure with Divergent Symptoms'.",
+        "outcome_b_implication": "If shared components are fully functional, the 'Independent' failure hypothesis is confirmed."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M06",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "H01",
+            "claim": "The temperature excursions in Cluster A and Cluster B are caused by two distinct, unrelated mechanical failures occurring simultaneously (refrigerant leak in Cluster A and actuator linkage binding in Cluster B)."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Perform dual-track maintenance: (1) Complete the refrigerant recharge and service valve repair for Cluster A, and (2) Repair or replace the binding actuator linkage for Cluster B. Maintain manual damper overrides for Cluster B to protect inventory during the repair.",
+        "reason": "Evidence E02 and E03 identify distinct mechanical failures (refrigerant loss vs. physical linkage binding) in separate refrigeration loops. Evidence E04 and E05 confirm that interventions in one cluster do not affect the other, supporting independent failure modes. Evidence E06 rules out site-wide systemic failures. A single root cause is not supported by the evidence."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E02",
+            "E03",
+            "E04",
+            "E05"
+          ],
+          "claim": "Cluster A and Cluster B have independent failure modes and distinct mechanical issues."
+        },
+        {
+          "evidence_ids": [
+            "E06"
+          ],
+          "claim": "No site-wide failure is recorded, supporting localized independent issues."
+        }
+      ],
+      "uncertainty": [
+        "While the evidence strongly supports independent failures, the data does not explicitly rule out a shared upstream component (e.g., a common pressure regulator or shared coolant source) that could fail in two different ways simultaneously."
+      ],
+      "next_test": {
+        "test": "Inspect the upstream supply lines and pressure regulators shared by both Cluster A and Cluster B to ensure no common-mode failure point exists.",
+        "outcome_a_implication": "If a shared component is found to be malfunctioning, the causal structure shifts from 'Independent' to 'Common-Mode Failure with Divergent Symptoms'.",
+        "outcome_b_implication": "If shared components are fully functional, the 'Independent' failure hypothesis is confirmed."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "ecd37a21d040b4c73887fd01dcb980d26ba0f42a3f92376a4e925191a6422917",
+    "final.json": "d75f7d343e7e7c3f5dee3831569d6dee26688aab83f4bb5123d9fd68098835a5",
+    "normalization.json": "53074273a71d2a43e56441373883fcbb4fa8c7ce1329c5695a51dbfa97f5ba50"
+  }
+}

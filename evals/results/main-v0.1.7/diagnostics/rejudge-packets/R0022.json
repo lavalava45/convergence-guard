@@ -1,0 +1,238 @@
+{
+  "packet_version": "v0.1",
+  "benchmark_version": "main-v0.1.7",
+  "neutral_id": "R0022",
+  "case": {
+    "case_id": "M04",
+    "case_metadata": {
+      "case_id": "M04",
+      "case_type": "event_pipeline_incident",
+      "web_access": false,
+      "allowed_tools": [
+        "read_case_files"
+      ],
+      "allowed_evidence_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05",
+        "E06"
+      ],
+      "output_schema": "../../../protocol/OUTPUT-SCHEMA.json",
+      "calibration_claims": "../../../calibration/main/M04.json",
+      "participant_note": "All participant-visible evidence for this case is frozen in the evidence directory. Hidden keys are stored outside the repository."
+    },
+    "prompt": "# M04 — Duplicate order events\n\nA stream-processing pipeline began emitting duplicate order events after two reliability changes were deployed together. Duplicates are causing downstream reconciliation work, but production traffic remains available.\n\nDetermine what causal conclusion is justified now and the minimum decision-changing next test.\n\nConstraints:\n\n- do not perform an indiscriminate production rollback while orders are flowing;\n- isolated canaries and extra diagnostic logging are allowed;\n- do not use the open web;\n- do not assume facts outside the supplied evidence.\n\nReturn the required normalized final-answer object.\n",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "filename": "E01-duplicate-sample.csv",
+        "content": "payload_hash,first_seen_s,duplicate_seen_s,delta_s\n91af,0,24,24\n3bc2,0,31,31\n7d11,0,22,22\n11e8,0,35,35\n44a0,0,27,27\nThe retained audit table stores payload hash but not the original producer message UUID or broker delivery ID.\n"
+      },
+      {
+        "evidence_id": "E02",
+        "filename": "E02-change-record.txt",
+        "content": "11:00 combined reliability release:\nA) producer acknowledgement timeout reduced from 45s to 15s, causing a producer retry when acknowledgements are slow.\nB) consumer deduplication TTL reduced from 60s to 20s during migration to a new cache cluster.\nBoth changes went live in the same release.\n"
+      },
+      {
+        "evidence_id": "E03",
+        "filename": "E03-broker-latency.txt",
+        "content": "During the incident, broker acknowledgement latency intermittently reaches 18-26 seconds.\nThis is long enough for the new 15-second producer timeout to trigger retries.\nThe telemetry does not record whether a retry created a new message UUID.\n"
+      },
+      {
+        "evidence_id": "E04",
+        "filename": "E04-cache-observation.txt",
+        "content": "The new dedup cache expires keys at approximately 20 seconds as configured.\nObserved duplicate separations of 22-35 seconds occur after that expiry boundary.\nThe current logs do not distinguish broker redelivery of the same message from a producer-created retry.\n"
+      },
+      {
+        "evidence_id": "E05",
+        "filename": "E05-path-health.txt",
+        "content": "No data corruption, consumer crashes, or broker partition is observed.\nThe retained operational metrics do not contain a producer message identifier or broker delivery identifier for the duplicate pairs.\n"
+      },
+      {
+        "evidence_id": "E06",
+        "filename": "E06-observability-gap.txt",
+        "content": "Incident-window observability inventory:\n- producer message UUID was not copied into the analytics table;\n- broker delivery ID retention was disabled;\n- no one-factor canary was run before deployment;\n- only payload hash and timestamps remain in the retained aggregate table.\n"
+      }
+    ]
+  },
+  "diagnostic_instructions": {
+    "purpose": "Post-benchmark normalization diagnostic only; do not modify frozen main-v0.1.7 scores.",
+    "judge_task": [
+      "Compare the frozen raw participant answer with the normalized answer side-by-side.",
+      "Assess whether normalization changes the substance of the causal commitment, including whether a causal winner, coexistence relation, interaction, or live alternative is added or removed.",
+      "Assess whether the action/reason and next-test text still imply a causal commitment that differs from the normalized causal_assessment block.",
+      "Report the semantic effect of the normalization delta without inferring treatment identity."
+    ],
+    "requested_output": {
+      "semantic_equivalent": "boolean",
+      "causal_commitment_changed": "boolean",
+      "action_consistency_changed": "boolean",
+      "notes": "short evidence-based explanation"
+    }
+  },
+  "causal_extract": {
+    "raw": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": "C1 (High Probability, Low Certainty of Mechanism)",
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "C1",
+          "claim": "Producer retries are occurring because broker latency (18-26s) exceeds the new 15s timeout, and the 20s deduplication TTL is too short to catch them if they arrive after the expiry window (22-35s delta)."
+        },
+        {
+          "id": "C2",
+          "claim": "The issue is caused by a race condition or logic error in the new cache cluster migration, where keys are being evicted or not stored correctly despite the 20s TTL."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    },
+    "normalized": {
+      "status": "INSUFFICIENT",
+      "preferred_cause": null,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "id": "C1",
+          "claim": "Producer retries are occurring because broker latency (18-26s) exceeds the new 15s timeout, and the 20s deduplication TTL is too short to catch them if they arrive after the expiry window (22-35s delta)."
+        },
+        {
+          "id": "C2",
+          "claim": "The issue is caused by a race condition or logic error in the new cache cluster migration, where keys are being evicted or not stored correctly despite the 20s TTL."
+        }
+      ],
+      "preferred_matches_candidate_id": false
+    }
+  },
+  "n1_diagnostic": {
+    "n1_applied": true,
+    "n1_repair_count": 1,
+    "n1_changed_preferred_cause": true,
+    "n1_semantic_change_flag": true,
+    "n1_semantic_change_basis": "N1 removed a non-null preferred_cause value from the frozen raw artifact; this flags content deletion for re-judging and does not itself assert a score change.",
+    "only_n1_path_changed": true,
+    "normalization_record_matches_changed_path": true,
+    "before_preferred_cause": "C1 (High Probability, Low Certainty of Mechanism)",
+    "after_preferred_cause": null
+  },
+  "normalization_audit": {
+    "normalization_version": "v0.1",
+    "source": "final.raw.json",
+    "output": "final.json",
+    "repair_count": 1,
+    "repairs": [
+      {
+        "rule": "N1",
+        "path": "causal_assessment.preferred_cause",
+        "before": "C1 (High Probability, Low Certainty of Mechanism)",
+        "after": null,
+        "reason": "INSUFFICIENT cannot designate a single preferred cause under the frozen output contract"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_participant_answer": {
+      "case_id": "M04",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "C1",
+            "claim": "Producer retries are occurring because broker latency (18-26s) exceeds the new 15s timeout, and the 20s deduplication TTL is too short to catch them if they arrive after the expiry window (22-35s delta)."
+          },
+          {
+            "id": "C2",
+            "claim": "The issue is caused by a race condition or logic error in the new cache cluster migration, where keys are being evicted or not stored correctly despite the 20s TTL."
+          }
+        ],
+        "preferred_cause": "C1 (High Probability, Low Certainty of Mechanism)"
+      },
+      "action": {
+        "recommended_action": "Deploy a canary with increased producer acknowledgement timeout (e.g., 30s) or an extended deduplication TTL (e.g., 40s) to isolate which change resolves the duplicates.",
+        "reason": "Evidence E02 and E03 suggest a correlation between the 15s timeout and the 18-26s latency, while E04 shows duplicates occur after the 20s TTL. However, the logs do not distinguish between a producer-initiated retry (new UUID) and a broker-initiated redelivery (same UUID). A canary is required to confirm if the issue is the producer's impatience or the consumer's short memory."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03",
+            "E04"
+          ],
+          "claim": "The timing of duplicates (22-35s) aligns with both the broker latency exceeding the producer timeout (15s) and the expiration of the deduplication cache (20s)."
+        },
+        {
+          "evidence_ids": [
+            "E03",
+            "E06"
+          ],
+          "claim": "Current telemetry lacks producer message UUIDs and broker delivery IDs, making it impossible to distinguish between producer retries and broker redeliveries."
+        }
+      ],
+      "uncertainty": [
+        "Cannot determine if the producer is generating a new UUID on retry.",
+        "Cannot determine if the cache cluster migration introduced a bug beyond the simple TTL reduction."
+      ],
+      "next_test": {
+        "test": "Deploy a canary instance with the producer acknowledgement timeout restored to 45s while keeping the 20s deduplication TTL.",
+        "outcome_a_implication": "If duplicates stop, the 15s timeout was the primary trigger for producer retries.",
+        "outcome_b_implication": "If duplicates persist, the 20s TTL is insufficient or the cache migration is faulty."
+      }
+    },
+    "normalized_answer": {
+      "case_id": "M04",
+      "causal_assessment": {
+        "status": "INSUFFICIENT",
+        "candidate_causes": [
+          {
+            "id": "C1",
+            "claim": "Producer retries are occurring because broker latency (18-26s) exceeds the new 15s timeout, and the 20s deduplication TTL is too short to catch them if they arrive after the expiry window (22-35s delta)."
+          },
+          {
+            "id": "C2",
+            "claim": "The issue is caused by a race condition or logic error in the new cache cluster migration, where keys are being evicted or not stored correctly despite the 20s TTL."
+          }
+        ],
+        "preferred_cause": null
+      },
+      "action": {
+        "recommended_action": "Deploy a canary with increased producer acknowledgement timeout (e.g., 30s) or an extended deduplication TTL (e.g., 40s) to isolate which change resolves the duplicates.",
+        "reason": "Evidence E02 and E03 suggest a correlation between the 15s timeout and the 18-26s latency, while E04 shows duplicates occur after the 20s TTL. However, the logs do not distinguish between a producer-initiated retry (new UUID) and a broker-initiated redelivery (same UUID). A canary is required to confirm if the issue is the producer's impatience or the consumer's short memory."
+      },
+      "evidence": [
+        {
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03",
+            "E04"
+          ],
+          "claim": "The timing of duplicates (22-35s) aligns with both the broker latency exceeding the producer timeout (15s) and the expiration of the deduplication cache (20s)."
+        },
+        {
+          "evidence_ids": [
+            "E03",
+            "E06"
+          ],
+          "claim": "Current telemetry lacks producer message UUIDs and broker delivery IDs, making it impossible to distinguish between producer retries and broker redeliveries."
+        }
+      ],
+      "uncertainty": [
+        "Cannot determine if the producer is generating a new UUID on retry.",
+        "Cannot determine if the cache cluster migration introduced a bug beyond the simple TTL reduction."
+      ],
+      "next_test": {
+        "test": "Deploy a canary instance with the producer acknowledgement timeout restored to 45s while keeping the 20s deduplication TTL.",
+        "outcome_a_implication": "If duplicates stop, the 15s timeout was the primary trigger for producer retries.",
+        "outcome_b_implication": "If duplicates persist, the 20s TTL is insufficient or the cache migration is faulty."
+      }
+    }
+  },
+  "artifact_hashes": {
+    "final.raw.json": "6aa6160d6f231783744b33c37f22f82f583ce7e025755dbfa987631d327d33a6",
+    "final.json": "73148c62f426cc253eff2723c58e897e18f3f56b997c78f8327a8fa0544be8bf",
+    "normalization.json": "13d1e8f9b4a0cc65b6cdde5cbd222fd37071b0c8ad072ffea15c4a2e6621a0ee"
+  }
+}

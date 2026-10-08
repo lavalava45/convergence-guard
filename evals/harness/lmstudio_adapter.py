@@ -34,6 +34,8 @@ def main() -> int:
         "stream": True,
         "stream_options": {"include_usage": True},
     }
+    if "seed" in settings:
+        payload["seed"] = settings["seed"]
 
     schema = request.get("response_schema")
     if schema:

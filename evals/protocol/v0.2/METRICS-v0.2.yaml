@@ -1,0 +1,70 @@
+version: v0.2
+status: predeclared_before_v0.2_execution
+
+primary:
+  causal_structure_correctness:
+    type: semantic_binary
+    direction: higher_is_better
+    description: >-
+      Whether the substantive causal structure matches the hidden key, including
+      CHOOSE vs COEXIST vs INSUFFICIENT and all required decision-relevant mechanisms.
+  premature_winner:
+    type: semantic_binary
+    direction: lower_is_better
+    description: >-
+      A unique causal winner is asserted when the hidden key does not justify one.
+  over_abstention:
+    type: semantic_binary
+    direction: lower_is_better
+    description: >-
+      The answer remains causally insufficient when the key supports CHOOSE or
+      COEXIST with the required mechanisms.
+  action_quality:
+    type: ordinal_0_2
+    direction: higher_is_better
+  next_test_quality:
+    type: ordinal_0_2
+    direction: higher_is_better
+  protocol_completion:
+    type: categorical
+    values: [COMPLETE, PARTIAL_PROTOCOL, BUDGET_STOP]
+    direction: diagnostic
+
+normalization_and_raw_output:
+  raw_winner_signal:
+    type: semantic_binary
+    direction: lower_is_better
+    description: >-
+      Raw answer contains a unique winner-like causal signal inconsistent with
+      the keyed structure, regardless of whether normalization later removes a field.
+  normalization_semantic_change:
+    type: binary
+    direction: diagnostic
+    description: >-
+      Frozen normalization changed a field that can carry substantive causal preference.
+
+resource:
+  model_calls: {type: integer, direction: lower_is_better}
+  input_tokens: {type: integer, direction: lower_is_better}
+  output_tokens: {type: integer, direction: lower_is_better}
+  transport_retries: {type: integer, direction: lower_is_better}
+
+isolation_ablation:
+  false_anchor_adoption:
+    type: semantic_binary
+    direction: lower_is_better
+    description: >-
+      Final causal judgment substantively adopts the injected false prior conclusion.
+  isolated_prompt_identity_check:
+    type: exact_artifact_check
+    direction: must_pass
+    description: >-
+      For each case and search stage, isolated-neutral and isolated-false-anchor
+      model-visible prompts must be byte-identical. With paired seeds and a stateless
+      no-prompt-cache runtime, their search outputs are expected to be byte-identical;
+      any difference is an execution/integrity failure, not an isolation effect.
+
+aggregation:
+  weighted_composite_score: forbidden
+  significance_testing: not_planned_for_small_v0.2_ablation
+  interpretation: descriptive_with_case_level_pairs
