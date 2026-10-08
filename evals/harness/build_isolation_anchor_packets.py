@@ -9,8 +9,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PLAN = ROOT / "evals" / "run-plans" / "isolation-ablation-v0.1.2.json"
-RUNS = ROOT / "evals" / "runs" / "isolation-ablation-v0.1.2"
+PLAN = ROOT / "evals" / "run-plans" / "isolation-ablation-v0.1.3.json"
+RUNS = ROOT / "evals" / "runs" / "isolation-ablation-v0.1.3"
 
 
 def main() -> int:

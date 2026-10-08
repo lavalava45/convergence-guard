@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build private neutral blind-judge packets for isolation-ablation-v0.1.2."""
+"""Build private neutral blind-judge packets for isolation-ablation-v0.1.3."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CASES = ROOT / "evals" / "cases" / "main"
-RUNS = ROOT / "evals" / "runs" / "isolation-ablation-v0.1.2"
+RUNS = ROOT / "evals" / "runs" / "isolation-ablation-v0.1.3"
 RUBRIC = ROOT / "evals" / "protocol" / "v0.2" / "ISOLATION-JUDGE-RUBRIC-v0.1.md"
 
 

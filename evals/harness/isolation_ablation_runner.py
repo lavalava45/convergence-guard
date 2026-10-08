@@ -24,7 +24,7 @@ from cg_v02_workflow import SEARCH_SCHEMA
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-VERSION = "isolation-ablation-v0.1.2"
+VERSION = "isolation-ablation-v0.1.3"
 PLAN_PATH = ROOT / "evals" / "run-plans" / f"{VERSION}.json"
 CASES = ROOT / "evals" / "cases" / "main"
 SCHEMA_PATH = ROOT / "evals" / "protocol" / "v0.2" / "OUTPUT-SCHEMA-v0.2.json"
@@ -90,7 +90,7 @@ def call_json(
             "temperature": 0.2,
             "seed": seed,
             "maxOutputTokens": max_output,
-            "maxTransportAttempts": 2
+            "maxTransportAttempts": int(read_json(PLAN_PATH).get("max_transport_attempts", 3))
         },
         "response_schema": schema,
         "tools_enabled": False,

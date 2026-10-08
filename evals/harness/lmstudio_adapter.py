@@ -111,9 +111,13 @@ def main() -> int:
                             finish_reason = choice.get("finish_reason")
                 raw_text = "".join(pieces)
                 if not raw_text or finish_reason is None:
-                    raise RuntimeError(
+                    last_error = RuntimeError(
                         "LM Studio streaming response ended before a complete answer"
                     )
+                    if attempt < max_transport_attempts:
+                        time.sleep(2 * attempt)
+                        continue
+                    raise last_error
                 result = {
                     "id": provider_request_id,
                     "model": result_model,
