@@ -43,6 +43,13 @@ Before paying for Full Mode, run a cheap triage. Prefer ordinary analysis when d
 
 Full Mode requires genuine context isolation for every operation whose value depends on independence or blindness. Never simulate several sequential personas in one context and report that as a Full Mode run.
 
+**Mandatory subagent execution and model authorization**
+
+- Whenever Full Convergence Guard is selected or requested, **actually launch separate subagents** through the host's subagent/worker orchestration tools for the protocol's isolation-dependent roles (beginning with the three B1 search workers, then fresh C1/C2, D1, D2, and conditional reviewers as applicable). Do not merely plan to launch them, simulate their outputs in the coordinator, or label sequential prompts or ad hoc local-model API calls as launched subagents.
+- Use the host's existing **user-authorized model configuration** for those subagents. **Never select, switch to, start, or call a locally hosted model or local inference endpoint** (including LM Studio, Ollama, llama.cpp, or a localhost OpenAI-compatible server) for any protocol stage **without the user's explicit authorization for that use**. A discoverable endpoint, installed model, prior benchmark, or technical ability to call it is **not** user authorization. If the configured subagent model is local and authorization is absent, ask before launching it.
+- If the host cannot launch the required subagents, or their context boundaries cannot be verified, **do not claim Full Mode**. Explain the specific blocker and request explicit consent before switching to Reduced Mode or proposing a different model/runtime. Never silently substitute a local model for the requested subagents.
+- Record which subagent operations actually ran, which model/runtime was authorized, and whether isolation checks passed. A successful subagent launch is necessary for this workflow but **does not by itself prove context isolation**; all allowlist and boundary-assurance requirements below still apply.
+
 A separate worker, chat, thread, window, or session is **not by itself evidence of isolation**. Isolation is a property of the worker's effective input boundary, not of the user-interface container.
 
 For each isolation-dependent operation, treat the stage inputs defined by this protocol as an explicit **context allowlist**. In addition to host/system/safety instructions, the worker may receive only the evidence and stage inputs that the protocol authorizes for that role.
@@ -60,7 +67,7 @@ The worker must not receive or retrieve decision-relevant material outside that 
 
 Real-world facts are not forbidden merely because they were previously observed. If such information is relevant, include it explicitly in the factual brief with appropriate provenance rather than allowing a worker to inherit an earlier interpretation or conclusion implicitly.
 
-If the runtime can inject or retrieve forbidden decision-relevant context, or if the relevant boundary cannot be established with reasonable confidence, that operation does not satisfy Full Mode. Use Reduced Mode and state the limitation explicitly.
+If the runtime can inject or retrieve forbidden decision-relevant context, or if the relevant boundary cannot be established with reasonable confidence, that operation does not satisfy Full Mode. Use Reduced Mode **only with explicit user consent** and state the limitation explicitly.
 
 A negative sentinel probe or worker self-report means only `NO LEAK OBSERVED`, not confirmed isolation. Establish each required boundary through runtime-level evidence covering both initial context and later retrieval/tool access; otherwise record `INCONCLUSIVE`. See [boundary assurance](references/protocol-details.md#11-boundary-assurance).
 
@@ -399,6 +406,8 @@ Do not dump stage logs unless the user asks for the audit trail. Use the user's 
 
 ## Integrity rules
 
+- Never claim Full Mode without actually launched, appropriately isolated subagents for its required worker stages.
+- Never run Convergence Guard with a local model or local inference endpoint without explicit user authorization; an available local model is not implied permission.
 - Fresh worker contexts provide information isolation, not independent external evidence.
 - A fresh chat or fresh worker is not proof of context isolation; Full Mode depends on the effective decision-relevant input boundary, including ambient memory, history, project context, retrieval, and persisted worker state.
 - Never let branch count become a vote count.

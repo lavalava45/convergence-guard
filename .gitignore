@@ -2,3 +2,6 @@
 Thumbs.db
 *.tmp
 *.bak
+
+# Local historical and research artifacts; never publish with the repository.
+/_local-archives/

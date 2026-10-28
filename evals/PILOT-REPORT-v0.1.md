@@ -6,6 +6,8 @@ Status: **technical pilot complete; not a performance result**
 
 > **Subsequent status:** the pilot was followed by the completed frozen `main-v0.1.7` benchmark (32 participant runs, 32 calibration completions, blind semantic judging). References below to the then-planned 64-run main study are preserved as historical pilot-era planning, not the final executed design. See `results/main-v0.1.7/`.
 
+> **Separate Gemini API cg-full technical follow-up (completed 2026-10-08, Asia/Jerusalem):** the resumable `gemini-3.5-flash` API pilot is independent of the original manual-browser run disposition below. Both `evals/runs/api-pilot/P01/r1/cg-full/` and `evals/runs/api-pilot/P02/r1/cg-full/` now have `manifest.json` status `complete`. P01 primary declares `CHOOSE`; P02 primary declares `INSUFFICIENT`. Both primary artifacts pass `validate_final.py` and both calibration artifacts pass `validate_calibration.py` against the corresponding public claim lists. The calibration request for each case was checked to contain the exact current frozen primary object. P02 was resumed from its saved stage after a previous Free-tier 429 and completed the missing calibration without repeating successful stage calls. No additional Gemini API calls are needed for this technical follow-up. These two cases are a runtime/procedure check, not a new comparative performance result.
+
 ## Executive summary
 
 The manual browser pilot completed all eight planned run slots. Five runs produced valid primary answers and completed calibration. Three slots were invalid for procedural reasons:

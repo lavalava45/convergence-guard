@@ -2,8 +2,9 @@
 """Gemini Developer API adapter for the provider-neutral eval runtime.
 
 Reads one ModelRequest JSON object from stdin and emits one ModelResponse-like
-JSON object to stdout. The API key is read from a private file outside the
-repository by default, or from CG_GEMINI_KEY_FILE when set.
+JSON object to stdout. The API key is read from private local data within
+Git's administrative directory (outside the tracked worktree) by default,
+or from CG_GEMINI_KEY_FILE when set.
 """
 
 from __future__ import annotations
@@ -17,7 +18,9 @@ import urllib.request
 
 
 DEFAULT_KEY_FILE = (
-    Path(__file__).resolve().parents[3]
+    Path(__file__).resolve().parents[2]
+    / ".git"
+    / "cg-local"
     / "_cg-eval-private"
     / "gemini-api-key-2.txt"
 )
